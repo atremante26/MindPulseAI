@@ -66,12 +66,15 @@ class ClusteringService:
             if not isinstance(profile, dict):
                 profile = {}
             
+            # Convert numpy types to Python native types
+            clean_profile = self._convert_numpy_types(profile)
+
             clusters.append({
                 "cluster_id": int(label),
                 "size": cluster_size,
                 "percentage": round(cluster_pct, 1),
                 "description": descriptions.get(label, f"Cluster {label}"),
-                "characteristics": profile
+                "characteristics": clean_profile
             })
         
         return clusters
@@ -88,6 +91,9 @@ class ClusteringService:
         
         cluster_profiles = results.get('cluster_profiles', {})
         profile = cluster_profiles.get(cluster_id, {})
+
+        # Convert numpy types
+        clean_profile = self._convert_numpy_types(profile)
         
         cluster_size = int(np.sum(labels == cluster_id))
         cluster_pct = float(cluster_size / len(labels) * 100)
@@ -103,7 +109,7 @@ class ClusteringService:
             "name": descriptions.get(cluster_id, f"Cluster {cluster_id}"),
             "size": cluster_size,
             "percentage": round(cluster_pct, 1),
-            "profile": profile,
+            "profile": clean_profile,
             "description": descriptions.get(cluster_id, "")
         }
     
@@ -144,3 +150,22 @@ class ClusteringService:
             "characteristics": characteristics,
             "confidence": 0.75
         }
+    
+    def _convert_numpy_types(self, obj):
+        """
+        Recursively convert numpy types to Python native types for JSON serialization.
+        """
+        import numpy as np
+        
+        if isinstance(obj, dict):
+            return {key: self._convert_numpy_types(value) for key, value in obj.items()}
+        elif isinstance(obj, list):
+            return [self._convert_numpy_types(item) for item in obj]
+        elif isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        else:
+            return obj

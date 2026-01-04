@@ -14,6 +14,9 @@ def prepare_clustering_features(df, categorical_cols, numeric_cols):
     
     # Handle any remaining nulls
     feature_df = feature_df.dropna()
+
+    # Save filtered original
+    filtered_original = feature_df.copy()
     
     # Encode categorical variables for Gower distance
     le_dict = {}
@@ -26,7 +29,7 @@ def prepare_clustering_features(df, categorical_cols, numeric_cols):
     scaler = StandardScaler()
     feature_df[numeric_cols] = scaler.fit_transform(feature_df[numeric_cols])
     
-    return feature_df, le_dict, scaler
+    return feature_df, le_dict, scaler, filtered_original
 
 def compute_gower_distance(df, categorical_indices):
     # Create categorical mask

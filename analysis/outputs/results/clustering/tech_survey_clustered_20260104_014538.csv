@@ -1,0 +1,969 @@
+Gender,Country,treatment,work_interfere,family_history,remote_work,mental_health_consequence,benefits,Age,cluster
+Female,United States,Yes,Often,No,No,No,Yes,37,1
+Male,United States,No,Rarely,No,No,Maybe,Don't know,44,1
+Male,Canada,No,Rarely,No,No,No,No,32,1
+Male,United Kingdom,Yes,Often,Yes,No,Yes,No,31,1
+Male,United States,No,Never,No,Yes,No,Yes,31,1
+Male,United States,No,Sometimes,Yes,No,No,Yes,33,1
+Female,United States,Yes,Sometimes,Yes,Yes,Maybe,No,35,1
+Male,Canada,No,Never,No,Yes,No,No,39,1
+Female,United States,Yes,Sometimes,Yes,No,Maybe,Yes,42,1
+Male,Canada,No,Never,No,No,No,Don't know,23,1
+Male,United States,Yes,Sometimes,No,Yes,No,Don't know,31,1
+Male,Bulgaria,No,Never,No,Yes,No,Don't know,29,1
+Female,United States,Yes,Sometimes,Yes,No,Yes,Yes,42,1
+Male,United States,No,Never,Yes,No,No,Don't know,36,1
+Male,Canada,No,Never,No,No,No,Don't know,27,1
+Female,United States,Yes,Rarely,Yes,No,No,Yes,29,1
+Male,United Kingdom,Yes,Sometimes,No,Yes,Maybe,Don't know,23,1
+Male,United States,Yes,Sometimes,No,No,Maybe,Yes,32,1
+Male,United States,No,Sometimes,Yes,Yes,No,Yes,46,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,29,1
+Male,United States,No,Never,No,Yes,No,No,31,1
+Male,United States,Yes,Often,No,Yes,Maybe,Yes,46,1
+Male,United States,Yes,Never,No,No,Maybe,Don't know,41,1
+Male,United States,Yes,Rarely,Yes,No,No,Yes,33,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,Yes,35,1
+Female,United States,Yes,Rarely,Yes,Yes,No,Yes,35,1
+Male,United States,Yes,Sometimes,No,Yes,No,Don't know,34,1
+Male,United Kingdom,No,Sometimes,No,No,Yes,No,37,1
+Male,United Kingdom,No,Never,No,Yes,Yes,No,32,1
+Male,United States,No,Rarely,Yes,Yes,Yes,No,31,-1
+Male,United Kingdom,Yes,Sometimes,Yes,Yes,Maybe,Don't know,30,1
+Male,United States,Yes,Sometimes,Yes,Yes,Maybe,Yes,42,1
+Female,United States,Yes,Sometimes,No,No,Maybe,Yes,40,1
+Male,United States,Yes,Rarely,No,No,No,No,27,1
+Male,Canada,No,Rarely,No,No,Yes,No,29,1
+Male,United States,Yes,Rarely,No,Yes,No,Yes,35,1
+Male,United Kingdom,Yes,Sometimes,No,No,Maybe,No,24,1
+Male,Canada,Yes,Sometimes,Yes,No,Maybe,No,27,1
+Male,Netherlands,No,Often,No,No,Yes,No,18,-1
+Male,United States,Yes,Sometimes,No,No,No,Don't know,30,1
+Female,United States,Yes,Sometimes,Yes,No,No,Yes,38,1
+Male,Canada,No,Sometimes,No,No,No,No,26,1
+Male,United States,Yes,Rarely,Yes,No,Maybe,Yes,30,1
+Male,United States,Yes,Often,Yes,No,Maybe,No,22,1
+Male,United States,No,Never,No,Yes,Maybe,Don't know,32,1
+Male,United States,Yes,Rarely,Yes,No,Maybe,Yes,27,1
+Male,United States,Yes,Sometimes,Yes,Yes,No,Don't know,24,1
+Male,Canada,Yes,Often,Yes,Yes,Yes,Don't know,33,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,Yes,44,1
+Female,Poland,Yes,Sometimes,No,Yes,No,Don't know,26,1
+Male,United Kingdom,No,Never,No,No,No,Yes,27,1
+Male,Canada,No,Sometimes,No,No,No,Don't know,35,1
+Male,United States,No,Sometimes,Yes,Yes,Yes,Yes,40,1
+Female,Australia,Yes,Often,Yes,Yes,No,No,23,-1
+Male,United States,No,Sometimes,No,Yes,Maybe,Yes,36,1
+Male,United States,No,Rarely,No,Yes,Maybe,No,34,1
+Male,France,No,Never,No,No,Maybe,No,28,1
+Male,Canada,No,Never,No,No,No,Don't know,34,1
+Male,United States,No,Never,No,No,Maybe,Don't know,33,1
+Male,United States,No,Sometimes,Yes,Yes,No,No,31,1
+Male,United States,Yes,Sometimes,Yes,Yes,Yes,No,32,1
+Male,Germany,No,Never,No,Yes,No,Don't know,28,1
+Male,United States,No,Sometimes,Yes,Yes,No,Yes,38,1
+Male,United Kingdom,No,Never,No,No,No,Yes,23,1
+Male,Canada,No,Never,No,No,No,No,30,1
+Male,United States,No,Never,Yes,No,Yes,No,33,1
+Male,United Kingdom,Yes,Often,No,No,Maybe,No,39,1
+Female,United States,Yes,Rarely,Yes,Yes,Yes,Yes,34,1
+Female,United States,Yes,Sometimes,No,No,Maybe,Yes,29,1
+Male,United States,No,Never,No,No,No,Yes,31,1
+Male,United States,Yes,Sometimes,No,No,No,No,40,1
+Female,Canada,Yes,Sometimes,No,No,Maybe,Yes,25,1
+Male,United States,No,Never,No,No,No,Don't know,29,1
+Male,United States,No,Rarely,Yes,No,Maybe,Don't know,24,1
+Male,Mexico,Yes,Sometimes,Yes,No,No,Don't know,31,1
+Male,United States,Yes,Often,No,No,No,No,30,1
+Female,Canada,Yes,Sometimes,Yes,No,Yes,No,26,-1
+Female,United States,No,Never,No,No,Maybe,Yes,44,1
+Male,United States,Yes,Sometimes,Yes,Yes,No,Yes,33,1
+Male,United States,No,Never,No,No,No,Yes,29,1
+Male,United States,No,Rarely,Yes,No,No,Yes,35,1
+Male,United States,Yes,Sometimes,Yes,Yes,No,Don't know,35,1
+Male,Brazil,Yes,Rarely,Yes,No,Maybe,No,28,1
+Male,United States,No,Never,Yes,Yes,Maybe,Yes,34,1
+Male,United States,Yes,Sometimes,No,No,Maybe,Yes,32,1
+Male,United States,Yes,Sometimes,No,No,Yes,Yes,22,1
+Male,United States,Yes,Sometimes,No,No,No,Yes,28,1
+Male,United States,Yes,Rarely,Yes,Yes,No,Yes,45,1
+Male,United States,No,Never,No,No,Maybe,Yes,32,1
+Male,United Kingdom,No,Never,No,No,No,Don't know,26,1
+Male,United Kingdom,No,Often,No,Yes,Yes,No,21,-1
+Male,Canada,No,Rarely,No,No,Maybe,Yes,27,1
+Male,United States,Yes,Rarely,No,Yes,No,No,18,1
+Male,United States,No,Never,No,No,Yes,Yes,29,1
+Male,United States,Yes,Sometimes,Yes,Yes,No,Don't know,33,1
+Male,United States,No,Often,No,No,Maybe,Yes,36,1
+Male,Canada,Yes,Never,No,No,Maybe,Yes,27,1
+Male,United States,No,Never,Yes,No,Yes,Yes,27,1
+Male,United States,Yes,Rarely,No,No,Yes,Yes,32,1
+Male,United Kingdom,No,Sometimes,Yes,No,Maybe,No,31,1
+Male,Slovenia,Yes,Sometimes,No,No,Yes,Don't know,19,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,33,1
+Male,United States,No,Rarely,No,Yes,Maybe,No,32,1
+Male,United States,No,Never,No,No,No,Don't know,27,1
+Male,Canada,Yes,Never,No,No,No,Don't know,24,1
+Male,United Kingdom,No,Never,No,No,Yes,No,39,1
+Male,United Kingdom,No,Never,No,No,No,Don't know,28,1
+Male,United States,Yes,Often,No,No,No,Yes,39,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Don't know,38,1
+Male,United Kingdom,Yes,Sometimes,No,No,Yes,No,37,1
+Male,United States,No,Never,No,Yes,Yes,Don't know,35,1
+Male,United States,Yes,Rarely,Yes,No,Maybe,Yes,37,1
+Male,United Kingdom,No,Never,No,No,Maybe,No,24,1
+Male,United States,No,Sometimes,No,No,Yes,No,23,1
+Male,Ireland,Yes,Rarely,No,No,Yes,No,30,-1
+Male,United States,No,Never,Yes,No,No,Don't know,32,1
+Male,Poland,No,Rarely,No,Yes,No,No,28,-1
+Male,United States,No,Never,No,No,No,Don't know,36,1
+Male,United Kingdom,Yes,Rarely,Yes,No,Yes,Yes,37,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Don't know,25,1
+Male,United States,Yes,Sometimes,Yes,No,No,Don't know,27,1
+Male,United States,No,Often,No,No,Yes,Don't know,26,1
+Male,United States,Yes,Rarely,No,Yes,Maybe,No,27,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Don't know,25,1
+Male,United Kingdom,Yes,Sometimes,No,No,Maybe,Yes,36,1
+Female,United States,Yes,Sometimes,Yes,No,Yes,Yes,25,1
+Male,United States,No,Never,No,No,No,Yes,31,1
+Male,United States,No,Rarely,Yes,No,Maybe,Don't know,26,1
+Female,United States,Yes,Sometimes,Yes,No,No,No,33,1
+Male,United States,No,Never,No,No,Maybe,No,34,1
+Male,Ireland,No,Sometimes,Yes,No,Yes,No,23,1
+Male,United Kingdom,No,Rarely,No,No,Maybe,Don't know,24,1
+Male,United Kingdom,Yes,Sometimes,No,No,No,Yes,26,1
+Male,United Kingdom,Yes,Often,No,No,Maybe,Don't know,31,1
+Male,India,Yes,Never,No,No,Yes,Don't know,22,-1
+Female,Canada,Yes,Sometimes,Yes,No,No,Yes,34,1
+Male,United States,No,Never,No,No,Maybe,Don't know,31,1
+Female,United States,Yes,Often,No,Yes,No,Yes,32,1
+Female,United States,Yes,Sometimes,No,No,No,Yes,45,1
+Male,Mexico,No,Never,No,Yes,Maybe,No,29,1
+Female,India,No,Sometimes,No,No,Maybe,No,26,-1
+Female,United Kingdom,No,Never,No,No,No,Don't know,28,1
+Male,United States,Yes,Sometimes,No,No,Yes,Don't know,45,1
+Male,United States,Yes,Often,Yes,Yes,Yes,Yes,43,1
+Male,United Kingdom,No,Sometimes,No,No,Maybe,Don't know,24,1
+Female,United States,Yes,Never,Yes,No,Maybe,Yes,35,1
+Female,South Africa,Yes,Often,Yes,Yes,Maybe,No,38,-1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,28,1
+Male,Russia,No,Sometimes,No,No,Yes,No,28,1
+Male,United States,Yes,Rarely,No,No,No,No,35,1
+Female,Germany,No,Sometimes,No,No,Yes,No,32,-1
+Male,Italy,No,Never,Yes,No,Maybe,No,31,-1
+Female,United States,No,Never,No,Yes,Maybe,Don't know,35,1
+Male,United States,No,Rarely,No,No,No,Yes,26,1
+Male,United Kingdom,Yes,Sometimes,Yes,No,Maybe,Don't know,28,1
+Female,United States,Yes,Sometimes,Yes,No,No,Yes,27,1
+Female,United States,Yes,Sometimes,No,No,Maybe,Yes,34,1
+Male,United States,Yes,Often,No,Yes,Maybe,No,41,1
+Male,Ireland,No,Sometimes,No,No,Yes,No,37,1
+Male,United Kingdom,Yes,Sometimes,Yes,Yes,Yes,Don't know,32,1
+Male,Canada,Yes,Sometimes,No,Yes,No,No,21,1
+Male,United States,Yes,Often,No,No,Maybe,No,30,1
+Male,United States,No,Never,No,No,No,Don't know,24,1
+Male,United Kingdom,No,Sometimes,Yes,No,Yes,No,37,1
+Male,United Kingdom,Yes,Often,No,Yes,Yes,No,26,1
+Female,United States,Yes,Sometimes,Yes,No,Yes,Don't know,32,1
+Female,United States,Yes,Sometimes,No,No,No,Yes,32,1
+Female,United States,Yes,Sometimes,Yes,Yes,No,No,27,1
+Male,Germany,Yes,Often,No,Yes,No,Yes,30,-1
+Female,United States,Yes,Never,No,No,Maybe,Yes,29,1
+Male,United States,No,Rarely,No,No,No,Don't know,28,1
+Male,United States,Yes,Sometimes,No,No,Yes,No,28,1
+Male,United States,No,Never,No,No,No,Don't know,23,1
+Male,United States,No,Rarely,No,Yes,No,No,32,1
+Male,Australia,No,Sometimes,No,Yes,Yes,Don't know,34,1
+Male,United States,No,Never,No,No,Maybe,Yes,24,1
+Male,United Kingdom,Yes,Sometimes,No,No,Maybe,No,26,1
+Male,United States,Yes,Sometimes,No,No,Maybe,Yes,36,1
+Male,United States,Yes,Rarely,No,Yes,Maybe,Yes,41,1
+Male,United Kingdom,Yes,Sometimes,No,No,Yes,Don't know,38,1
+Male,United States,No,Sometimes,No,Yes,Maybe,Don't know,38,1
+Male,United Kingdom,No,Never,No,No,Yes,No,25,1
+Male,Canada,Yes,Often,Yes,No,Maybe,Yes,37,1
+Female,United States,Yes,Sometimes,Yes,No,No,Yes,37,1
+Female,Canada,Yes,Sometimes,Yes,No,No,Yes,28,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,No,34,1
+Male,United States,Yes,Sometimes,Yes,No,No,Yes,33,1
+Male,United States,No,Never,No,Yes,No,Yes,27,1
+Male,United States,Yes,Sometimes,No,Yes,Yes,Yes,40,1
+Male,United States,Yes,Often,No,No,Maybe,Don't know,21,1
+Male,United States,Yes,Sometimes,Yes,Yes,Maybe,No,32,1
+Female,United States,Yes,Rarely,Yes,Yes,Maybe,Yes,29,1
+Male,United States,Yes,Sometimes,Yes,Yes,Maybe,Don't know,23,1
+Male,United States,Yes,Rarely,Yes,Yes,No,Yes,31,1
+Male,United States,No,Sometimes,No,No,No,Don't know,24,1
+Male,Canada,No,Often,No,No,Yes,No,29,1
+Female,United Kingdom,Yes,Sometimes,No,No,Maybe,Don't know,23,1
+Male,United States,No,Never,No,Yes,No,No,42,1
+Male,Australia,Yes,Often,Yes,No,Yes,No,25,1
+Female,United States,Yes,Rarely,No,No,Maybe,Yes,27,1
+Male,Canada,No,Sometimes,No,Yes,Yes,No,27,1
+Male,United States,Yes,Sometimes,No,Yes,No,Yes,30,1
+Male,Poland,Yes,Rarely,Yes,No,Maybe,No,29,-1
+Male,United States,Yes,Sometimes,No,Yes,No,Yes,41,1
+Male,United Kingdom,Yes,Sometimes,Yes,Yes,Maybe,Don't know,32,1
+Female,United States,Yes,Often,Yes,No,Maybe,Yes,37,1
+Male,United States,No,Never,No,Yes,No,No,32,1
+Male,Ireland,No,Sometimes,No,Yes,No,No,30,1
+Female,United States,Yes,Never,Yes,No,No,Yes,23,1
+Male,United Kingdom,No,Sometimes,No,No,Maybe,No,34,1
+Male,United States,Yes,Rarely,No,Yes,Yes,Yes,38,1
+Male,Colombia,No,Sometimes,No,No,Maybe,No,28,1
+Male,United States,Yes,Rarely,No,No,Maybe,Yes,28,1
+Male,United States,No,Sometimes,Yes,No,Maybe,Don't know,23,1
+Male,Australia,Yes,Sometimes,Yes,Yes,Maybe,Don't know,22,1
+Male,Portugal,No,Never,No,No,Yes,No,27,1
+Male,United States,Yes,Sometimes,No,No,Yes,Don't know,18,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,Yes,35,1
+Male,United Kingdom,Yes,Sometimes,Yes,No,Maybe,No,27,1
+Female,United States,Yes,Rarely,Yes,No,Maybe,Yes,26,1
+Male,United States,No,Never,No,No,No,Don't know,18,1
+Female,United States,Yes,Sometimes,No,No,No,No,38,1
+Female,United States,Yes,Rarely,Yes,Yes,Maybe,Yes,26,1
+Male,Switzerland,No,Never,No,No,No,No,30,1
+Male,United States,No,Never,No,No,Yes,Don't know,35,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,45,1
+Male,United States,No,Never,No,No,Maybe,Yes,32,1
+Male,United States,Yes,Never,No,No,No,Yes,56,1
+Female,United States,Yes,Sometimes,Yes,No,No,Yes,30,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,Yes,33,1
+Male,United States,No,Never,No,No,No,Yes,37,1
+Female,United States,Yes,Sometimes,No,No,No,Yes,23,1
+Female,United States,Yes,Sometimes,No,No,No,Yes,31,1
+Male,United States,No,Rarely,No,No,No,Yes,26,1
+Female,United States,Yes,Often,Yes,Yes,Yes,Yes,28,1
+Female,United States,Yes,Rarely,No,No,No,Yes,37,1
+Male,Canada,Yes,Often,Yes,No,Maybe,Yes,26,1
+Male,United States,No,Sometimes,No,No,Maybe,Yes,27,1
+Male,Canada,Yes,Often,No,Yes,Yes,Don't know,25,-1
+Male,United States,Yes,Rarely,No,No,No,Yes,35,1
+Male,United States,Yes,Never,No,No,Maybe,No,36,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,Yes,26,1
+Male,United States,No,Never,No,No,No,Yes,25,1
+Female,United States,Yes,Often,Yes,No,Maybe,Yes,22,1
+Male,United States,Yes,Rarely,Yes,Yes,No,Yes,41,1
+Male,United States,Yes,Sometimes,No,No,Yes,Yes,29,1
+Male,United States,No,Never,No,No,No,Yes,32,1
+Female,United States,Yes,Sometimes,Yes,No,Maybe,Yes,24,1
+Male,United States,Yes,Rarely,No,No,Maybe,Yes,25,1
+Female,United States,No,Never,No,No,Maybe,Yes,30,1
+Male,United States,Yes,Sometimes,Yes,No,No,Don't know,25,1
+Male,United States,No,Never,No,Yes,Maybe,No,30,1
+Male,Germany,Yes,Rarely,Yes,No,Yes,No,33,1
+Male,Canada,Yes,Sometimes,Yes,No,Yes,Yes,25,1
+Male,Ireland,Yes,Often,No,No,No,No,45,1
+Male,United States,No,Never,No,No,No,Yes,46,1
+Male,United Kingdom,Yes,Sometimes,No,No,Yes,Don't know,30,1
+Female,United States,No,Sometimes,No,No,Maybe,Yes,29,1
+Female,United States,No,Sometimes,Yes,Yes,Yes,No,33,-1
+Male,United States,No,Sometimes,No,No,Yes,Don't know,27,1
+Male,United Kingdom,No,Rarely,No,Yes,Yes,Don't know,33,-1
+Female,United States,Yes,Sometimes,Yes,No,No,Yes,25,1
+Male,United States,Yes,Sometimes,Yes,No,No,Don't know,23,1
+Male,United States,Yes,Never,Yes,No,No,Don't know,54,1
+Male,United States,No,Sometimes,No,No,Maybe,Don't know,22,1
+Male,Belgium,No,Often,No,No,Maybe,Don't know,29,-1
+Male,United States,Yes,Sometimes,No,No,No,Yes,27,1
+Male,United Kingdom,No,Never,No,No,No,No,30,1
+Male,United States,Yes,Often,Yes,No,Maybe,Yes,26,1
+Female,Sweden,No,Sometimes,Yes,No,No,Yes,25,0
+Male,United States,Yes,Sometimes,No,No,No,No,31,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Don't know,33,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,34,1
+Male,United States,Yes,Sometimes,No,Yes,Yes,No,34,1
+Male,Germany,Yes,Rarely,Yes,Yes,No,No,34,1
+Male,United States,Yes,Rarely,Yes,Yes,Maybe,No,26,1
+Male,United States,Yes,Rarely,Yes,No,No,Yes,32,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Don't know,28,1
+Male,United States,Yes,Often,Yes,No,No,No,36,1
+Male,United States,Yes,Rarely,Yes,No,No,Yes,21,1
+Male,United Kingdom,Yes,Sometimes,No,No,Yes,Don't know,21,1
+Male,United States,Yes,Often,Yes,No,Maybe,Yes,41,1
+Male,United States,Yes,Rarely,Yes,No,No,Yes,55,1
+Female,United States,Yes,Sometimes,No,No,Maybe,Yes,32,1
+Female,United States,Yes,Rarely,Yes,No,Yes,Don't know,21,1
+Male,United States,Yes,Never,No,Yes,Maybe,Yes,45,1
+Female,United States,Yes,Rarely,No,No,Yes,Yes,27,1
+Female,United States,Yes,Sometimes,Yes,Yes,Maybe,Don't know,25,1
+Female,United States,Yes,Never,Yes,No,Maybe,Yes,26,1
+Male,Canada,Yes,Never,No,No,No,Yes,41,1
+Male,United States,Yes,Rarely,No,No,No,Yes,27,1
+Male,United States,Yes,Sometimes,Yes,Yes,No,Yes,31,1
+Male,Germany,Yes,Often,Yes,Yes,No,No,25,1
+Male,United States,Yes,Sometimes,No,No,Yes,Don't know,26,1
+Female,United States,Yes,Rarely,Yes,Yes,Maybe,Yes,27,1
+Male,New Zealand,No,Never,No,No,No,Don't know,42,1
+Female,United States,Yes,Sometimes,No,No,Yes,Don't know,25,1
+Female,Sweden,Yes,Rarely,Yes,No,Maybe,Yes,33,1
+Female,United States,Yes,Rarely,Yes,No,Maybe,Yes,40,1
+Male,United States,No,Never,No,No,Yes,Don't know,31,1
+Male,Canada,Yes,Often,Yes,Yes,No,Don't know,26,0
+Male,United States,No,Never,No,No,Maybe,Yes,29,1
+Male,United Kingdom,No,Sometimes,No,No,Maybe,No,35,1
+Female,United States,No,Never,No,No,Maybe,Don't know,32,1
+Male,Canada,Yes,Sometimes,No,No,Maybe,Don't know,29,1
+Male,United States,Yes,Often,Yes,No,Maybe,Yes,26,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,28,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,35,1
+Male,Germany,Yes,Sometimes,Yes,No,Maybe,Don't know,29,1
+Male,United States,Yes,Never,Yes,Yes,Yes,Yes,33,1
+Male,Brazil,No,Never,No,Yes,No,Don't know,22,1
+Male,United States,Yes,Often,Yes,Yes,Yes,Yes,33,1
+Female,United States,Yes,Rarely,Yes,No,Yes,Don't know,31,1
+Male,United States,No,Never,Yes,No,No,Don't know,21,1
+Female,United States,Yes,Sometimes,No,Yes,No,Don't know,26,1
+Male,United States,No,Often,Yes,No,Maybe,Don't know,30,1
+Female,Germany,Yes,Sometimes,Yes,No,No,Don't know,30,2
+Male,Finland,No,Never,No,No,No,No,34,1
+Male,United States,Yes,Sometimes,Yes,Yes,Yes,No,55,1
+Male,Germany,Yes,Rarely,Yes,Yes,No,Yes,28,1
+Male,New Zealand,Yes,Sometimes,Yes,Yes,No,Yes,28,1
+Male,United Kingdom,Yes,Sometimes,Yes,No,No,No,32,1
+Female,United States,Yes,Rarely,No,No,Maybe,Yes,28,1
+Male,United States,No,Sometimes,No,No,No,Don't know,21,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,No,24,1
+Male,Canada,No,Never,No,Yes,Maybe,Don't know,28,1
+Female,United States,Yes,Rarely,Yes,No,Yes,No,24,1
+Male,United States,Yes,Often,No,Yes,Yes,No,33,1
+Male,United States,No,Sometimes,No,No,Maybe,Don't know,34,1
+Female,United States,Yes,Sometimes,No,No,Maybe,Don't know,27,1
+Male,United States,No,Never,No,No,No,Don't know,28,1
+Female,United States,Yes,Sometimes,No,No,Maybe,Yes,23,1
+Male,United States,Yes,Rarely,Yes,Yes,No,Yes,29,1
+Male,United Kingdom,No,Sometimes,Yes,No,Maybe,No,26,1
+Male,United States,No,Rarely,No,Yes,Maybe,Yes,36,1
+Male,United States,Yes,Sometimes,No,No,Maybe,Yes,41,1
+Male,Canada,Yes,Sometimes,Yes,No,No,Yes,23,1
+Male,United States,No,Often,Yes,No,Yes,Yes,39,1
+Female,United States,Yes,Sometimes,No,No,Yes,Yes,26,1
+Male,United States,Yes,Rarely,No,No,No,Yes,24,1
+Male,Canada,Yes,Rarely,Yes,No,Maybe,Yes,37,1
+Male,United States,Yes,Often,Yes,Yes,No,Yes,43,1
+Male,United States,Yes,Often,Yes,No,Yes,Yes,30,1
+Male,United States,Yes,Sometimes,No,No,Yes,Don't know,34,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,Don't know,27,1
+Male,United States,No,Sometimes,No,No,No,Don't know,36,1
+Male,Brazil,No,Rarely,No,No,Maybe,No,27,2
+Male,Netherlands,No,Never,Yes,No,Yes,Yes,35,-1
+Male,United Kingdom,No,Never,No,No,Maybe,No,32,1
+Female,United States,No,Never,No,No,Maybe,Yes,33,1
+Male,United States,No,Sometimes,No,Yes,Yes,No,28,1
+Female,United States,No,Never,Yes,No,Maybe,Don't know,26,2
+Male,United States,Yes,Sometimes,Yes,Yes,Yes,Don't know,27,1
+Male,United Kingdom,Yes,Sometimes,No,Yes,Maybe,No,38,1
+Male,United States,Yes,Rarely,Yes,No,Maybe,Yes,57,1
+Male,United Kingdom,Yes,Sometimes,No,No,Yes,No,28,1
+Male,France,No,Never,No,No,Maybe,No,26,1
+Female,Netherlands,Yes,Rarely,No,Yes,Yes,Yes,42,-1
+Male,United States,Yes,Sometimes,No,Yes,No,Yes,31,1
+Male,United States,Yes,Rarely,No,No,Maybe,Yes,58,1
+Male,United States,No,Sometimes,No,No,Yes,Don't know,29,1
+Female,United Kingdom,Yes,Sometimes,No,No,Yes,Yes,39,2
+Male,United States,No,Sometimes,No,Yes,Maybe,Don't know,34,1
+Male,United States,Yes,Sometimes,No,No,Maybe,Yes,57,1
+Male,Germany,Yes,Sometimes,Yes,No,Yes,No,27,1
+Male,Germany,Yes,Often,Yes,Yes,No,Don't know,23,0
+Male,United States,No,Never,No,No,No,Don't know,23,1
+Male,United States,Yes,Sometimes,No,No,Yes,Yes,43,1
+Female,United Kingdom,Yes,Sometimes,Yes,Yes,Maybe,Don't know,18,1
+Male,United States,Yes,Rarely,No,No,Maybe,Yes,29,1
+Male,United States,No,Never,No,No,Maybe,Don't know,48,1
+Male,Germany,Yes,Sometimes,No,No,Maybe,No,43,1
+Female,United States,Yes,Sometimes,Yes,No,Yes,Don't know,28,1
+Male,United States,Yes,Often,Yes,Yes,No,No,30,1
+Male,Israel,No,Sometimes,No,No,Maybe,No,26,1
+Male,Italy,No,Never,No,No,Maybe,No,33,1
+Male,United States,No,Rarely,No,No,No,Don't know,30,1
+Female,United States,Yes,Sometimes,Yes,Yes,No,No,24,1
+Female,United States,Yes,Often,Yes,No,Maybe,Yes,23,1
+Male,United States,Yes,Sometimes,No,No,Yes,Yes,36,1
+Female,United States,Yes,Often,Yes,Yes,Yes,Don't know,25,1
+Male,United Kingdom,Yes,Sometimes,No,Yes,No,No,54,1
+Male,Netherlands,No,Rarely,No,No,No,Don't know,34,1
+Male,Germany,No,Never,No,No,No,Don't know,25,1
+Female,United States,Yes,Sometimes,No,No,Yes,No,35,1
+Male,United States,Yes,Sometimes,No,No,Maybe,Yes,46,1
+Male,United States,No,Never,No,No,Maybe,Yes,42,1
+Male,United Kingdom,Yes,Sometimes,Yes,Yes,No,Yes,32,1
+Male,United States,Yes,Sometimes,Yes,No,No,Yes,47,1
+Female,United States,Yes,Sometimes,No,Yes,No,Yes,33,1
+Female,United States,No,Sometimes,No,No,Maybe,No,25,1
+Male,United States,No,Never,No,No,No,Yes,39,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,Yes,38,1
+Male,United States,Yes,Rarely,No,Yes,No,Yes,46,1
+Female,United States,Yes,Sometimes,Yes,No,Maybe,Yes,38,1
+Male,Germany,Yes,Sometimes,No,No,Yes,Yes,33,1
+Male,United Kingdom,Yes,Often,Yes,No,Maybe,No,34,1
+Male,United States,No,Never,No,No,Maybe,Yes,62,1
+Male,Bosnia and Herzegovina,No,Rarely,Yes,Yes,Maybe,Don't know,25,-1
+Male,United States,Yes,Sometimes,Yes,Yes,Maybe,Don't know,36,1
+Female,United States,Yes,Rarely,Yes,Yes,Maybe,Yes,41,1
+Male,Austria,No,Sometimes,No,No,No,Yes,24,0
+Male,New Zealand,Yes,Sometimes,No,Yes,Yes,No,51,1
+Male,United States,Yes,Sometimes,No,No,No,Yes,29,1
+Female,Canada,Yes,Sometimes,Yes,Yes,Maybe,Don't know,31,0
+Male,Australia,Yes,Rarely,No,No,No,Yes,31,1
+Female,Hungary,No,Sometimes,Yes,Yes,Yes,No,27,-1
+Male,Sweden,No,Rarely,No,No,No,Don't know,23,1
+Male,Canada,No,Never,No,No,Yes,Don't know,21,1
+Female,Australia,Yes,Sometimes,Yes,No,Yes,No,27,0
+Male,United States,Yes,Often,Yes,Yes,Yes,Yes,39,1
+Male,United States,Yes,Never,Yes,No,Maybe,Don't know,26,1
+Male,United Kingdom,No,Never,No,No,Maybe,Don't know,27,1
+Female,United States,Yes,Sometimes,Yes,No,No,Yes,22,1
+Female,United States,Yes,Often,Yes,No,Maybe,Don't know,26,1
+Female,United States,Yes,Rarely,Yes,No,No,Yes,31,1
+Male,United Kingdom,No,Never,No,No,No,Don't know,32,1
+Female,United States,Yes,Often,Yes,Yes,Yes,Yes,28,1
+Male,United Kingdom,No,Never,No,Yes,No,Don't know,30,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,Yes,36,1
+Male,Germany,No,Often,No,No,Maybe,No,30,0
+Male,New Zealand,Yes,Sometimes,No,No,No,No,32,1
+Female,Canada,Yes,Sometimes,No,No,Maybe,No,29,2
+Female,New Zealand,Yes,Rarely,Yes,Yes,Maybe,No,27,0
+Female,Canada,Yes,Often,No,No,Maybe,Don't know,32,-1
+Male,Australia,No,Sometimes,No,No,No,Yes,34,0
+Male,Netherlands,Yes,Sometimes,Yes,Yes,No,No,22,1
+Male,United States,Yes,Sometimes,Yes,Yes,No,Don't know,27,1
+Male,Australia,No,Never,No,No,No,Don't know,33,1
+Male,United States,Yes,Rarely,No,No,No,Don't know,36,1
+Male,Canada,No,Never,No,No,No,No,40,1
+Male,United States,Yes,Sometimes,No,No,Maybe,Yes,28,1
+Male,United States,Yes,Sometimes,No,No,Yes,Yes,39,1
+Male,United States,Yes,Sometimes,No,No,No,Yes,32,1
+Male,United States,No,Sometimes,Yes,No,Maybe,Yes,31,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Don't know,38,1
+Male,United States,Yes,Rarely,Yes,No,Maybe,No,23,1
+Male,United States,Yes,Often,No,No,Maybe,Yes,42,1
+Female,United States,No,Sometimes,No,No,No,Don't know,27,1
+Female,United States,Yes,Sometimes,Yes,No,No,Yes,26,1
+Male,United States,No,Never,No,Yes,No,No,50,1
+Male,United States,No,Never,Yes,No,No,Don't know,37,1
+Male,United States,No,Sometimes,Yes,Yes,No,Don't know,33,1
+Male,Canada,No,Never,No,Yes,Yes,Yes,29,0
+Male,United States,Yes,Sometimes,Yes,Yes,Maybe,Yes,34,1
+Male,United States,Yes,Often,Yes,No,Maybe,Yes,41,1
+Male,Canada,Yes,Never,No,No,Maybe,Yes,29,1
+Male,United States,No,Never,No,No,No,No,35,1
+Male,Singapore,No,Sometimes,No,Yes,Yes,No,27,1
+Female,United States,No,Never,No,No,Maybe,Don't know,40,1
+Male,Australia,Yes,Often,No,Yes,Maybe,No,27,2
+Female,United States,No,Never,No,No,Maybe,Yes,29,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,No,31,1
+Male,United States,Yes,Sometimes,No,No,No,No,43,1
+Male,United States,Yes,Sometimes,Yes,Yes,Maybe,Yes,34,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,Don't know,29,1
+Male,Canada,Yes,Sometimes,Yes,No,Maybe,No,19,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,41,1
+Male,United States,No,Never,Yes,No,No,Yes,29,1
+Male,United States,No,Rarely,No,No,No,Yes,23,1
+Female,United States,Yes,Sometimes,Yes,No,Yes,Yes,24,1
+Male,United States,Yes,Rarely,Yes,No,Yes,No,31,1
+Male,United States,No,Often,Yes,No,No,Yes,29,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,Yes,33,1
+Male,United States,No,Sometimes,No,No,Maybe,No,32,1
+Male,United States,No,Sometimes,No,Yes,Yes,Don't know,50,1
+Male,United States,No,Never,No,No,Maybe,Don't know,24,1
+Male,Australia,No,Never,No,Yes,Yes,No,27,2
+Male,United States,Yes,Sometimes,No,No,No,No,32,1
+Male,United States,No,Rarely,No,Yes,No,No,42,1
+Male,United States,No,Often,No,No,Maybe,Don't know,37,1
+Male,Singapore,No,Sometimes,No,No,Maybe,Don't know,30,1
+Male,United States,No,Rarely,No,No,Yes,Yes,29,1
+Male,United States,Yes,Often,No,Yes,No,No,30,1
+Male,United States,No,Never,No,No,No,Yes,35,1
+Male,United States,Yes,Rarely,Yes,Yes,Yes,Yes,35,1
+Male,Netherlands,No,Often,Yes,Yes,Maybe,No,38,-1
+Male,United Kingdom,Yes,Sometimes,Yes,No,No,Yes,22,1
+Male,Germany,No,Sometimes,Yes,No,No,Don't know,24,0
+Male,Netherlands,No,Never,No,No,No,Don't know,22,1
+Female,United States,Yes,Often,No,Yes,Maybe,Yes,31,1
+Female,United States,Yes,Sometimes,Yes,No,Yes,Yes,23,1
+Female,United States,Yes,Sometimes,Yes,No,No,Don't know,31,1
+Female,United States,Yes,Rarely,Yes,No,Maybe,Yes,28,1
+Male,United States,Yes,Sometimes,Yes,No,No,No,34,1
+Male,Canada,No,Sometimes,No,Yes,Yes,No,32,1
+Male,United States,Yes,Sometimes,Yes,Yes,Yes,Yes,28,1
+Female,United Kingdom,Yes,Sometimes,No,No,Maybe,No,24,1
+Male,United States,Yes,Rarely,Yes,No,Yes,Yes,56,1
+Male,Germany,No,Sometimes,No,Yes,No,No,31,1
+Female,United States,Yes,Sometimes,No,Yes,Maybe,Yes,34,1
+Male,Germany,Yes,Rarely,No,No,No,Don't know,35,2
+Male,Germany,No,Never,No,No,No,No,28,1
+Male,Poland,Yes,Often,Yes,No,No,No,36,1
+Male,United Kingdom,Yes,Often,No,No,No,No,30,1
+Male,Japan,Yes,Sometimes,Yes,Yes,Yes,No,49,1
+Female,Australia,Yes,Sometimes,Yes,No,Yes,Yes,29,1
+Male,United States,No,Never,No,No,Yes,Yes,57,1
+Female,Belgium,Yes,Rarely,Yes,No,Maybe,Yes,31,1
+Male,Ireland,No,Never,No,No,Yes,No,37,1
+Male,Ireland,Yes,Sometimes,Yes,No,Maybe,No,25,1
+Male,Australia,No,Sometimes,No,No,No,No,30,2
+Female,Australia,No,Sometimes,Yes,No,No,No,26,-1
+Female,Netherlands,No,Often,No,No,No,No,22,-1
+Male,United States,No,Rarely,No,Yes,No,Don't know,39,1
+Male,United Kingdom,Yes,Never,Yes,No,Maybe,Don't know,29,1
+Male,United Kingdom,Yes,Sometimes,Yes,Yes,No,Don't know,54,1
+Female,Australia,No,Never,Yes,No,Yes,Don't know,34,-1
+Male,United States,Yes,Never,No,No,Maybe,Yes,32,1
+Male,Poland,No,Rarely,No,No,No,No,29,2
+Male,Germany,No,Never,No,Yes,No,No,32,1
+Male,United Kingdom,Yes,Sometimes,Yes,No,Maybe,Yes,30,1
+Female,Switzerland,No,Rarely,No,No,No,Yes,20,-1
+Male,United Kingdom,No,Never,No,No,No,Don't know,27,1
+Male,United States,No,Never,No,No,Maybe,Don't know,32,1
+Male,Ireland,No,Never,No,Yes,Maybe,No,26,2
+Male,Italy,No,Sometimes,No,No,No,Don't know,30,1
+Male,Ireland,Yes,Sometimes,No,Yes,Maybe,No,30,1
+Male,Netherlands,No,Never,No,No,Maybe,No,26,1
+Male,Russia,No,Never,No,No,No,No,26,1
+Male,United States,No,Sometimes,Yes,No,Maybe,Don't know,23,1
+Female,Israel,No,Never,Yes,No,Maybe,Don't know,26,-1
+Male,Canada,No,Sometimes,Yes,No,Maybe,Don't know,35,1
+Male,United States,Yes,Sometimes,No,Yes,No,Don't know,28,1
+Female,United States,Yes,Rarely,Yes,No,Yes,Don't know,29,1
+Male,United States,Yes,Often,No,Yes,No,Yes,45,1
+Male,Bulgaria,Yes,Rarely,No,Yes,Maybe,No,33,0
+Male,United States,Yes,Sometimes,No,No,No,Yes,38,1
+Female,Canada,Yes,Rarely,No,Yes,No,Yes,29,-1
+Female,India,Yes,Sometimes,Yes,No,Yes,Don't know,23,2
+Female,United States,Yes,Rarely,Yes,No,No,Yes,33,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,49,1
+Female,United Kingdom,Yes,Sometimes,No,Yes,No,Don't know,27,1
+Male,Canada,Yes,Sometimes,No,No,Maybe,Yes,23,1
+Male,Netherlands,No,Never,No,Yes,No,No,29,1
+Male,United Kingdom,Yes,Sometimes,No,No,No,Yes,32,1
+Male,United States,Yes,Rarely,Yes,Yes,No,No,33,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,37,1
+Male,United States,Yes,Often,No,No,No,Yes,23,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,Yes,43,1
+Male,United Kingdom,Yes,Rarely,No,No,Maybe,Don't know,32,1
+Male,United States,No,Never,No,No,Yes,Don't know,26,1
+Male,United States,Yes,Sometimes,No,Yes,No,Don't know,32,1
+Male,United States,Yes,Often,No,No,No,Yes,29,1
+Male,United States,No,Never,Yes,No,No,Don't know,30,1
+Male,United States,No,Never,No,No,Maybe,Yes,29,1
+Male,United States,Yes,Sometimes,Yes,Yes,Yes,Yes,32,1
+Male,Canada,Yes,Sometimes,Yes,No,Yes,Don't know,30,1
+Male,United States,Yes,Never,Yes,Yes,Yes,Don't know,25,1
+Male,United States,Yes,Sometimes,Yes,No,No,No,33,1
+Male,South Africa,No,Never,No,Yes,No,No,31,1
+Male,Germany,No,Rarely,No,Yes,Maybe,Don't know,21,-1
+Male,Switzerland,Yes,Sometimes,Yes,No,Yes,Don't know,30,1
+Male,Croatia,Yes,Sometimes,No,Yes,Yes,No,43,2
+Male,United Kingdom,Yes,Often,No,No,Yes,No,37,1
+Male,United Kingdom,No,Never,No,No,No,No,33,1
+Male,United Kingdom,Yes,Sometimes,No,No,Maybe,Don't know,33,1
+Male,United States,Yes,Sometimes,Yes,Yes,Yes,Don't know,36,1
+Male,Australia,Yes,Sometimes,Yes,No,No,No,37,1
+Male,United Kingdom,Yes,Sometimes,No,No,No,No,39,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,31,1
+Male,United States,Yes,Sometimes,No,Yes,Maybe,Yes,36,1
+Male,United States,Yes,Sometimes,No,Yes,No,Don't know,30,1
+Male,United States,Yes,Rarely,Yes,No,No,Yes,35,1
+Male,Canada,Yes,Sometimes,No,No,No,Don't know,19,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Don't know,37,1
+Male,Thailand,No,Never,No,No,No,No,40,1
+Male,United States,No,Never,No,No,No,Yes,36,1
+Female,United States,Yes,Sometimes,Yes,Yes,Maybe,Don't know,29,1
+Female,United States,Yes,Sometimes,Yes,No,Maybe,Yes,38,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,Yes,26,1
+Male,Germany,No,Rarely,No,No,Maybe,No,34,2
+Male,United States,Yes,Often,No,No,Yes,No,21,1
+Male,Canada,No,Sometimes,Yes,Yes,No,No,31,0
+Female,United States,Yes,Rarely,Yes,No,Maybe,Yes,37,1
+Male,Ireland,Yes,Sometimes,Yes,No,No,No,37,1
+Male,Ireland,Yes,Sometimes,Yes,No,Yes,No,38,1
+Female,United States,Yes,Sometimes,No,No,Yes,Don't know,27,1
+Female,United States,Yes,Sometimes,Yes,No,Maybe,Yes,33,1
+Male,United Kingdom,No,Never,No,No,No,Don't know,27,1
+Female,United States,Yes,Never,No,Yes,Maybe,Yes,36,1
+Male,United Kingdom,No,Never,No,No,No,Don't know,28,1
+Male,United Kingdom,Yes,Sometimes,No,No,Maybe,Don't know,39,1
+Male,United States,Yes,Sometimes,Yes,Yes,Maybe,No,33,1
+Male,United Kingdom,Yes,Rarely,Yes,No,Yes,No,37,1
+Male,Canada,Yes,Sometimes,No,No,Yes,Yes,39,1
+Male,United States,No,Sometimes,No,Yes,Maybe,Don't know,43,1
+Male,United Kingdom,Yes,Never,No,No,No,Don't know,43,1
+Male,United States,Yes,Sometimes,No,Yes,No,No,33,1
+Male,United Kingdom,Yes,Sometimes,Yes,No,No,Don't know,34,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,25,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,25,1
+Male,Switzerland,Yes,Never,No,No,No,Yes,39,2
+Male,United Kingdom,No,Rarely,No,No,No,Don't know,29,1
+Male,United States,Yes,Sometimes,No,No,Maybe,Yes,33,1
+Female,United States,Yes,Often,No,Yes,Yes,Don't know,37,-1
+Female,United States,Yes,Sometimes,No,No,Yes,Yes,35,1
+Female,United States,Yes,Sometimes,Yes,No,Yes,Don't know,22,1
+Male,United States,No,Never,No,No,Maybe,Yes,38,1
+Female,United States,Yes,Often,Yes,No,Yes,Yes,32,1
+Female,United States,Yes,Sometimes,No,Yes,Maybe,Don't know,35,1
+Male,United States,No,Never,No,No,Yes,Yes,29,1
+Male,United States,Yes,Sometimes,Yes,No,No,No,23,1
+Female,United States,Yes,Sometimes,No,No,Yes,No,28,1
+Female,United States,Yes,Sometimes,Yes,No,Maybe,Yes,40,1
+Male,United States,No,Sometimes,Yes,No,Maybe,Yes,41,1
+Male,United Kingdom,No,Never,No,No,Maybe,Don't know,29,1
+Male,United Kingdom,Yes,Sometimes,No,No,No,No,29,1
+Male,United States,Yes,Often,No,No,Yes,No,35,1
+Male,United States,Yes,Never,No,Yes,Maybe,No,28,1
+Female,United Kingdom,No,Sometimes,No,Yes,Maybe,Don't know,36,-1
+Female,United States,No,Sometimes,No,No,Yes,Don't know,39,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,39,1
+Male,United States,Yes,Sometimes,Yes,Yes,Yes,No,44,1
+Male,Denmark,Yes,Often,Yes,No,No,No,35,1
+Female,United States,Yes,Sometimes,Yes,No,Yes,Yes,40,1
+Male,Denmark,Yes,Often,Yes,No,No,No,35,1
+Male,United States,No,Never,No,Yes,Yes,No,38,1
+Female,United States,No,Often,Yes,No,Yes,Don't know,48,-1
+Male,United States,No,Never,No,No,No,Don't know,20,1
+Male,United States,No,Sometimes,No,Yes,Yes,Don't know,40,1
+Female,United Kingdom,Yes,Rarely,No,No,Maybe,Don't know,29,2
+Male,United States,Yes,Sometimes,Yes,No,No,No,35,1
+Male,United States,No,Sometimes,Yes,Yes,Maybe,Yes,29,1
+Male,United States,No,Never,No,No,Maybe,Yes,40,1
+Male,Sweden,Yes,Rarely,No,No,No,No,29,1
+Female,United States,Yes,Rarely,Yes,No,No,Yes,29,1
+Male,United States,Yes,Sometimes,No,No,Yes,No,34,1
+Male,United Kingdom,Yes,Sometimes,Yes,No,Maybe,Don't know,44,1
+Female,United States,Yes,Often,Yes,No,No,Yes,24,1
+Male,United States,No,Rarely,No,No,No,Yes,36,1
+Male,United States,Yes,Sometimes,No,No,Maybe,Don't know,43,1
+Male,United Kingdom,No,Sometimes,No,Yes,No,No,36,1
+Female,United States,Yes,Sometimes,Yes,No,No,Yes,31,1
+Male,United States,No,Sometimes,No,No,Maybe,Don't know,35,1
+Male,Italy,No,Sometimes,No,No,Yes,Don't know,37,1
+Male,United States,Yes,Sometimes,No,No,Maybe,Don't know,34,1
+Male,Netherlands,Yes,Sometimes,No,No,No,No,36,1
+Male,United States,Yes,Sometimes,Yes,Yes,No,No,40,1
+Male,United States,No,Rarely,No,No,No,Yes,40,1
+Male,United States,Yes,Sometimes,No,Yes,Maybe,No,42,1
+Male,United Kingdom,No,Never,Yes,No,Maybe,No,21,1
+Male,Canada,No,Sometimes,No,Yes,Yes,No,26,1
+Male,United States,No,Never,No,Yes,No,Yes,51,1
+Male,United Kingdom,Yes,Rarely,Yes,No,Yes,No,32,1
+Male,United Kingdom,Yes,Rarely,Yes,No,Yes,No,32,1
+Male,United Kingdom,Yes,Rarely,No,Yes,No,No,26,1
+Male,United States,No,Never,No,No,Maybe,Don't know,23,1
+Male,United States,Yes,Often,Yes,Yes,Yes,No,33,1
+Male,United States,Yes,Rarely,No,No,Yes,Yes,46,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,35,1
+Male,Germany,No,Sometimes,No,Yes,No,No,32,1
+Male,United States,Yes,Rarely,No,Yes,No,Yes,56,1
+Female,United Kingdom,Yes,Sometimes,Yes,No,Maybe,Don't know,32,1
+Male,United States,Yes,Sometimes,Yes,Yes,Yes,Don't know,30,1
+Female,United Kingdom,No,Never,Yes,No,Yes,No,23,-1
+Male,United States,Yes,Never,No,No,Maybe,Yes,31,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Don't know,29,1
+Male,United States,No,Never,No,Yes,No,Yes,30,1
+Male,United States,No,Never,No,Yes,Maybe,Yes,37,1
+Male,United States,No,Never,No,No,No,Yes,36,1
+Male,United States,Yes,Sometimes,Yes,Yes,Maybe,Yes,35,1
+Male,United States,No,Never,Yes,Yes,Maybe,Don't know,41,1
+Male,United Kingdom,Yes,Rarely,No,No,No,Don't know,31,1
+Male,United States,No,Sometimes,Yes,No,Maybe,Yes,39,1
+Male,United States,No,Sometimes,Yes,Yes,Maybe,Yes,42,1
+Male,United States,Yes,Rarely,Yes,Yes,Yes,No,32,1
+Male,United States,No,Never,Yes,No,Yes,Yes,30,1
+Male,United States,Yes,Often,Yes,Yes,Maybe,Don't know,40,1
+Male,United States,No,Never,No,No,No,Yes,33,1
+Male,Germany,Yes,Sometimes,No,Yes,Maybe,No,34,1
+Male,United States,No,Never,No,Yes,No,No,50,1
+Male,United States,No,Sometimes,No,Yes,No,Don't know,24,1
+Male,United States,Yes,Rarely,Yes,No,Yes,No,25,1
+Male,United Kingdom,Yes,Rarely,Yes,No,Yes,No,43,1
+Female,United States,Yes,Often,No,No,Maybe,Yes,25,1
+Male,United States,No,Never,No,No,No,No,51,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,Yes,49,1
+Female,United States,Yes,Sometimes,Yes,No,Yes,Yes,25,1
+Male,United States,Yes,Rarely,No,Yes,Maybe,Yes,36,1
+Male,United States,Yes,Never,No,No,Maybe,Yes,48,1
+Male,Australia,Yes,Sometimes,No,No,Yes,No,48,1
+Male,United States,Yes,Rarely,No,Yes,Maybe,Yes,53,1
+Female,United Kingdom,Yes,Often,Yes,Yes,No,No,24,0
+Male,United States,Yes,Sometimes,Yes,No,No,Don't know,33,1
+Female,Canada,Yes,Sometimes,Yes,No,No,Yes,25,1
+Male,United Kingdom,Yes,Sometimes,No,No,Yes,No,30,1
+Male,United States,No,Never,No,Yes,Maybe,No,30,1
+Male,United Kingdom,Yes,Sometimes,No,Yes,No,No,34,1
+Female,United States,Yes,Often,Yes,No,Yes,Don't know,22,1
+Male,United States,No,Sometimes,Yes,No,No,Don't know,28,1
+Male,United States,Yes,Rarely,Yes,No,Maybe,Yes,35,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,28,1
+Male,New Zealand,Yes,Sometimes,No,No,Yes,No,42,1
+Male,United States,No,Sometimes,No,No,Yes,Yes,29,1
+Male,United States,No,Sometimes,Yes,No,Maybe,Yes,43,1
+Male,United States,No,Never,Yes,No,No,Don't know,31,1
+Female,United States,Yes,Sometimes,Yes,No,Maybe,Yes,35,1
+Male,United States,No,Often,No,No,No,Don't know,34,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,No,38,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Don't know,26,1
+Male,United Kingdom,Yes,Rarely,Yes,Yes,Maybe,No,38,0
+Male,United States,Yes,Often,No,No,Yes,Don't know,42,1
+Male,United States,Yes,Rarely,No,No,Maybe,Yes,32,1
+Male,United States,Yes,Sometimes,Yes,Yes,Maybe,Yes,44,1
+Male,United States,Yes,Rarely,Yes,No,Maybe,Yes,28,1
+Male,United States,Yes,Sometimes,Yes,Yes,Yes,Yes,40,1
+Female,United States,Yes,Sometimes,Yes,No,Maybe,Yes,31,1
+Male,United States,No,Sometimes,Yes,No,Yes,Yes,32,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Don't know,28,1
+Male,United States,Yes,Often,Yes,No,Yes,Yes,39,1
+Male,United States,Yes,Rarely,No,No,No,Yes,43,1
+Male,United States,Yes,Sometimes,No,No,Maybe,Yes,35,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,40,1
+Male,Netherlands,Yes,Rarely,No,No,No,No,34,1
+Male,United Kingdom,Yes,Often,Yes,No,Yes,Don't know,24,0
+Male,South Africa,Yes,Sometimes,No,Yes,Yes,No,61,-1
+Female,United States,Yes,Rarely,Yes,No,Yes,Don't know,36,1
+Male,Germany,Yes,Often,Yes,No,No,Don't know,33,1
+Male,United States,No,Never,Yes,No,Yes,Don't know,30,1
+Male,Netherlands,Yes,Rarely,Yes,Yes,No,Yes,34,1
+Male,United States,Yes,Rarely,No,No,No,Yes,26,1
+Male,Germany,No,Sometimes,No,Yes,No,No,25,1
+Male,Germany,Yes,Sometimes,No,Yes,Yes,Don't know,35,0
+Male,United Kingdom,No,Often,Yes,Yes,Maybe,Don't know,24,-1
+Male,United Kingdom,Yes,Often,No,No,Yes,Yes,55,-1
+Male,United Kingdom,Yes,Sometimes,Yes,Yes,Yes,No,33,1
+Female,United Kingdom,Yes,Sometimes,Yes,Yes,Maybe,No,26,0
+Male,United Kingdom,No,Never,No,Yes,No,Don't know,25,1
+Male,United Kingdom,No,Rarely,Yes,No,Maybe,Don't know,45,1
+Female,United Kingdom,Yes,Sometimes,No,Yes,No,No,33,1
+Male,United States,No,Sometimes,No,Yes,Yes,No,43,1
+Male,United Kingdom,Yes,Sometimes,No,No,Yes,No,30,1
+Male,United States,Yes,Rarely,Yes,No,No,Don't know,40,1
+Male,United States,No,Never,Yes,No,No,Yes,49,1
+Male,Belgium,No,Never,No,No,Maybe,Yes,26,1
+Male,United Kingdom,Yes,Often,Yes,No,Maybe,No,28,1
+Male,United States,Yes,Sometimes,Yes,Yes,Maybe,No,40,1
+Female,Canada,Yes,Rarely,Yes,Yes,Yes,No,37,-1
+Female,United Kingdom,Yes,Often,Yes,Yes,Yes,Yes,34,0
+Male,United States,Yes,Often,Yes,No,Maybe,Don't know,28,1
+Male,Canada,No,Never,No,No,No,Yes,27,1
+Male,United Kingdom,Yes,Sometimes,No,Yes,No,No,29,1
+Female,United Kingdom,No,Rarely,Yes,Yes,Yes,Don't know,39,-1
+Male,United Kingdom,No,Often,No,No,Yes,No,28,1
+Male,United States,No,Sometimes,Yes,No,No,Yes,23,1
+Female,United States,Yes,Sometimes,Yes,No,No,Yes,30,1
+Male,India,Yes,Sometimes,No,No,Yes,Don't know,20,1
+Male,United Kingdom,No,Sometimes,No,No,No,Don't know,35,1
+Male,United States,Yes,Rarely,No,Yes,Maybe,Yes,39,1
+Female,United States,No,Never,Yes,No,Yes,Yes,31,1
+Male,United Kingdom,No,Rarely,No,No,Yes,No,32,1
+Male,United States,Yes,Often,Yes,Yes,No,Yes,25,1
+Male,United States,Yes,Sometimes,Yes,Yes,Maybe,Don't know,42,1
+Male,United States,Yes,Often,Yes,No,No,Yes,34,1
+Female,United States,Yes,Sometimes,No,Yes,Maybe,Don't know,26,1
+Male,United Kingdom,Yes,Sometimes,Yes,No,Yes,No,35,1
+Male,United Kingdom,No,Never,No,No,Maybe,Don't know,34,1
+Male,United States,Yes,Sometimes,Yes,Yes,No,Yes,38,1
+Male,United States,No,Sometimes,No,No,Yes,Don't know,34,1
+Male,United States,Yes,Sometimes,Yes,Yes,No,No,39,1
+Female,United States,No,Never,No,Yes,Maybe,No,33,2
+Female,United States,No,Sometimes,Yes,No,Yes,Yes,24,1
+Female,United States,No,Sometimes,Yes,Yes,No,Don't know,38,2
+Male,United States,No,Sometimes,No,No,Yes,Yes,31,1
+Female,United States,Yes,Often,No,No,Yes,Yes,46,1
+Male,United States,Yes,Sometimes,Yes,Yes,Maybe,Yes,30,1
+Male,United States,No,Rarely,No,Yes,Yes,Don't know,25,1
+Male,Canada,No,Never,No,Yes,No,Don't know,19,1
+Female,United States,Yes,Sometimes,Yes,No,Maybe,Yes,30,1
+Male,United States,No,Never,No,No,No,Yes,32,1
+Male,United States,No,Sometimes,Yes,Yes,Maybe,Don't know,37,1
+Male,United States,Yes,Sometimes,Yes,Yes,Maybe,Don't know,42,1
+Female,United States,No,Never,No,No,Maybe,Yes,25,1
+Male,United States,No,Sometimes,No,No,No,Don't know,19,1
+Female,United States,No,Never,Yes,Yes,Yes,Yes,40,-1
+Male,United States,Yes,Rarely,Yes,No,No,Don't know,31,1
+Male,United States,No,Sometimes,Yes,Yes,Yes,Yes,40,1
+Female,United States,Yes,Often,Yes,No,Yes,No,31,1
+Male,United States,No,Never,No,No,Yes,Don't know,36,1
+Male,Canada,No,Sometimes,Yes,Yes,Maybe,No,35,-1
+Male,Australia,Yes,Sometimes,Yes,Yes,No,No,26,1
+Female,United States,No,Sometimes,No,No,No,No,34,0
+Female,United States,Yes,Sometimes,Yes,Yes,Yes,Don't know,28,1
+Male,United States,Yes,Sometimes,Yes,Yes,Yes,Yes,40,1
+Male,United States,Yes,Sometimes,No,No,Maybe,Yes,26,1
+Female,United Kingdom,Yes,Often,No,No,Maybe,Yes,29,2
+Female,Canada,Yes,Sometimes,Yes,No,Maybe,Yes,26,1
+Male,Italy,Yes,Sometimes,Yes,No,No,No,33,1
+Male,Brazil,No,Sometimes,Yes,No,No,No,28,-1
+Male,United States,Yes,Often,No,Yes,No,No,41,1
+Male,United Kingdom,Yes,Sometimes,Yes,Yes,No,No,39,1
+Female,United States,Yes,Sometimes,Yes,No,No,Yes,26,1
+Female,United States,No,Sometimes,Yes,No,Yes,No,23,2
+Male,Switzerland,Yes,Often,Yes,No,No,Don't know,35,2
+Male,United States,No,Never,No,Yes,No,Don't know,36,1
+Male,United States,No,Rarely,No,No,Maybe,Don't know,42,1
+Male,United States,Yes,Sometimes,Yes,No,No,Yes,39,1
+Male,United States,No,Never,No,No,Maybe,Don't know,27,1
+Male,United States,No,Never,No,Yes,Maybe,Don't know,33,1
+Male,Canada,Yes,Often,Yes,No,Maybe,Yes,31,1
+Female,United States,Yes,Rarely,No,No,No,Yes,28,1
+Female,United States,Yes,Often,No,Yes,No,Yes,29,1
+Male,United States,Yes,Sometimes,No,No,Maybe,Don't know,27,1
+Male,United States,No,Never,No,Yes,No,Don't know,44,1
+Male,United States,Yes,Often,No,Yes,Maybe,Don't know,25,1
+Male,Germany,Yes,Sometimes,Yes,No,Maybe,No,24,1
+Male,South Africa,Yes,Often,Yes,No,No,Don't know,25,1
+Male,United States,No,Never,No,Yes,Maybe,Yes,34,1
+Male,United States,No,Never,No,No,Maybe,Yes,26,1
+Male,United States,No,Never,No,No,Maybe,Yes,48,1
+Female,United States,Yes,Sometimes,No,Yes,Maybe,No,39,1
+Male,United States,No,Sometimes,No,Yes,Maybe,Yes,43,1
+Male,United States,No,Rarely,No,No,Maybe,Yes,41,1
+Male,United States,No,Never,No,No,No,Don't know,25,1
+Male,United States,Yes,Sometimes,No,No,Maybe,Yes,31,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,Yes,40,1
+Male,United States,Yes,Sometimes,Yes,Yes,Maybe,Yes,43,1
+Female,United States,Yes,Often,Yes,No,Maybe,Yes,27,1
+Female,United States,Yes,Sometimes,Yes,Yes,Yes,Yes,37,1
+Male,Netherlands,Yes,Sometimes,No,No,Maybe,No,32,1
+Male,United States,Yes,Often,Yes,No,Maybe,No,25,1
+Male,Netherlands,Yes,Often,Yes,No,No,Don't know,29,0
+Female,United States,Yes,Often,Yes,No,Yes,Yes,30,1
+Female,Canada,Yes,Often,Yes,No,No,Don't know,34,-1
+Male,United Kingdom,Yes,Sometimes,Yes,No,Maybe,Yes,32,1
+Male,Germany,Yes,Sometimes,No,No,No,Don't know,41,1
+Male,United States,No,Never,Yes,No,Yes,Yes,38,1
+Male,United States,Yes,Sometimes,No,No,No,Yes,32,1
+Female,United States,Yes,Sometimes,Yes,No,Maybe,Yes,28,1
+Male,United States,No,Never,Yes,No,Maybe,Yes,43,1
+Male,United States,Yes,Often,Yes,No,Yes,No,32,1
+Male,United States,Yes,Sometimes,No,No,Yes,Yes,25,1
+Male,United States,Yes,Sometimes,No,No,No,Yes,37,1
+Male,United States,Yes,Sometimes,No,No,No,No,36,1
+Male,United States,Yes,Rarely,Yes,Yes,No,Don't know,24,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,40,1
+Male,United States,No,Never,No,No,No,Don't know,43,1
+Male,United States,No,Sometimes,Yes,No,Maybe,Don't know,26,1
+Female,Canada,Yes,Often,Yes,Yes,Yes,No,33,0
+Female,United States,No,Sometimes,Yes,Yes,No,Don't know,35,2
+Male,United States,No,Never,No,Yes,Yes,Yes,45,1
+Male,United States,Yes,Rarely,No,Yes,Maybe,No,25,1
+Male,France,Yes,Sometimes,No,Yes,Maybe,No,50,1
+Male,Australia,Yes,Rarely,Yes,No,No,No,26,0
+Female,United States,Yes,Often,No,No,Yes,Yes,33,1
+Male,India,No,Often,No,No,Maybe,No,30,0
+Male,Croatia,Yes,Sometimes,Yes,Yes,No,Yes,33,1
+Male,France,Yes,Often,No,No,Maybe,Yes,29,2
+Male,United States,Yes,Sometimes,Yes,Yes,No,Don't know,25,1
+Male,Canada,No,Sometimes,No,No,Maybe,Yes,24,1
+Male,United Kingdom,Yes,Never,No,No,Maybe,Don't know,40,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,Don't know,46,1
+Male,United States,Yes,Rarely,Yes,No,Yes,Yes,38,1
+Male,United States,No,Never,No,Yes,Yes,No,34,1
+Male,United Kingdom,Yes,Rarely,No,No,No,No,32,1
+Male,United Kingdom,Yes,Sometimes,No,No,Maybe,No,44,1
+Female,United Kingdom,Yes,Never,No,No,Maybe,Don't know,33,2
+Female,United States,Yes,Rarely,No,No,No,Don't know,45,2
+Male,Germany,Yes,Often,Yes,No,Maybe,No,26,1
+Female,United States,Yes,Sometimes,No,Yes,No,Don't know,20,1
+Male,Netherlands,No,Sometimes,Yes,No,Maybe,No,37,0
+Female,United States,Yes,Sometimes,Yes,No,Yes,Yes,42,1
+Female,United States,Yes,Rarely,Yes,Yes,Maybe,Yes,36,1
+Male,New Zealand,No,Rarely,No,No,Yes,No,27,1
+Male,New Zealand,No,Rarely,No,No,Yes,No,27,1
+Male,United Kingdom,Yes,Sometimes,No,No,Maybe,No,27,1
+Male,United Kingdom,Yes,Sometimes,Yes,Yes,No,No,25,1
+Male,Germany,Yes,Sometimes,Yes,No,Maybe,Don't know,23,1
+Male,United Kingdom,Yes,Sometimes,No,No,Maybe,Don't know,21,1
+Male,Moldova,Yes,Often,No,No,No,No,26,0
+Male,Sweden,No,Rarely,No,No,Maybe,Don't know,29,1
+Male,Belgium,No,Sometimes,No,No,Yes,No,28,1
+Male,Israel,No,Never,No,No,No,No,23,1
+Female,United States,No,Sometimes,Yes,Yes,Maybe,Don't know,26,1
+Male,United Kingdom,Yes,Sometimes,Yes,No,No,No,38,1
+Male,United Kingdom,Yes,Sometimes,Yes,No,Maybe,No,39,1
+Male,United States,Yes,Often,Yes,No,Yes,Yes,35,1
+Male,United States,No,Rarely,No,No,Maybe,Yes,32,1
+Male,United States,Yes,Sometimes,No,No,Maybe,Yes,32,1
+Male,United Kingdom,No,Never,No,No,Yes,No,26,1
+Male,Canada,Yes,Rarely,Yes,No,No,Don't know,38,-1
+Female,United Kingdom,No,Rarely,Yes,No,No,Yes,34,-1
+Male,United States,Yes,Often,Yes,No,Yes,Don't know,39,1
+Male,Canada,No,Never,No,Yes,No,Don't know,32,1
+Male,Netherlands,No,Never,No,Yes,Yes,Don't know,37,2
+Male,United Kingdom,Yes,Never,Yes,No,No,Don't know,31,1
+Male,United States,Yes,Rarely,Yes,No,No,No,30,1
+Male,Singapore,No,Never,No,Yes,Yes,Don't know,51,0
+Male,United States,Yes,Sometimes,No,No,Yes,Yes,29,1
+Male,United Kingdom,No,Never,No,No,Maybe,Yes,31,1
+Male,United States,Yes,Sometimes,Yes,Yes,Maybe,Don't know,26,1
+Female,United States,Yes,Often,No,Yes,Maybe,Yes,46,1
+Male,United States,No,Sometimes,Yes,No,Maybe,Yes,32,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,29,1
+Male,Poland,No,Never,No,Yes,Maybe,Don't know,34,2
+Male,Colombia,No,Often,No,No,Yes,No,26,2
+Female,United States,Yes,Sometimes,No,No,Maybe,Yes,32,1
+Female,United States,Yes,Sometimes,Yes,No,No,Yes,40,1
+Male,United Kingdom,Yes,Sometimes,No,No,Maybe,No,23,1
+Male,Georgia,No,Rarely,No,No,Yes,No,20,1
+Female,United States,Yes,Rarely,Yes,No,Maybe,Yes,26,1
+Male,United States,No,Never,No,No,No,No,29,1
+Male,China,No,Sometimes,No,Yes,No,No,40,1
+Female,Bulgaria,Yes,Sometimes,No,Yes,Maybe,No,25,0
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,38,1
+Female,United States,Yes,Never,Yes,Yes,Maybe,Yes,72,1
+Female,United States,Yes,Sometimes,Yes,Yes,Maybe,No,35,1
+Female,United States,Yes,Often,No,No,Yes,No,28,1
+Female,United States,No,Never,No,No,No,Don't know,27,1
+Female,United States,No,Rarely,No,Yes,Maybe,Don't know,56,-1
+Male,United States,Yes,Sometimes,Yes,Yes,Maybe,Yes,38,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,40,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,44,1
+Male,Canada,No,Sometimes,Yes,No,Maybe,Yes,34,1
+Male,United Kingdom,No,Never,No,Yes,No,Don't know,37,1
+Male,Italy,No,Never,No,No,No,Don't know,38,1
+Female,Ireland,Yes,Sometimes,No,No,Yes,Yes,34,2
+Female,Ireland,No,Rarely,No,No,Maybe,Don't know,35,-1
+Male,Ireland,Yes,Often,No,No,Yes,No,34,1
+Male,United States,Yes,Often,No,Yes,Yes,Yes,32,1
+Male,Australia,Yes,Often,No,Yes,Yes,No,28,0
+Female,United States,Yes,Rarely,No,No,Yes,Yes,28,1
+Male,Ireland,Yes,Never,Yes,Yes,Maybe,No,34,-1
+Male,Ireland,Yes,Sometimes,No,No,No,No,32,1
+Male,United Kingdom,No,Often,Yes,Yes,Maybe,Don't know,34,-1
+Male,United States,Yes,Sometimes,No,No,Maybe,No,23,1
+Male,Czech Republic,No,Often,Yes,No,No,No,33,-1
+Male,Singapore,Yes,Sometimes,Yes,No,Maybe,Don't know,29,1
+Male,Ireland,No,Never,No,Yes,Yes,Don't know,45,2
+Female,United Kingdom,Yes,Sometimes,No,No,Maybe,No,34,1
+Male,Philippines,No,Sometimes,No,No,Yes,Don't know,31,1
+Male,United States,Yes,Often,No,Yes,Maybe,Yes,33,1
+Male,United Kingdom,No,Rarely,No,Yes,No,Don't know,27,1
+Male,Ireland,No,Never,No,No,Yes,No,42,1
+Male,United States,Yes,Sometimes,No,Yes,No,Yes,38,1
+Male,United States,Yes,Often,Yes,No,Maybe,Don't know,46,1
+Male,United States,Yes,Sometimes,Yes,Yes,No,Don't know,46,1
+Female,Netherlands,Yes,Rarely,No,Yes,No,Don't know,41,-1
+Male,United Kingdom,No,Never,No,No,Maybe,Don't know,23,1
+Male,Ireland,Yes,Sometimes,Yes,No,Maybe,Yes,24,1
+Female,Ireland,Yes,Rarely,No,No,No,No,23,-1
+Female,Ireland,No,Never,Yes,No,Maybe,Yes,32,-1
+Male,United States,Yes,Sometimes,Yes,No,Yes,Don't know,25,1
+Female,United Kingdom,Yes,Sometimes,Yes,No,No,No,23,2
+Male,United Kingdom,Yes,Sometimes,Yes,No,No,Yes,25,1
+Male,United Kingdom,Yes,Rarely,No,No,No,No,23,1
+Male,Canada,Yes,Often,No,No,Maybe,Yes,23,1
+Male,United States,Yes,Often,No,Yes,Maybe,Don't know,60,1
+Male,Ireland,No,Sometimes,No,No,Yes,No,28,1
+Male,United States,Yes,Often,Yes,No,Yes,Yes,28,1
+Male,Netherlands,No,Sometimes,No,No,Maybe,Don't know,30,1
+Male,Germany,Yes,Sometimes,Yes,No,No,Don't know,31,1
+Male,Poland,Yes,Often,No,Yes,Maybe,No,31,0
+Male,Ireland,Yes,Rarely,No,No,Maybe,Don't know,28,0
+Female,United States,Yes,Rarely,Yes,Yes,No,Yes,43,1
+Male,Australia,Yes,Often,Yes,No,Maybe,Yes,22,1
+Male,United States,No,Never,No,No,No,Yes,32,1
+Male,Finland,Yes,Often,No,No,Yes,No,36,1
+Female,United States,Yes,Sometimes,Yes,No,Yes,Yes,41,1
+Male,United States,Yes,Sometimes,Yes,No,No,Yes,30,1
+Male,United States,Yes,Often,Yes,No,No,Yes,30,1
+Male,South Africa,Yes,Often,Yes,No,No,No,36,1
+Male,United States,Yes,Sometimes,Yes,Yes,Yes,Yes,29,1
+Male,United States,No,Rarely,Yes,No,Maybe,Don't know,36,1
+Male,United States,Yes,Often,Yes,Yes,No,Yes,32,1
+Male,United States,Yes,Sometimes,Yes,No,Yes,Yes,34,1
+Male,United States,Yes,Sometimes,Yes,No,Maybe,Yes,25,1
