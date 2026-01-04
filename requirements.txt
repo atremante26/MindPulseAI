@@ -30,3 +30,4 @@ seaborn
 matplotlib
 google-generativeai
 prophet
+google-re2==1.0
