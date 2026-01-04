@@ -92,8 +92,7 @@ graph TB
     
     subgraph ingestion["Data Ingestion - Parallel"]
         D1[Reddit API<br/>~100 posts/week]
-        D2[CDC Survey<br/>~50 records/week]
-        D3[Google Trends<br/>~30 data points/week]
+        D2[News API<br/>~50 records/week]
     end
     
     subgraph validation["Data Quality Gate"]
@@ -129,11 +128,9 @@ graph TB
     B --> C
     C --> D1
     C --> D2
-    C --> D3
     
     D1 --> E
     D2 --> E
-    D3 --> E
     
     E -->|Validation Pass| F
     E -.->|Validation Fail<br/>Pipeline Stops| O
