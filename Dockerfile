@@ -6,13 +6,15 @@ WORKDIR /opt/airflow
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
+    build-essential \
     gcc \
     g++ \
+    libre2-dev \
+    pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements and install Python dependencies
 COPY requirements.txt .
-COPY airflow/keys/ ./keys/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Install latest Airflow with constraints
