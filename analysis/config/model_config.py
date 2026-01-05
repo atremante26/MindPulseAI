@@ -15,16 +15,20 @@ CLUSTERING_CONFIG = {
     }
 }
 
-# Forecasting configuration
+# Forecasting Configuration
 FORECASTING_CONFIG = {
     'prophet': {
-        'seasonality_mode': 'multiplicative',
-        'yearly_seasonality': True,
-        'weekly_seasonality': True
+        'changepoint_prior_scale': 0.05,  # Flexibility of trend changes (0.001-0.5)
+        'seasonality_prior_scale': 10.0,   # Strength of seasonality (0.01-10)
+        'seasonality_mode': 'additive',    # 'additive' or 'multiplicative'
+        'weekly_seasonality': True,
+        'yearly_seasonality': False,       # Not enough data yet
+        'daily_seasonality': False,
+        'confidence_interval': 0.95        # 95% confidence intervals
     },
-    'lstm': {
-        'sequence_length': 30,
-        'hidden_size': 50,
-        'num_layers': 2
+    'forecast_horizon_days': 90,
+    'sentiment': {
+        'positive_threshold': 0.05,    # Scores > 0.05 are positive
+        'negative_threshold': -0.05    # Scores < -0.05 are negative
     }
 }
