@@ -1,13 +1,25 @@
 from .forecasting_utils import (
-    train_prophet_model,
-    evaluate_forecast_model,
-    cross_validate_timeseries,
-    save_forecast_results
+    train_prophet,
+    hyperparameter_search,
+    predict_prophet,
+    plot_forecast,
+    plot_components,
+    evaluate_forecast,
+    evaluate_forecast_CV,
+    evaluate_prophet,
+    get_future_predictions,
+    add_sentiment_column
 )
 
 __all__ = [
-    "train_prophet_model",
-    "evaluate_forecast_model", 
-    "cross_validate_timeseries",
-    "save_forecast_results"
+    "train_prophet",
+    "hyperparameter_search",
+    "predict_prophet",
+    "plot_forecast",
+    "plot_components",
+    "evaluate_forecast",
+    "evaluate_forecast_CV",
+    "evaluate_prophet",
+    "get_future_predictions",
+    "add_sentiment_column"
 ]

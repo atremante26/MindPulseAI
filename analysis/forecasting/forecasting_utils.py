@@ -2,12 +2,75 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from prophet import Prophet
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from prophet.diagnostics import cross_validation, performance_metrics
 import logging
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# VADER analyzer
+analyzer = SentimentIntensityAnalyzer()
+
+def get_sentiment(text):
+    """Calculate VADER compound sentiment score for a single text."""
+    if pd.isna(text) or text == '':
+        return 0.0
+    
+    try:
+        scores = analyzer.polarity_scores(str(text))
+        return scores['compound']
+    except Exception as e:
+        logger.warning(f"Error calculating sentiment: {e}")
+        return 0.0
+
+def get_aggregated_sentiment(texts, delimiter=';'):
+    """
+    Calculate average sentiment for multiple texts in a single string.
+    
+    Use this for pre-aggregated data (like news headlines stored as "headline1; headline2; ...").
+    """
+    if pd.isna(texts) or texts == '':
+        return 0.0
+    
+    try:
+        # Split by delimiter
+        text_list = str(texts).split(delimiter)
+        
+        sentiments = []
+        for text in text_list:
+            text = text.strip()
+            # Skip very short strings (likely noise)
+            if text and len(text) > 10:
+                score = get_sentiment(text)
+                sentiments.append(score)
+        
+        # Return average, or 0.0 if no valid texts
+        return np.mean(sentiments) if sentiments else 0.0
+    
+    except Exception as e:
+        logger.warning(f"Error calculating aggregated sentiment: {e}")
+        return 0.0
+
+
+def add_sentiment_column(df, text_column, sentiment_column='sentiment', is_aggregated=False, delimiter=';'):
+    """Add sentiment analysis column to a DataFrame."""
+    logger.info(f"Adding sentiment analysis to column '{text_column}'...")
+    
+    if is_aggregated:
+        logger.info(f"  Using aggregated mode with delimiter '{delimiter}'")
+        df[sentiment_column] = df[text_column].apply(
+            lambda x: get_aggregated_sentiment(x, delimiter)
+        )
+    else:
+        logger.info(f"  Using single-text mode")
+        df[sentiment_column] = df[text_column].apply(get_sentiment)
+    
+    logger.info(f"  Sentiment column '{sentiment_column}' added")
+    logger.info(f"  Mean: {df[sentiment_column].mean():.3f}, Std: {df[sentiment_column].std():.3f}")
+    
+    return df
 
 def train_prophet(df, pred_col, model_name, config):
     """Train Facebook's Prophet model on time-series data."""
