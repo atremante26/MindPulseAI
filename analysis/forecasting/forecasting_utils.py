@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from prophet import Prophet
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from prophet.diagnostics import cross_validation, performance_metrics
 import logging
 
@@ -47,7 +46,12 @@ def train_prophet(df, pred_col, model_name, config):
     return model, prophet_df
 
 def hyperparameter_search(df, value_col, param_grid, model_name):
-    """Hyperparameter search using in-sample MAE; use with greater than 20 weeks."""
+    """
+    Hyperparameter search using in-sample MAE.
+    
+    Note: Use only when you have 20+ weeks of data.
+    For datasets <20 weeks, stick with default parameters.
+    """
 
     logger.info(f"\nSearching hyperparameters for {model_name}...")
     
@@ -100,7 +104,7 @@ def predict_prophet(model, periods_days, model_name):
     
     return forecast
 
-def plot_forcast(model, forecast, title, figsize=(14,6)):
+def plot_forecast(model, forecast, title, figsize=(14,6)):
     """Plot Prophet model with historical data and confidence intervals."""
     fig = model.plot(forecast, figsize=figsize)
     plt.title(title, fontsize=14, fontweight='bold')
@@ -116,7 +120,7 @@ def plot_components(model, forecast, figsize=(14,6)):
     plt.tight_layout()
     plt.show()
 
-def evaluate_forecast_manual(model, prophet_df, forecast):
+def evaluate_forecast(model, prophet_df, forecast):
     """
     Evaluate forecast performance on historical data without cross-validation.
     Use when data is too limited for Prophet's cross_validation.
@@ -164,7 +168,7 @@ def evaluate_forecast_manual(model, prophet_df, forecast):
     
     return metrics
 
-def evaluate_prophet_CV(model, initial_days, period_days, horizon_days):
+def evaluate_forecast_CV(model, initial_days, period_days, horizon_days):
     """
     Evaluate forecast using Prophet's cross-validation.
     Use when you have enough data (40+ weeks recommended).
@@ -212,7 +216,7 @@ def evaluate_prophet(model, prophet_df, forecast, use_cv=False, cv_params=None):
     
     if use_cv and cv_params and data_days >= cv_params.get('initial_days', 180) * 2:
         # Use cross-validation if requested and sufficient data
-        _, metrics = evaluate_prophet_CV(
+        _, metrics = evaluate_forecast_CV(
             model=model,
             initial_days=cv_params['initial_days'],
             period_days=cv_params['period_days'],
@@ -222,7 +226,7 @@ def evaluate_prophet(model, prophet_df, forecast, use_cv=False, cv_params=None):
         # Use in-sample evaluation
         if use_cv:
             logger.warning(f"Insufficient data for CV ({data_days} days). Using in-sample evaluation.")
-        metrics = evaluate_forecast_manual(model, prophet_df, forecast)
+        metrics = evaluate_forecast(model, prophet_df, forecast)
     
     return metrics
 
