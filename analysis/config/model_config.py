@@ -26,7 +26,8 @@ FORECASTING_CONFIG = {
         'daily_seasonality': False,
         'confidence_interval': 0.95        # 95% confidence intervals
     },
-    'forecast_horizon_days': 90,
+    'forecast_horizon_weeks': 13,
+    'forecast_horizon_days': 91,
     'sentiment': {
         'positive_threshold': 0.05,    # Scores > 0.05 are positive
         'negative_threshold': -0.05    # Scores < -0.05 are negative

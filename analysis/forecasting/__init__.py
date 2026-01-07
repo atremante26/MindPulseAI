@@ -8,7 +8,9 @@ from .forecasting_utils import (
     evaluate_forecast_CV,
     evaluate_prophet,
     get_future_predictions,
-    add_sentiment_column
+    add_sentiment_column,
+    aggregate_to_weekly,
+    fill_missing_weeks
 )
 
 __all__ = [
@@ -21,5 +23,7 @@ __all__ = [
     "evaluate_forecast_CV",
     "evaluate_prophet",
     "get_future_predictions",
-    "add_sentiment_column"
+    "add_sentiment_column",
+    "aggregate_to_weekly",
+    "fill_missing_weeks"
 ]

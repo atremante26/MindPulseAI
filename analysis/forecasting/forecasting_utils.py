@@ -2,52 +2,52 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from prophet import Prophet
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from prophet.diagnostics import cross_validation, performance_metrics
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import logging
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# VADER analyzer
-analyzer = SentimentIntensityAnalyzer()
+# Initialize VADER analyzer
+_sentiment_analyzer = SentimentIntensityAnalyzer()
 
 def get_sentiment(text):
     """Calculate VADER compound sentiment score for a single text."""
+    # Return 0.0 if null or empty text
     if pd.isna(text) or text == '':
         return 0.0
     
     try:
-        scores = analyzer.polarity_scores(str(text))
+        # Return compound score (normalized, weighted composite score, from -1 to +1)
+        scores = _sentiment_analyzer.polarity_scores(str(text))
         return scores['compound']
     except Exception as e:
         logger.warning(f"Error calculating sentiment: {e}")
         return 0.0
 
-def get_aggregated_sentiment(texts, delimiter=';'):
-    """
-    Calculate average sentiment for multiple texts in a single string.
-    
-    Use this for pre-aggregated data (like news headlines stored as "headline1; headline2; ...").
-    """
+
+def get_aggregated_sentiment(texts, delimiter):
+    """Calculate average sentiment for multiple texts in a single string."""
+    # Return 0.0 if null or empty text
     if pd.isna(texts) or texts == '':
         return 0.0
     
     try:
-        # Split by delimiter
+        # Split texts by delimiter
         text_list = str(texts).split(delimiter)
         
+        # Calculate sentiment for each text in text_list
         sentiments = []
         for text in text_list:
             text = text.strip()
-            # Skip very short strings (likely noise)
             if text and len(text) > 10:
                 score = get_sentiment(text)
                 sentiments.append(score)
         
-        # Return average, or 0.0 if no valid texts
-        return np.mean(sentiments) if sentiments else 0.0
+        # Return average (mean) sentiment or 0.0
+        return np.mean(sentiments) if sentiments else 0.0 
     
     except Exception as e:
         logger.warning(f"Error calculating aggregated sentiment: {e}")
@@ -56,14 +56,13 @@ def get_aggregated_sentiment(texts, delimiter=';'):
 
 def add_sentiment_column(df, text_column, sentiment_column='sentiment', is_aggregated=False, delimiter=';'):
     """Add sentiment analysis column to a DataFrame."""
-    logger.info(f"Adding sentiment analysis to column '{text_column}'...")
-    
+    # If text is aggregated, use get_aggregated_sentiment
     if is_aggregated:
         logger.info(f"  Using aggregated mode with delimiter '{delimiter}'")
         df[sentiment_column] = df[text_column].apply(
             lambda x: get_aggregated_sentiment(x, delimiter)
         )
-    else:
+    else: # Otherwise, just get_sentiment
         logger.info(f"  Using single-text mode")
         df[sentiment_column] = df[text_column].apply(get_sentiment)
     
@@ -72,9 +71,84 @@ def add_sentiment_column(df, text_column, sentiment_column='sentiment', is_aggre
     
     return df
 
-def train_prophet(df, pred_col, model_name, config):
-    """Train Facebook's Prophet model on time-series data."""
+def aggregate_to_weekly(df, date_col='date', agg_dict=None):
+    """
+    Aggregate time series data to weekly frequency.
+    Handles irregular ingestion patterns (daily testing + weekly production) by grouping all data within each week into a single observation.
+    """
+    df = df.copy()
+    
+    # Ensure date column is datetime
+    df[date_col] = pd.to_datetime(df[date_col])
+    
+    # Create week start date (Monday of each week)
+    df['WEEK_START'] = df[date_col] - pd.to_timedelta(df[date_col].dt.dayofweek, unit='d')
+    
+    # Default aggregation functions if not provided
+    if agg_dict is None:
+        agg_dict = {}
+        for col in df.columns:
+            if col not in [date_col, 'WEEK_START']:
+                # Intelligent defaults based on column name
+                if 'volume' in col.lower() or 'count' in col.lower():
+                    agg_dict[col] = 'sum'  # Sum counts/volumes
+                elif 'sentiment' in col.lower() or 'score' in col.lower() or 'avg' in col.lower():
+                    agg_dict[col] = 'mean'  # Average sentiments/scores
+                else:
+                    agg_dict[col] = 'mean'  # Default to mean
 
+    # Aggregate by week
+    weekly_df = df.groupby('WEEK_START').agg(agg_dict).reset_index()
+    weekly_df.rename(columns={'WEEK_START': date_col}, inplace=True)
+    
+    return weekly_df
+
+def fill_missing_weeks(df, date_col='date'):
+    """
+    Fill missing weeks in time series using linear interpolation.
+    Linear interpolation assumes gradual changes between known points, which is more conservative than assuming sudden jumps or constant values.
+    """
+    df = df.copy()
+
+    # Ensure date column is datetime
+    df[date_col] = pd.to_datetime(df[date_col])
+    
+    # Get date range
+    min_date = df[date_col].min()
+    max_date = df[date_col].max()
+    
+    # Check for gaps
+    date_diffs = df[date_col].diff().dt.days.dropna()
+    max_gap = date_diffs.max()
+    
+    if max_gap <= 7:
+        logger.info(f"No missing weeks detected (max gap: {max_gap:.0f} days)")
+        return df
+    
+    # Create complete weekly range (every Monday)
+    full_date_range = pd.date_range(
+        start=min_date,
+        end=max_date,
+        freq='W-MON'
+    )
+    
+    # Reindex to full range (creates NaN for missing weeks)
+    df_filled = df.set_index(date_col).reindex(full_date_range)
+    
+    # Interpolate missing values
+    df_filled = df_filled.interpolate(method='linear')
+    
+    # Reset index
+    df_filled = df_filled.reset_index()
+    df_filled.rename(columns={'index': date_col}, inplace=True)
+    
+    return df_filled
+
+def train_prophet(df, pred_col, model_name, config):
+    """
+    Train Facebook's Prophet model on time-series data.
+    Automatically detects weekly vs daily frequency.
+    """
     # Prepare data for Prophet (requires 'ds' and 'y' columns)
     prophet_df = df[['date', pred_col]].copy()
     prophet_df.columns = ['ds', 'y']
@@ -85,9 +159,21 @@ def train_prophet(df, pred_col, model_name, config):
     # Sort by date
     prophet_df = prophet_df.sort_values('ds')
 
+    # Detect frequency (weekly vs daily)
+    date_diffs = prophet_df['ds'].diff().dt.days.dropna()
+    median_gap = date_diffs.median()
+    
+    if median_gap >= 6:  # Weekly data (7 days ± 1)
+        freq = 'W'
+        freq_name = 'weekly'
+    else:  # Daily data
+        freq = 'D'
+        freq_name = 'daily'
+
     # Log info
     logger.info(f"\nTraining Prophet model: {model_name}")
     logger.info(f"  Training data: {len(prophet_df)} observations")
+    logger.info(f"  Frequency: {freq_name} (median gap: {median_gap:.0f} days)")
     logger.info(f"  Date range: {prophet_df['ds'].min()} to {prophet_df['ds'].max()}")
     logger.info(f"  Value range: {prophet_df['y'].min():.2f} to {prophet_df['y'].max():.2f}")
 
@@ -99,23 +185,22 @@ def train_prophet(df, pred_col, model_name, config):
         weekly_seasonality=config.get('weekly_seasonality', True),
         yearly_seasonality=config.get('yearly_seasonality', False),
         daily_seasonality=config.get('daily_seasonality', False),
-        interval_width=config.get('confidence_interval', 0.95)
+        interval_width=config.get('confidence_interval', 0.95),
+        growth=config.get('growth', 'linear')
     )
     
     # Fit model
     model.fit(prophet_df)
-    logger.info('Model Trained Succesfully!')
+    logger.info('  Model trained successfully!')
 
-    return model, prophet_df
+    return model, prophet_df, freq
+
 
 def hyperparameter_search(df, value_col, param_grid, model_name):
     """
     Hyperparameter search using in-sample MAE.
-    
-    Note: Use only when you have 20+ weeks of data.
-    For datasets <20 weeks, stick with default parameters.
+    Use only when you have 20+ weeks of data.
     """
-
     logger.info(f"\nSearching hyperparameters for {model_name}...")
     
     results = []
@@ -153,22 +238,34 @@ def hyperparameter_search(df, value_col, param_grid, model_name):
     
     return dict(best)
 
-def predict_prophet(model, periods_days, model_name):
+
+def predict_prophet(model, periods, model_name, freq='W'):
     """Generate future predictions using Facebook's Prophet model."""
-    logger.info(f"\nGenerating {periods_days}-day forecast for {model_name}...")
+    # Define frequency name
+    freq_name = 'weeks' if freq == 'W' else 'days'
+    logger.info(f"\nGenerating {periods}-{freq_name} forecast for {model_name}...")
     
-    # Create future dataframe
-    future = model.make_future_dataframe(periods=periods_days, freq='D')
+    # Create future dataframe with correct frequency
+    future = model.make_future_dataframe(periods=periods, freq=freq)
     
     # Generate predictions
     forecast = model.predict(future)
     
     logger.info(f"  Forecast generated: {len(forecast)} total points")
     
+    # Check for negative predictions (should not happen for counts)
+    if 'volume' in model_name.lower():
+        neg_count = (forecast['yhat'] < 0).sum()
+        if neg_count > 0:
+            logger.warning(f"  {neg_count} negative predictions detected - clamping to 0")
+            forecast['yhat'] = forecast['yhat'].clip(lower=0)
+            forecast['yhat_lower'] = forecast['yhat_lower'].clip(lower=0)
+    
     return forecast
 
+
 def plot_forecast(model, forecast, title, figsize=(14,6)):
-    """Plot Prophet model with historical data and confidence intervals."""
+    """Plot Prophet forecast with historical data and confidence intervals."""
     fig = model.plot(forecast, figsize=figsize)
     plt.title(title, fontsize=14, fontweight='bold')
     plt.xlabel('Date')
@@ -177,13 +274,15 @@ def plot_forecast(model, forecast, title, figsize=(14,6)):
     plt.tight_layout()
     plt.show()
 
-def plot_components(model, forecast, figsize=(14,6)):
-    """Plot Prophet forecast components (seasonality, trends, etc.)"""
+
+def plot_components(model, forecast, figsize=(14,8)):
+    """Plot Prophet forecast components (trend, seasonality, etc.)"""
     fig = model.plot_components(forecast, figsize=figsize)
     plt.tight_layout()
     plt.show()
 
-def evaluate_forecast(model, prophet_df, forecast):
+
+def evaluate_forecast(prophet_df, forecast):
     """
     Evaluate forecast performance on historical data without cross-validation.
     Use when data is too limited for Prophet's cross_validation.
@@ -229,7 +328,13 @@ def evaluate_forecast(model, prophet_df, forecast):
     logger.info(f"  MDAPE:    {mdape:.2f}%")
     logger.info(f"  Coverage: {coverage:.1%} (target: 95%)")
     
+    # Warning for high MAPE
+    if mape > 100:
+        logger.warning(f"      MAPE very high - likely due to small actual values")
+        logger.warning(f"      Focus on MAE and MDAPE instead")
+    
     return metrics
+
 
 def evaluate_forecast_CV(model, initial_days, period_days, horizon_days):
     """
@@ -252,7 +357,7 @@ def evaluate_forecast_CV(model, initial_days, period_days, horizon_days):
     logger.info(f"  Generated {len(df_cv)} prediction points")
     
     # Calculate performance metrics
-    metrics_df = performance_metrics(df_cv, rolling_window=0.1)  # 10% window
+    metrics_df = performance_metrics(df_cv, rolling_window=0.1)
     
     # Summary statistics
     summary = {
@@ -272,13 +377,16 @@ def evaluate_forecast_CV(model, initial_days, period_days, horizon_days):
     
     return metrics_df, summary
 
+
 def evaluate_prophet(model, prophet_df, forecast, use_cv=False, cv_params=None):
-    """ Evaluate forecast performance using Facebook's Prophet model."""
+    """
+    Evaluate forecast performance using Prophet.
+    Automatically chooses between in-sample and cross-validation.
+    """
     # Check if we have enough data for CV
     data_days = (prophet_df['ds'].max() - prophet_df['ds'].min()).days
     
     if use_cv and cv_params and data_days >= cv_params.get('initial_days', 180) * 2:
-        # Use cross-validation if requested and sufficient data
         _, metrics = evaluate_forecast_CV(
             model=model,
             initial_days=cv_params['initial_days'],
@@ -286,16 +394,27 @@ def evaluate_prophet(model, prophet_df, forecast, use_cv=False, cv_params=None):
             horizon_days=cv_params['horizon_days']
         )
     else:
-        # Use in-sample evaluation
         if use_cv:
             logger.warning(f"Insufficient data for CV ({data_days} days). Using in-sample evaluation.")
-        metrics = evaluate_forecast(model, prophet_df, forecast)
+        metrics = evaluate_forecast(prophet_df, forecast)
     
     return metrics
 
-def get_future_predictions(forecast, future_days=90):
+
+def get_future_predictions(forecast, prophet_df, future_periods=None):
     """Extract only future predictions (not historical fit)."""
-    # Get last N rows (future predictions)
-    future_forecast = forecast.tail(future_days).copy()
+    # Get the last training date
+    last_training_date = prophet_df['ds'].max()
+    
+    # Filter forecast to only dates AFTER training period
+    future_mask = forecast['ds'] > last_training_date
+    future_forecast = forecast[future_mask].copy()
+    
+    # Limit to requested number of periods if specified
+    if future_periods:
+        future_forecast = future_forecast.head(future_periods)
+    
+    logger.info(f"  Extracted {len(future_forecast)} future prediction points")
+    logger.info(f"  Future period: {future_forecast['ds'].min()} to {future_forecast['ds'].max()}")
     
     return future_forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
