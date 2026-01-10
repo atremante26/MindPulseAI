@@ -12,7 +12,7 @@ __pycache__/
 **/__pycache__/
 *.py[cod]
 .env.local
-logs/
+logs/*.log
 
 # ----------------------
 # Python (backend/)
@@ -38,3 +38,15 @@ rsa_key*
 # Great Expectations
 # ----------------------
 gx/uncommitted/
+
+# ----------------------
+# Modeling
+# ----------------------
+*.pkl
+*.joblib
+analysis/models/saved_models/**/*
+analysis/outputs/results/**/*
+!analysis/models/saved_models/.gitkeep
+!analysis/outputs/results/.gitkeep
+!analysis/outputs/figures/**/*
+!logs/.gitkeep

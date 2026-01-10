@@ -266,20 +266,25 @@ def predict_prophet(model, periods, model_name, freq='W'):
 
 def plot_forecast(model, forecast, title, figsize=(14,6)):
     """Plot Prophet forecast with historical data and confidence intervals."""
-    fig = model.plot(forecast, figsize=figsize)
+    model.plot(forecast, figsize=figsize)
+    fig = plt.gcf() 
+    
     plt.title(title, fontsize=14, fontweight='bold')
-    plt.xlabel('Date')
-    plt.ylabel('Value')
+    plt.xlabel('Date', fontsize=12)
+    plt.ylabel('Value', fontsize=12)
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
-    plt.show()
+    
+    return fig
 
 
 def plot_components(model, forecast, figsize=(14,8)):
     """Plot Prophet forecast components (trend, seasonality, etc.)"""
-    fig = model.plot_components(forecast, figsize=figsize)
+    model.plot_components(forecast, figsize=figsize)
+    fig = plt.gcf()  
     plt.tight_layout()
-    plt.show()
+    
+    return fig
 
 
 def evaluate_forecast(prophet_df, forecast):
