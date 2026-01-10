@@ -133,19 +133,41 @@ def prepare_news_data():
 
 
 def train_models(weekly_reddit, weekly_news):
-    """Train all 4 Prophet forecasting models."""
+    """Train all 4 Prophet forecasting models with optional hyperparameter tuning."""
     forecast_periods = FORECASTING_CONFIG['forecast_horizon_weeks']
     models = {}
     forecasts = {}
     metrics = {}
     
-    # Reddit Volume
-    logger.info("\nTraining Model 1: Reddit Volume")
+    # Hyperparameter search configuration
+    TUNING_MIN_WEEKS = 20  # Minimum weeks needed for reliable tuning
+    param_grid = {
+        'changepoint_prior_scale': [0.001, 0.01, 0.05, 0.1, 0.5],
+        'seasonality_prior_scale': [0.01, 0.1, 1.0, 10.0]
+    }
+    
+    # REDDIT VOLUME
+    # Tune if enough data
+    reddit_volume_config = FORECASTING_CONFIG['prophet'].copy()
+    if len(weekly_reddit) >= TUNING_MIN_WEEKS:
+        logger.info(f"Sufficient data ({len(weekly_reddit)} weeks) - running hyperparameter search")
+        best_params = hyperparameter_search(
+            df=weekly_reddit,
+            value_col='volume',
+            param_grid=param_grid,
+            model_name='Reddit Volume'
+        )
+        reddit_volume_config['changepoint_prior_scale'] = best_params['changepoint_prior_scale']
+        reddit_volume_config['seasonality_prior_scale'] = best_params['seasonality_prior_scale']
+    else:
+        logger.info(f"Limited data ({len(weekly_reddit)} weeks) - using default config")
+    
+    # Train
     models['reddit_volume'], data, freq = train_prophet(
         df=weekly_reddit,
         pred_col='volume',
         model_name='Reddit Volume',
-        config=FORECASTING_CONFIG['prophet']
+        config=reddit_volume_config
     )
     forecasts['reddit_volume'] = predict_prophet(
         models['reddit_volume'], forecast_periods, 'Reddit Volume', freq
@@ -154,13 +176,28 @@ def train_models(weekly_reddit, weekly_news):
         models['reddit_volume'], data, forecasts['reddit_volume'], use_cv=False
     )
     
-    # Reddit Sentiment
-    logger.info("\nTraining Model 2: Reddit Sentiment")
+    # REDDIT SENTIMENT
+    # Tune if enough data
+    reddit_sentiment_config = FORECASTING_CONFIG['prophet'].copy()
+    if len(weekly_reddit) >= TUNING_MIN_WEEKS:
+        logger.info(f"Sufficient data ({len(weekly_reddit)} weeks) - running hyperparameter search")
+        best_params = hyperparameter_search(
+            df=weekly_reddit,
+            value_col='sentiment',
+            param_grid=param_grid,
+            model_name='Reddit Sentiment'
+        )
+        reddit_sentiment_config['changepoint_prior_scale'] = best_params['changepoint_prior_scale']
+        reddit_sentiment_config['seasonality_prior_scale'] = best_params['seasonality_prior_scale']
+    else:
+        logger.info(f"Limited data ({len(weekly_reddit)} weeks) - using default config")
+    
+    # Train
     models['reddit_sentiment'], data, freq = train_prophet(
         df=weekly_reddit,
         pred_col='sentiment',
         model_name='Reddit Sentiment',
-        config=FORECASTING_CONFIG['prophet']
+        config=reddit_sentiment_config
     )
     forecasts['reddit_sentiment'] = predict_prophet(
         models['reddit_sentiment'], forecast_periods, 'Reddit Sentiment', freq
@@ -169,14 +206,30 @@ def train_models(weekly_reddit, weekly_news):
         models['reddit_sentiment'], data, forecasts['reddit_sentiment'], use_cv=False
     )
     
-    # News Volume
-    logger.info("\nTraining Model 3: News Volume")
+    # NEWS VOLUME
+    # Special handling for limited News data
     news_volume_config = FORECASTING_CONFIG['prophet'].copy()
+    
     if len(weekly_news) < 15:
+        # Use flat growth for very limited data
         news_volume_config['growth'] = 'flat'
         news_volume_config['weekly_seasonality'] = False
-        logger.info("Using 'flat growth' config for limited News data")
+        logger.info(f"Very limited data ({len(weekly_news)} weeks) - using 'flat growth' config")
+    elif len(weekly_news) >= TUNING_MIN_WEEKS:
+        # Tune if enough data
+        logger.info(f"Sufficient data ({len(weekly_news)} weeks) - running hyperparameter search")
+        best_params = hyperparameter_search(
+            df=weekly_news,
+            value_col='volume',
+            param_grid=param_grid,
+            model_name='News Volume'
+        )
+        news_volume_config['changepoint_prior_scale'] = best_params['changepoint_prior_scale']
+        news_volume_config['seasonality_prior_scale'] = best_params['seasonality_prior_scale']
+    else:
+        logger.info(f"Limited data ({len(weekly_news)} weeks) - using default config")
     
+    # Train
     models['news_volume'], data, freq = train_prophet(
         df=weekly_news,
         pred_col='volume',
@@ -190,13 +243,28 @@ def train_models(weekly_reddit, weekly_news):
         models['news_volume'], data, forecasts['news_volume'], use_cv=False
     )
     
-    # News Sentiment
-    logger.info("\nTraining Model 4: News Sentiment")
+    # NEWS SENTIMENT    
+    # Tune if enough data
+    news_sentiment_config = FORECASTING_CONFIG['prophet'].copy()
+    if len(weekly_news) >= TUNING_MIN_WEEKS:
+        logger.info(f"Sufficient data ({len(weekly_news)} weeks) - running hyperparameter search")
+        best_params = hyperparameter_search(
+            df=weekly_news,
+            value_col='sentiment',
+            param_grid=param_grid,
+            model_name='News Sentiment'
+        )
+        news_sentiment_config['changepoint_prior_scale'] = best_params['changepoint_prior_scale']
+        news_sentiment_config['seasonality_prior_scale'] = best_params['seasonality_prior_scale']
+    else:
+        logger.info(f"Limited data ({len(weekly_news)} weeks) - using default config")
+    
+    # Train
     models['news_sentiment'], data, freq = train_prophet(
         df=weekly_news,
         pred_col='sentiment',
         model_name='News Sentiment',
-        config=FORECASTING_CONFIG['prophet']
+        config=news_sentiment_config
     )
     forecasts['news_sentiment'] = predict_prophet(
         models['news_sentiment'], forecast_periods, 'News Sentiment', freq
