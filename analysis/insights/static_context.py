@@ -18,7 +18,10 @@ logger = logging.getLogger(__name__)
 def analyze_who_suicide(who_df):
     """
     Analyze WHO suicide dataset and return key statistics.
+
     Columns: country, year, sex, age, suicides_no, population, suicide_rate_per_100k
+
+    Returns formatted string with key statistics.
     """
     try:
         # Get most recent year
@@ -99,7 +102,10 @@ def analyze_who_suicide(who_df):
 def analyze_mental_health_care(mhc_df):
     """
     Analyze mental health care dataset and return key statistics.
+
     Columns: Indicator, Group, State, Subgroup, Phase, Time Period, Value, etc.
+
+    Returns formatted string with key statistics.
     """
     try:
         # Get unique indicators to understand what data we have
@@ -192,7 +198,10 @@ def analyze_mental_health_care(mhc_df):
 def analyze_suicide_demographics(demo_df):
     """
     Analyze suicide demographics dataset and return key statistics. 
+
     Columns: indicator, unit, stub_name, stub_label, year, age, estimate, flag, demographic_category, demographic_value
+
+    Returns formatted string with key statistics.
     """
     try:
         # Get most recent year

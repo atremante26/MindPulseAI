@@ -9,6 +9,15 @@ def get_weekly_insights_prompt(
 ):
     """
     Generate Claude prompt for weekly mental health insights, including data from Reddit, News, and static datasets.
+
+    Parameters:
+    - week_start/week_end: Date range (YYYY-MM-DD)
+    - reddit_sample: List of dicts with Reddit post data
+    - news_sample: List of news headline strings
+    - forecast_summary: Dict with forecast metrics
+    
+    Returns:
+    - String prompt for Claude
     """
     
     static_context = get_static_context()
@@ -107,6 +116,12 @@ Format your response with clear section headers and concise, evidence-based insi
 def format_reddit_sample(reddit_posts):
     """
     Format Reddit posts for Claude prompt.
+
+    Parameters:
+    - reddit_posts: List of dicts with keys: title, sentiment, score, comments
+    
+    Returns:
+    - Formatted string
     """
     if not reddit_posts:
         return "No Reddit posts available for this period."
@@ -138,6 +153,12 @@ def format_reddit_sample(reddit_posts):
 def format_news_sample(news_headlines):
     """
     Format news headlines for Claude prompt.
+
+    Parameters:
+    - news_headlines: List of headline strings
+    
+    Returns:
+    - Formatted string
     """
     if not news_headlines:
         return "No news headlines available for this period."
