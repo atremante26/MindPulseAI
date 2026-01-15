@@ -5,7 +5,8 @@ from .static_context import (
 )
 
 from .prompt_templates import (
-    get_weekly_insights_prompt
+    get_weekly_insights_prompt,
+    get_datapoint_insight_prompt
 )
 
 from .insights_utils import (
@@ -13,6 +14,7 @@ from .insights_utils import (
     sample_recent_news,
     extract_forecast_summary,
     call_api,
+    call_api_datapoint,
     parse_insights_sections
 )
 
@@ -21,9 +23,11 @@ __all__ = [
     "get_crisis_indicators",
     "get_common_concerns",
     "get_weekly_insights_prompt",
+    "get_datapoint_insight_prompt",
     "sample_recent_reddit",
     "sample_recent_news",
     "extract_forecast_summary",
     "call_api",
+    "call_api_datapoint",
     "parse_insights_sections"
 ]

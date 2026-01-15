@@ -113,6 +113,100 @@ Format your response with clear section headers and concise, evidence-based insi
     return prompt
 
 
+def get_datapoint_insight_prompt(
+    metric_name,
+    week_date,
+    value,
+    baseline,
+    pct_change,
+    confidence_lower,
+    confidence_upper,
+    surrounding_weeks
+):
+    """
+    Generate prompt for explaining a specific forecast datapoint.
+    
+    Parameters:
+    - metric_name: "Reddit Volume", "Reddit Sentiment", "News Volume", "News Sentiment"
+    - week_date: "2026-02-10" (Monday of the week)
+    - value: Forecasted value (e.g., -0.52 for sentiment, 56 for volume)
+    - baseline: Average baseline value across all forecasts
+    - pct_change: Percent change from baseline
+    - confidence_lower/upper: 95% confidence interval bounds
+    - surrounding_weeks: List of dicts with week data (before/after this point)
+    
+    Returns:
+    - Prompt string for Claude
+    """
+    # Get static context
+    static_context = get_static_context()
+    crisis_indicators = get_crisis_indicators()
+    common_concerns = get_common_concerns()
+
+    # Determine metric type and units
+    metric_type = "sentiment" if "Sentiment" in metric_name else "volume"
+    unit = "sentiment score (-1 to +1)" if metric_type == "sentiment" else "posts/articles per week"
+    
+    # Format surrounding weeks
+    surrounding_text = "\n".join([
+        f"  - {week['date']}: {week['value']:.2f if metric_type == 'sentiment' else week['value']:.0f}"
+        for week in surrounding_weeks
+    ])
+    
+    prompt = f"""You are a mental health data analyst. A user has clicked on a specific datapoint in a forecast chart and wants to understand its significance.
+
+<datapoint_details>
+**Metric:** {metric_name}
+**Week:** {week_date}
+**Forecasted Value:** {value:.2f if metric_type == 'sentiment' else value:.0f} {unit}
+**Baseline Average:** {baseline:.2f if metric_type == 'sentiment' else baseline:.0f}
+**Change from Baseline:** {pct_change:+.1f}%
+**95% Confidence Interval:** [{confidence_lower:.2f if metric_type == 'sentiment' else confidence_lower:.0f}, {confidence_upper:.2f if metric_type == 'sentiment' else confidence_upper:.0f}]
+
+**Surrounding Weeks (for context):**
+{surrounding_text}
+</datapoint_details>
+
+<context>
+Statistical summaries and insights from historic datasets including WHO Suicide, Mental Health Care, and Suicide Demographics. Consider these as useful context for understanding the mental health conversation.
+{static_context}
+</context>
+
+<crisis_indicators>
+List of crisis-related keywords to flag.
+{crisis_indicators}
+</crisis_indicators>
+
+<common_concerns>
+Common mental health concerns to look for in data. Useful for thematic analysis.
+{common_concerns}
+</common_concerns>
+
+<task>
+Provide a concise, insightful explanation of this specific datapoint in 2-3 paragraphs:
+
+**1. Statistical Context** (2-3 sentences)
+- What does this forecasted value mean statistically?
+- How does it compare to the baseline?
+- How confident are we in this prediction (based on confidence interval width)?
+
+**2. Mental Health Interpretation** (2-3 sentences)
+- What might this value suggest about mental health discussions or community mood?
+- Are there seasonal factors, current events, or patterns that could explain this?
+- How does this point fit into the broader trend (looking at surrounding weeks)?
+
+**3. Significance & Recommendations** (2-3 sentences)
+- Why should stakeholders pay attention to this specific point?
+- Are there any concerning patterns or positive signals?
+- What actions or monitoring would you recommend for this time period?
+
+Keep your response focused, data-driven, and actionable. Avoid generic statements - be specific to this exact datapoint and its context.
+</task>
+"""
+    
+    return prompt
+
+
 def format_reddit_sample(reddit_posts):
     """
     Format Reddit posts for Claude prompt.

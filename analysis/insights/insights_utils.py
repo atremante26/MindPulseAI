@@ -7,7 +7,7 @@ from anthropic import Anthropic
 from dotenv import load_dotenv
 
 from analysis.config.model_config import INSIGHTS_CONFIG
-from insights import get_weekly_insights_prompt
+from insights import get_weekly_insights_prompt, get_datapoint_insight_prompt
 
 # Load environment variables
 load_dotenv()
@@ -246,6 +246,120 @@ def call_api(
     except Exception as e:
         logger.error(f"Claude API call failed: {str(e)}")
         raise
+
+
+def call_api_datapoint(
+    metric_name,
+    week_date,
+    value,
+    baseline,
+    confidence_lower,
+    confidence_upper,
+    surrounding_weeks,
+    static_context
+):
+    """
+    Call Claude 3.5 Haiku to generate insight for a specific forecast datapoint.
+    
+    This is called when a user clicks on a chart point to understand it.
+    
+    Parameters:
+    - metric_name: "Reddit Volume", "Reddit Sentiment", etc.
+    - week_date: ISO date string "2026-02-10"
+    - value: Forecasted value
+    - baseline: Average baseline value
+    - confidence_lower/upper: CI bounds
+    - surrounding_weeks: List of dicts with surrounding week data
+    - static_context: Mental health statistics
+    
+    Returns:
+    - Dict with insight text and metadata
+    """
+    logger.info(f"Generating datapoint insight: {metric_name}, week {week_date}")
+    
+    # Calculate percent change
+    pct_change = ((value - baseline) / abs(baseline)) * 100 if baseline != 0 else 0
+    
+    # Build prompt
+    prompt = get_datapoint_insight_prompt(
+        metric_name=metric_name,
+        week_date=week_date,
+        value=value,
+        baseline=baseline,
+        pct_change=pct_change,
+        confidence_lower=confidence_lower,
+        confidence_upper=confidence_upper,
+        surrounding_weeks=surrounding_weeks,
+        static_context=static_context
+    )
+    
+    # Call Claude API
+    try:
+        response = client.messages.create(
+            model=INSIGHTS_CONFIG['llm']['model'],
+            max_tokens=1024,  # Shorter than weekly insights
+            temperature=0.7,
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
+        
+        insight_text = response.content[0].text
+        
+        # Calculate cost
+        input_tokens = response.usage.input_tokens
+        output_tokens = response.usage.output_tokens
+        cost = (input_tokens / 1_000_000 * 1.00) + (output_tokens / 1_000_000 * 5.00)
+        
+        logger.info(f"Generated datapoint insight ({len(insight_text)} chars)")
+        logger.info(f"Cost: ${cost:.4f}")
+        
+        return {
+            'text': insight_text,
+            'metadata': {
+                'model': response.model,
+                'input_tokens': input_tokens,
+                'output_tokens': output_tokens,
+                'cost_estimate': cost,
+                'metric': metric_name,
+                'week': week_date,
+                'value': value
+            }
+        }
+        
+    except Exception as e:
+        logger.error(f"Failed to generate datapoint insight: {e}")
+        raise
+
+
+def prepare_surrounding_weeks_context(forecast_data, target_week_index, window=2):
+    """
+    Extract surrounding weeks for context.
+    
+    Parameters:
+    - forecast_data: List of dicts with 'ds' and 'yhat' keys (Prophet output)
+    - target_week_index: Index of the clicked week
+    - window: Number of weeks before/after to include (default: 2)
+    
+    Returns:
+    - List of dicts with week data
+    """
+    start_idx = max(0, target_week_index - window)
+    end_idx = min(len(forecast_data), target_week_index + window + 1)
+    
+    surrounding = []
+    for i in range(start_idx, end_idx):
+        if i != target_week_index:  # Don't include the target week itself
+            week_data = forecast_data[i]
+            surrounding.append({
+                'date': week_data['ds'] if isinstance(week_data['ds'], str) else week_data['ds'].strftime('%Y-%m-%d'),
+                'value': week_data['yhat']
+            })
+    
+    return surrounding
 
 
 def parse_insights_sections(insights_text):
