@@ -33,3 +33,22 @@ FORECASTING_CONFIG = {
         'negative_threshold': -0.05    # Scores < -0.05 are negative
     }
 }
+
+# LLM Insights Configuration
+INSIGHTS_CONFIG = {
+    'llm': {
+        'model': 'claude-3-5-haiku-20241022',  
+        'max_tokens': 2048,                     # Enough for detailed insights
+        'temperature': 0.7,                     # Balance creativity and consistency
+    },
+    'sampling': {
+        'reddit_posts_per_week': 30,           # Sample recent high-engagement posts
+        'news_headlines_per_week': 15,         # Sample recent headlines
+        'weeks_lookback': 1,                   # Look at last week's data
+    },
+    'analysis': {
+        'min_weeks_for_insights': 4,           # Need 4+ weeks of forecasts for trends
+        'include_static_context': True,        # Include WHO/mental health stats
+        'parse_structured_output': True,       # Parse into sections
+    }
+}

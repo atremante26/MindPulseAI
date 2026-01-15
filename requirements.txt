@@ -28,7 +28,7 @@ gower
 hdbscan
 seaborn
 matplotlib
-google-generativeai
 prophet
 google-re2==1.0
 vaderSentiment
+anthropic
