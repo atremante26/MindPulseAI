@@ -1,5 +1,4 @@
 import sys
-import json
 import logging
 import pandas as pd
 from pathlib import Path
@@ -28,7 +27,6 @@ def analyze_who_suicide(who_df):
         
         # Global totals (latest year)
         total_suicides = latest_data['suicides_no'].sum()
-        total_population = latest_data['population'].sum()
         global_rate = latest_data['suicide_rate_per_100k'].mean()
         
         # Sex disparity
@@ -392,12 +390,47 @@ def get_crisis_indicators():
 
 
 def get_common_concerns():
-    """Returns dict of common mental health concern keywords."""
+    """
+    Returns common mental health concerns to look for in data.
+    Useful for thematic analysis.
+    """
     return {
-        'depression': ['depressed', 'depression', 'hopeless', 'sad', 'empty', 'numb'],
-        'anxiety': ['anxiety', 'anxious', 'panic', 'worry', 'nervous', 'overwhelmed'],
-        'therapy_access': ['therapy', 'therapist', 'afford', 'cost', 'insurance', 'wait list'],
-        'medication': ['medication', 'meds', 'antidepressant', 'ssri', 'prescription'],
-        'loneliness': ['lonely', 'alone', 'isolated', 'no friends'],
-        'crisis': ['crisis', 'emergency', 'urgent', '988', 'hotline', 'hospital']
+        'depression': [
+            'depressed', 'depression', 'hopeless', 'hopelessness',
+            'sad', 'empty', 'numb', 'worthless'
+        ],
+        'anxiety': [
+            'anxiety', 'anxious', 'panic', 'panic attack', 
+            'worry', 'nervous', 'overwhelmed', 'stressed'
+        ],
+        'therapy_access': [
+            'therapy', 'therapist', 'counselor', 'psychiatrist',
+            'afford', 'cost', 'expensive', 'insurance', 
+            'wait list', 'waitlist', 'no availability'
+        ],
+        'medication': [
+            'medication', 'meds', 'antidepressant', 'ssri', 
+            'prescription', 'side effects', 'dosage', 'lexapro', 
+            'zoloft', 'prozac', 'wellbutrin'
+        ],
+        'loneliness': [
+            'lonely', 'alone', 'isolated', 'isolation',
+            'no friends', 'social isolation', 'nobody cares'
+        ],
+        'work_stress': [
+            'burnout', 'work stress', 'job stress', 'career',
+            'workplace', 'overworked', 'toxic work environment'
+        ],
+        'relationships': [
+            'breakup', 'divorce', 'relationship problems',
+            'family issues', 'toxic relationship', 'abuse', 'domestic violence'
+        ],
+        'self_care': [
+            'self-care', 'self care', 'coping', 'meditation',
+            'exercise', 'sleep', 'routine', 'mindfulness'
+        ],
+        'crisis': [
+            'crisis', 'emergency', 'urgent', '988', 'hotline',
+            'hospital', 'ER', 'immediate help'
+        ]
     }
