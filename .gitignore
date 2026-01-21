@@ -18,6 +18,10 @@ logs/*.log
 # Python (backend/)
 # ----------------------
 data/
+!data/resources/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/static/.gitkeep
 
 # ----------------------
 # Node.js (frontend/)
