@@ -52,3 +52,22 @@ INSIGHTS_CONFIG = {
         'parse_structured_output': True,       # Parse into sections
     }
 }
+
+# Recommender System Configuration
+RECOMMENDER_CONFIG = {
+    'algorithm': 'content_based',  # 'content_based', 'collaborative', 'hybrid'
+    'top_n': 5,  # Number of recommendations to return
+    'min_match_score': 0.3,  # Minimum similarity score (0-1) to recommend
+    'weights': {
+        'concerns': 0.5,  # Weight for matching mental health concerns
+        'cost': 0.2,  # Weight for matching cost tier
+        'age': 0.15,  # Weight for matching age group
+        'type': 0.1,  # Weight for matching resource type
+        'crisis': 0.05,  # Weight for crisis resource match
+    },
+    'boost_factors': {
+        'high_rating': 1.2,  # Boost score by 20% if rating > 4.5
+        'crisis_match': 1.5,  # Boost by 50% if user needs crisis resource
+        'free_resource': 1.1,  # Boost by 10% if free and user wants free
+    }
+}
