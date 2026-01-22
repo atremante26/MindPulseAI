@@ -14,7 +14,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from analysis.load_data import load_dataset
 from analysis.config.model_config import FORECASTING_CONFIG
-from analysis.forecasting.forecasting_utils import *
+from analysis.forecasting import *
 
 # Configure logging
 logging.basicConfig(

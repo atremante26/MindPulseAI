@@ -1,4 +1,7 @@
-from .recommender_utils import MentalHealthRecommender, get_recommendations
+from .recommender_utils import (
+    MentalHealthRecommender, 
+    get_recommendations
+)
 
 __all__ = [
     "MentalHealthRecommender",
