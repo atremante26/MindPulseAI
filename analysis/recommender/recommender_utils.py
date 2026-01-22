@@ -121,6 +121,78 @@ class MentalHealthRecommender:
 
         logger.info(f"Initialized encoders: {len(all_concerns)} concerns, {len(all_types)} types, {len(all_ages)} age groups, and {len(all_tags)} tags.")
 
+    def _validate_database(self) -> Dict:
+        """
+        Validate resource database schema and data quality.
+        
+        Checks:
+        - Required fields present
+        - Valid data types
+        - No duplicate IDs
+        - Ratings in valid range
+        
+        :return: Dict with validation results: {'valid': bool, 'issues': list, 'warnings': list}
+        """
+        logger.info("Validating resource database...")
+
+        issues = []
+        warnings = []
+
+        # Check for duplicate IDs
+        ids = [r.get('id') for r in self.resources]
+        duplicate_ids = [id for id in ids if ids.count(id) > 1]
+        if duplicate_ids:
+            issues.append(f"Duplicate IDs found: {set(duplicate_ids)}")
+        
+        # Required fields
+        required_fields = ['id', 'name', 'type', 'description', 'concerns', 'cost_tier', 'age_groups']
+        
+        for i, resource in enumerate(self.resources):
+            resource_id = resource.get('id', f'index_{i}')
+            
+            # Check required fields
+            for field in required_fields:
+                if field not in resource or not resource[field]:
+                    issues.append(f"Resource '{resource_id}' missing required field: {field}")
+            
+            # Validate rating
+            rating = resource.get('rating')
+            if rating is not None and not (0 <= rating <= 5):
+                issues.append(f"Resource '{resource_id}' has invalid rating: {rating}")
+            
+            # Check concerns is a list
+            if 'concerns' in resource and not isinstance(resource['concerns'], list):
+                issues.append(f"Resource '{resource_id}' concerns must be a list")
+            
+            # Check age_groups is a list
+            if 'age_groups' in resource and not isinstance(resource['age_groups'], list):
+                issues.append(f"Resource '{resource_id}' age_groups must be a list")
+            
+            # Warn if missing contact info
+            if not resource.get('url') and not resource.get('phone'):
+                warnings.append(f"Resource '{resource_id}' has no URL or phone number")
+        
+        validation_results = {
+            'valid': len(issues) == 0,
+            'total_resources': len(self.resources),
+            'issues': issues,
+            'warnings': warnings
+        }
+        
+        if issues:
+            logger.error(f"  Validation failed with {len(issues)} issues")
+            for issue in issues[:10]:  # Show first 10
+                logger.error(f"  - {issue}")
+        else:
+            logger.info(f"  Validation passed! {len(self.resources)} resources validated")
+        
+        if warnings:
+            logger.warning(f"Found {len(warnings)} warnings")
+            for warning in warnings[:5]:  # Show first 5
+                logger.warning(f"  - {warning}")
+        
+        return validation_results
+
     def _vectorize_resource(self, resource: Dict) -> np.ndarray:
         """
         Convert resource to feature vector.
