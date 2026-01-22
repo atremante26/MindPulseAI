@@ -165,3 +165,243 @@ class MentalHealthRecommender:
 
         return np.array(features)
     
+    def _vectorize_user_profile(self, user_profile: Dict) -> np.ndarray:
+        """
+        Convert user profile to feature vector (same dimensions as resources).
+
+        User profile format:
+        {
+            "concerns": ["anxiety", "depression"],
+            "cost_preference": "free",  # or "low", "medium", "high"
+            "age": 23,  # Used to determine age_group
+            "resource_type_preferences": ["app", "community"],  # Optional
+            "crisis_need": False,  # True if user needs immediate help
+            "online_only": False  # True if user wants only online resources
+        }
+
+        :param user_profile: Dict of user profile
+        :return: NumPy array of features
+        """
+
+        features = []
+
+        # Concerns (multi-hot encoding)
+        concerns = self.concern_encoder.transform([user_profile.get('concerns', [])])[0]
+        features.extend(concerns)
+
+        # Cost tier (one-hot encoding)
+        cost_tier = user_profile.get('cost_performance', 'low')
+        cost_vector = [
+            1 if cost_tier == 'free' else 0,
+            1 if cost_tier == 'low' else 0,
+            1 if cost_tier == 'medium' else 0,
+            1 if cost_tier == 'high' else 0
+        ]
+        features.extend(cost_vector)
+
+        # Age Groups (convert age to age_group)
+        age = user_profile.get('age', 25)
+        age_group = self._age_to_age_group(age)
+        ages = self.age_encoder.transform([[age_group]])[0]
+        features.extend(ages)
+
+        # Resource Type Preferences (one-hot encoding)
+        type_prefs = user_profile.get('resource_type_preferences', [])
+        types = self.type_encoder.transform([type_prefs])[0] if type_prefs else np.zeros(len(self.type_encoder.classes_))
+        features.extend(types)
+
+        # Crisis Need (binary)
+        features.append(1 if user_profile.get('crisis_need', False) else 0)
+
+        # Online Only Preference (binary)
+        features.append(1 if user_profile.get('online_only', False) else 0)
+
+        # Rating preference (always want high rating, set to 1.0)
+        features.append(1.0)
+
+        return np.array(features)
+
+    def _age_to_age_group(self, age: int) -> str:
+        """
+        Convert numeric age to string age group.
+        
+        :param age: Integer age of user.
+        :return: String age group of user ("teen", "young_adult", "adult", "senior").
+        """
+        if age < 18:
+            return "teen"
+        elif age < 26:
+            return "young_adult"
+        elif age < 65:
+            return "adult"
+        else:
+            return "senior"
+    
+    def _apply_feature_weights(self, similarity_scores: np.ndarray, user_vector: np.ndarray, resource_vectors: List[np.ndarray]) -> np.ndarray:
+        """
+        Apply feature-specific weights to similarity scores.
+
+        This computes separate similarities for each feature group (concerns, cost, age, etc.)
+        and combines them with configured weights for more nuanced recommendations.
+        
+        Feature groups:
+        - Concerns: Most important (weight: 0.5)
+        - Cost: Second most important (weight: 0.2)
+        - Age: Moderate importance (weight: 0.15)
+        - Type: Lower importance (weight: 0.1)
+        - Crisis: Emergency override (weight: 0.05)
+        
+        Formula:
+        weighted_score = (w1 * concerns_sim) + (w2 * cost_sim) + (w3 * age_sim) + ...
+        
+        :param similarity_scores: np.ndarray of similarity scores between user_vector and resource_vectors.
+        :param user_vector: np.ndarray vector of user profile 
+        :param resource_vectors: List of np.ndarray vectors of resources
+        :return: np.ndarray of weighted scores
+        """
+        # Get feature weights from config
+        weights = self.config['weights']
+        
+        # Calculate number of features in each group
+        n_concerns = len(self.concern_encoder.classes_)
+        n_cost = 4  # free, low, medium, high
+        n_ages = len(self.age_encoder.classes_)
+        n_types = len(self.type_encoder.classes_)
+        n_crisis = 1  # binary
+        n_online = 1  # binary
+        n_rating = 1  # normalized 0-1
+        
+        # Define slice indices for each feature group
+        idx = 0
+        concerns_slice = slice(idx, idx + n_concerns)
+        idx += n_concerns
+        
+        cost_slice = slice(idx, idx + n_cost)
+        idx += n_cost
+        
+        age_slice = slice(idx, idx + n_ages)
+        idx += n_ages
+        
+        type_slice = slice(idx, idx + n_types)
+        idx += n_types
+        
+        crisis_slice = slice(idx, idx + n_crisis)
+        idx += n_crisis
+        
+        online_slice = slice(idx, idx + n_online)
+        idx += n_online
+        
+        rating_slice = slice(idx, idx + n_rating)
+        
+        # Calculate weighted scores for each resource
+        weighted_scores = []
+        
+        for resource_vec in resource_vectors:
+            # Extract feature subsets for user and resource
+            user_concerns = user_vector[concerns_slice]
+            resource_concerns = resource_vec[concerns_slice]
+            
+            user_cost = user_vector[cost_slice]
+            resource_cost = resource_vec[cost_slice]
+            
+            user_age = user_vector[age_slice]
+            resource_age = resource_vec[age_slice]
+            
+            user_type = user_vector[type_slice]
+            resource_type = resource_vec[type_slice]
+            
+            user_crisis = user_vector[crisis_slice]
+            resource_crisis = resource_vec[crisis_slice]
+            
+            # Compute similarity for each feature group
+            # Using cosine similarity for each subset
+            
+            # Concerns similarity
+            concerns_sim = self._cosine_similarity_1d(user_concerns, resource_concerns)
+            
+            # Cost similarity (exact match is better than cosine here)
+            # If user wants "free" and resource is "free", perfect match
+            cost_sim = self._exact_match_similarity(user_cost, resource_cost)
+            
+            # Age similarity
+            age_sim = self._cosine_similarity_1d(user_age, resource_age)
+            
+            # Type similarity
+            type_sim = self._cosine_similarity_1d(user_type, resource_type)
+            
+            # Crisis similarity (binary match)
+            crisis_sim = 1.0 if (user_crisis[0] == 1 and resource_crisis[0] == 1) else 0.5
+            
+            # Combine with weights
+            weighted_score = (
+                weights['concerns'] * concerns_sim +
+                weights['cost'] * cost_sim +
+                weights['age'] * age_sim +
+                weights['type'] * type_sim +
+                weights['crisis'] * crisis_sim
+            )
+            
+            weighted_scores.append(weighted_score)
+        
+        return np.array(weighted_scores)
+
+
+    def _cosine_similarity_1d(self, vec1: np.ndarray, vec2: np.ndarray) -> float:
+        """
+        Compute cosine similarity between two 1D vectors.
+        
+        :
+        - Float between 0 and 1 (1 = identical, 0 = completely different)
+        """
+        # Handle edge case: both vectors are all zeros
+        if np.all(vec1 == 0) and np.all(vec2 == 0):
+            return 1.0  # Both have no features = perfect match
+        
+        if np.all(vec1 == 0) or np.all(vec2 == 0):
+            return 0.0  # One has features, other doesn't = no match
+        
+        # Compute cosine similarity
+        dot_product = np.dot(vec1, vec2)
+        norm_product = np.linalg.norm(vec1) * np.linalg.norm(vec2)
+        
+        if norm_product == 0:
+            return 0.0
+        
+        similarity = dot_product / norm_product
+        
+        # Ensure result is in [0, 1] range
+        return max(0.0, min(1.0, similarity))
+
+
+    def _exact_match_similarity(self, vec1: np.ndarray, vec2: np.ndarray) -> float:
+        """
+        Compute exact match similarity for one-hot encoded features.
+        
+        For cost tier: we want exact matches to score highest,
+        but adjacent tiers should still score decently.
+        
+        Examples:
+        - User wants "free", resource is "free" → 1.0
+        - User wants "free", resource is "low" → 0.7
+        - User wants "free", resource is "high" → 0.3
+        """
+        # Find which position is 1 in each vector
+        user_idx = np.argmax(vec1) if np.any(vec1) else -1
+        resource_idx = np.argmax(vec2) if np.any(vec2) else -1
+        
+        if user_idx == -1 or resource_idx == -1:
+            return 0.5  # Neutral if either is unset
+        
+        # Perfect match
+        if user_idx == resource_idx:
+            return 1.0
+        
+        # Adjacent tiers (e.g., free vs low, or low vs medium)
+        distance = abs(user_idx - resource_idx)
+        if distance == 1:
+            return 0.7
+        elif distance == 2:
+            return 0.4
+        else:  # distance == 3 (free vs high)
+            return 0.2
+    
