@@ -44,7 +44,7 @@ class MentalHealthRecommender:
         self.config = RECOMMENDER_CONFIG
 
         # Initialize encoders
-        self._init_encoder()
+        self._init_encoders()
 
         logger.info(f"Initialized recommender with {len(self.resources)} resources.")
 
@@ -103,7 +103,7 @@ class MentalHealthRecommender:
         # Extract categorical features
         for resource in self.resources:
             all_concerns.update(resource.get('concerns', []))
-            all_types.update(resource.get('type', []))
+            all_types.add(resource.get('type', '')) 
             all_ages.update(resource.get('age_groups', []))
             all_tags.update(resource.get('tags', []))
 
@@ -150,7 +150,7 @@ class MentalHealthRecommender:
         features.extend(ages)
 
         # Resource Type (one-hot encoding)
-        types = self.type_encoder.transform([resource.get('type', '')])[0]
+        types = self.type_encoder.transform([[resource.get('type', '')]])[0]
         features.extend(types)
 
         # Crisis Resource (binary)
@@ -190,7 +190,7 @@ class MentalHealthRecommender:
         features.extend(concerns)
 
         # Cost tier (one-hot encoding)
-        cost_tier = user_profile.get('cost_performance', 'low')
+        cost_tier = user_profile.get('cost_preference', 'low')
         cost_vector = [
             1 if cost_tier == 'free' else 0,
             1 if cost_tier == 'low' else 0,
@@ -350,8 +350,9 @@ class MentalHealthRecommender:
         """
         Compute cosine similarity between two 1D vectors.
         
-        :
-        - Float between 0 and 1 (1 = identical, 0 = completely different)
+        :param vec1: np.ndarray vector
+        :param vec1: np.ndarray vector
+        :return: Float between 0 and 1 
         """
         # Handle edge case: both vectors are all zeros
         if np.all(vec1 == 0) and np.all(vec2 == 0):
@@ -381,9 +382,13 @@ class MentalHealthRecommender:
         but adjacent tiers should still score decently.
         
         Examples:
-        - User wants "free", resource is "free" → 1.0
-        - User wants "free", resource is "low" → 0.7
-        - User wants "free", resource is "high" → 0.3
+        - User wants "free", resource is "free" -> 1.0
+        - User wants "free", resource is "low" -> 0.7
+        - User wants "free", resource is "high" -> 0.3
+
+        :param vec1: np.ndarray vector
+        :param vec2: np.ndarray vector
+        :return: Float between 0 and 1
         """
         # Find which position is 1 in each vector
         user_idx = np.argmax(vec1) if np.any(vec1) else -1
@@ -396,7 +401,7 @@ class MentalHealthRecommender:
         if user_idx == resource_idx:
             return 1.0
         
-        # Adjacent tiers (e.g., free vs low, or low vs medium)
+        # Adjacent tiers
         distance = abs(user_idx - resource_idx)
         if distance == 1:
             return 0.7
@@ -405,3 +410,246 @@ class MentalHealthRecommender:
         else:  # distance == 3 (free vs high)
             return 0.2
     
+    def _apply_boost_factors(self,
+                            scores: np.ndarray,
+                            user_profile: Dict,
+                            resources: List[Dict]) -> np.ndarray:
+        """
+        Apply boost factors based on special conditions.
+        
+        Examples:
+        - Boost high-rated resources
+        - Boost crisis resources if user needs crisis support
+        - Boost free resources if user wants free
+        """
+        boosted_scores = scores.copy()
+        boost_factors = self.config['boost_factors']
+        
+        for i, resource in enumerate(resources):
+            # High rating boost
+            if resource.get('rating', 0) >= 4.5:
+                boosted_scores[i] *= boost_factors['high_rating']
+            
+            # Crisis match boost
+            if user_profile.get('crisis_need', False) and resource.get('crisis_resource', False):
+                boosted_scores[i] *= boost_factors['crisis_match']
+            
+            # Free resource boost (if user wants free)
+            if user_profile.get('cost_preference') == 'free' and resource.get('cost_tier') == 'free':
+                boosted_scores[i] *= boost_factors['free_resource']
+        
+        return boosted_scores
+    
+    def recommend(self,
+                  user_profile: Dict,
+                  top_n: Optional[int] = None,
+                  filter_criteria: Optional[Dict] = None) -> List[Dict]:
+        """
+        Generate recommendations for a user.
+        
+        :param user_profile: Dict with user needs/preferences
+        :param top_n: Number of recommendations to return (default: from config)
+        :param filter_criteria: Optional hard filters (e.g., {"online_only": True})
+        :return: List of dicts with recommended resources and match explanations
+        """
+        if top_n is None:
+            top_n = self.config['top_n']
+        
+        logger.info(f"Generating recommendations for user profile: {user_profile.get('concerns', [])}")
+        
+        # Apply hard filters if specified
+        filtered_resources = self.resources
+        if filter_criteria:
+            filtered_resources = self._apply_filters(filtered_resources, filter_criteria)
+        
+        if not filtered_resources:
+            logger.warning("No resources match filter criteria")
+            return []
+        
+        # Vectorize user profile
+        user_vector = self._vectorize_user_profile(user_profile)
+        
+        # Vectorize all resources
+        resource_vectors = [self._vectorize_resource(r) for r in filtered_resources]
+        
+        # Calculate cosine similarities
+        similarities = cosine_similarity([user_vector], resource_vectors)[0]
+        
+        # Apply feature weights 
+        weighted_similarities = self._apply_feature_weights(similarities, user_vector, resource_vectors)
+        
+        # Apply boost factors
+        final_scores = self._apply_boost_factors(weighted_similarities, user_profile, filtered_resources)
+        
+        # Filter by minimum match score
+        min_score = self.config['min_match_score']
+        valid_indices = np.where(final_scores >= min_score)[0]
+        
+        if len(valid_indices) == 0:
+            logger.warning(f"No resources above minimum match score {min_score}")
+            # Return top crisis resources as fallback
+            return self._get_crisis_fallback(top_n)
+        
+        # Sort by score and get top N
+        top_indices = valid_indices[np.argsort(final_scores[valid_indices])[::-1]][:top_n]
+        
+        # Build recommendations with explanations
+        recommendations = []
+        for idx in top_indices:
+            resource = filtered_resources[idx]
+            match_score = final_scores[idx]
+            
+            recommendation = {
+                'resource': resource,
+                'match_score': float(match_score),
+                'explanation': self._generate_explanation(
+                    resource, 
+                    user_profile, 
+                    match_score
+                )
+            }
+            recommendations.append(recommendation)
+        
+        logger.info(f"Generated {len(recommendations)} recommendations (scores: {[r['match_score'] for r in recommendations]})")
+        
+        return recommendations
+    
+    def _apply_filters(self, resources: List[Dict], filters: Dict) -> List[Dict]:
+        """Apply hard filters to resource list."""
+        filtered = resources
+        
+        for key, value in filters.items():
+            if key == 'online_only' and value:
+                filtered = [r for r in filtered if r.get('online_only', False)]
+            elif key == 'crisis_only' and value:
+                filtered = [r for r in filtered if r.get('crisis_resource', False)]
+            elif key == 'max_cost':
+                cost_order = ['free', 'low', 'medium', 'high']
+                max_idx = cost_order.index(value)
+                filtered = [r for r in filtered if cost_order.index(r.get('cost_tier', 'high')) <= max_idx]
+        
+        return filtered
+    
+    def _get_crisis_fallback(self, top_n: int) -> List[Dict]:
+        """Return crisis resources as fallback."""
+        crisis_resources = [r for r in self.resources if r.get('crisis_resource', False)]
+        return [
+            {
+                'resource': r,
+                'match_score': 1.0,
+                'explanation': self._generate_explanation(r, {'crisis_need': True}, 1.0)
+            }
+            for r in crisis_resources[:top_n]
+        ]
+    
+    def _generate_explanation(self, 
+                             resource: Dict, 
+                             user_profile: Dict,
+                             match_score: float) -> Dict:
+        """
+        Generate human-readable explanation for why resource was recommended.
+        
+        :returns: Dict in the format:
+        {
+            "summary": "95% match - Addresses anxiety, free, online",
+            "reasons": [
+                "Addresses your anxiety concerns",
+                "Free tier available",
+                "Online peer support",
+                "High user rating (4.7/5)"
+            ],
+            "match_breakdown": {
+                "concerns": 0.95,
+                "cost": 1.0,
+                "age": 0.88,
+                "overall": 0.92
+            }
+        }
+        """
+        reasons = []
+        
+        # Matching concerns
+        user_concerns = set(user_profile.get('concerns', []))
+        resource_concerns = set(resource.get('concerns', []))
+        matching_concerns = user_concerns & resource_concerns
+        
+        if matching_concerns:
+            concern_str = ', '.join(matching_concerns)
+            reasons.append(f"Addresses your {concern_str} concerns")
+        
+        # Cost match
+        if user_profile.get('cost_preference') == resource.get('cost_tier'):
+            if resource.get('cost_tier') == 'free':
+                reasons.append("Completely free")
+            else:
+                reasons.append(f"Matches your budget ({resource.get('cost_tier')})")
+        elif resource.get('cost_tier') == 'free':
+            reasons.append("Free option available")
+        
+        # Age appropriateness
+        user_age_group = self._age_to_age_group(user_profile.get('age', 25))
+        if user_age_group in resource.get('age_groups', []) or 'all' in resource.get('age_groups', []):
+            reasons.append(f"Appropriate for your age group")
+        
+        # Resource type match
+        type_prefs = user_profile.get('resource_type_preferences', [])
+        if resource.get('type') in type_prefs:
+            reasons.append(f"{resource.get('type').title()} resource (matches preference)")
+        
+        # Crisis resource
+        if user_profile.get('crisis_need', False) and resource.get('crisis_resource', False):
+            reasons.append(" Crisis support available 24/7")
+        
+        # Online availability
+        if user_profile.get('online_only', False) and resource.get('online_only', False):
+            reasons.append("Accessible online")
+        
+        # High rating
+        rating = resource.get('rating', 0)
+        if rating >= 4.5:
+            reasons.append(f"Highly rated ({rating}/5)")
+        elif rating >= 4.0:
+            reasons.append(f"Well-rated ({rating}/5)")
+        
+        # Build summary
+        summary_parts = []
+        if matching_concerns:
+            summary_parts.append(f"Addresses {', '.join(list(matching_concerns)[:2])}")
+        if resource.get('cost_tier') == 'free':
+            summary_parts.append("free")
+        if resource.get('online_only'):
+            summary_parts.append("online")
+        
+        summary = f"{int(match_score * 100)}% match"
+        if summary_parts:
+            summary += f" - {', '.join(summary_parts)}"
+        
+        return {
+            'summary': summary,
+            'reasons': reasons,
+            'match_breakdown': {
+                'concerns': len(matching_concerns) / len(user_concerns) if user_concerns else 0,
+                'cost': 1.0 if user_profile.get('cost_preference') == resource.get('cost_tier') else 0.5,
+                'age': 1.0 if user_age_group in resource.get('age_groups', []) else 0.5,
+                'overall': float(match_score)
+            }
+        }
+
+
+# Helper function
+def get_recommendations(user_profile: Dict, top_n: int = 5) -> List[Dict]:
+    """
+    Convenience function to get recommendations.
+    
+    Usage:
+
+    profile = {
+        "concerns": ["anxiety", "panic_attacks"],
+        "age": 23,
+        "cost_preference": "free",
+        "online_only": True
+    }
+    recommendations = get_recommendations(profile)
+    """
+    recommender = MentalHealthRecommender()
+    return recommender.recommend(user_profile, top_n=top_n)
