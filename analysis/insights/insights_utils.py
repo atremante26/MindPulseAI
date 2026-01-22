@@ -386,41 +386,54 @@ def parse_insights_sections(insights_text):
     current_text = []
     
     for line in lines:
-        line_upper = line.upper()
+        line_stripped = line.strip()
+        line_upper = line_stripped.upper()
         
-        # Detect section headers
-        if 'KEY THEMES' in line_upper:
-            if current_section:
+        # Skip empty lines
+        if not line_stripped:
+            continue
+        
+        # Detect section headers (both ## and ** formats)
+        if 'KEY THEMES' in line_upper and ('##' in line or '**' in line or '1.' in line):
+            # Save previous section
+            if current_section and current_text:
                 sections[current_section] = '\n'.join(current_text).strip()
             current_section = 'key_themes'
             current_text = []
-        elif 'SENTIMENT ANALYSIS' in line_upper:
-            if current_section:
+            
+        elif 'SENTIMENT ANALYSIS' in line_upper and ('##' in line or '**' in line or '2.' in line):
+            if current_section and current_text:
                 sections[current_section] = '\n'.join(current_text).strip()
             current_section = 'sentiment_analysis'
             current_text = []
-        elif 'COVERAGE GAP' in line_upper:
-            if current_section:
+            
+        elif 'COVERAGE GAP' in line_upper and ('##' in line or '**' in line or '3.' in line):
+            if current_section and current_text:
                 sections[current_section] = '\n'.join(current_text).strip()
             current_section = 'coverage_gap_insights'
             current_text = []
-        elif 'CONCERNING PATTERNS' in line_upper:
-            if current_section:
+            
+        elif 'CONCERNING PATTERNS' in line_upper and ('##' in line or '**' in line or '4.' in line):
+            if current_section and current_text:
                 sections[current_section] = '\n'.join(current_text).strip()
             current_section = 'concerning_patterns'
             current_text = []
-        elif 'RECOMMENDATIONS' in line_upper:
-            if current_section:
+            
+        elif 'RECOMMENDATIONS' in line_upper and ('##' in line or '**' in line or '5.' in line):
+            if current_section and current_text:
                 sections[current_section] = '\n'.join(current_text).strip()
             current_section = 'recommendations'
             current_text = []
-        elif current_section and line.strip():
-            # Add to current section (skip section header itself)
-            if not any(marker in line for marker in ['**1.', '**2.', '**3.', '**4.', '**5.']):
-                current_text.append(line.strip())
+            
+        else:
+            # Add line to current section (skip the header line itself)
+            if current_section:
+                # Don't add the section header itself
+                if not (line_stripped.startswith('##') or line_stripped.startswith('**')):
+                    current_text.append(line_stripped)
     
-    # Last section
-    if current_section:
+    # Include last section
+    if current_section and current_text:
         sections[current_section] = '\n'.join(current_text).strip()
     
     logger.info("Parsed insights into structured sections")
