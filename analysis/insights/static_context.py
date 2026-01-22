@@ -38,8 +38,8 @@ def analyze_who_suicide(who_df):
             'population': 'sum',
             'suicide_rate_per_100k': 'mean'
         })
-        male_rate = sex_stats.loc['male', 'suicide_rate_per_100k']
-        female_rate = sex_stats.loc['female', 'suicide_rate_per_100k']
+        male_rate = sex_stats.loc['Male', 'suicide_rate_per_100k']
+        female_rate = sex_stats.loc['Female', 'suicide_rate_per_100k']
         sex_ratio = male_rate / female_rate if female_rate > 0 else 0
         
         # Age group analysis (highest risk)
