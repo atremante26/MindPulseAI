@@ -7,7 +7,7 @@ from anthropic import Anthropic
 from dotenv import load_dotenv
 
 from analysis.config.model_config import INSIGHTS_CONFIG
-from insights import get_weekly_insights_prompt, get_datapoint_insight_prompt
+from analysis.insights import get_weekly_insights_prompt, get_datapoint_insight_prompt
 
 # Load environment variables
 load_dotenv()

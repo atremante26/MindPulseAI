@@ -1,4 +1,4 @@
-from insights import get_static_context, get_crisis_indicators, get_common_concerns
+from analysis.insights import get_static_context, get_crisis_indicators, get_common_concerns
 
 def get_weekly_insights_prompt(
     week_start,

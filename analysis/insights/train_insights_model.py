@@ -11,7 +11,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from analysis.load_data import load_dataset
 from analysis.config.model_config import INSIGHTS_CONFIG
-from insights import *
+from analysis.insights import *
 
 # Configure logging
 logging.basicConfig(
