@@ -3,7 +3,8 @@ from .clustering_utils import (
     compute_gower_distance,
     run_hdbscan_clustering, 
     evaluate_clustering, 
-    generate_cluster_profiles
+    generate_cluster_profiles,
+    convert_to_json_serializable
 )
 
 __all__ = [
@@ -11,4 +12,6 @@ __all__ = [
     "compute_gower_distance",
     "run_hdbscan_clustering",
     "evaluate_clustering", 
-    "generate_cluster_profiles"]
+    "generate_cluster_profiles",
+    "convert_to_json_serializable"
+]

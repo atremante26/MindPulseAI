@@ -208,3 +208,20 @@ def generate_cluster_profiles(data, labels):
         profiles[cluster_id] = profile
 
     return profiles
+
+def convert_to_json_serializable(obj):
+    """Recursively convert numpy types to Python native types."""
+    if isinstance(obj, dict):
+        return {convert_to_json_serializable(k): convert_to_json_serializable(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_to_json_serializable(item) for item in obj]
+    elif isinstance(obj, tuple):
+        return tuple(convert_to_json_serializable(item) for item in obj)
+    elif isinstance(obj, np.integer):
+        return int(obj)
+    elif isinstance(obj, np.floating):
+        return float(obj)
+    elif isinstance(obj, np.ndarray):
+        return obj.tolist()
+    else:
+        return obj

@@ -1,44 +1,47 @@
+import os
+import sys
 import pickle
 import logging
-from pathlib import Path
 import numpy as np
+from pathlib import Path
+import warnings
+warnings.filterwarnings('ignore')
+
+# Add project root to path
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
 # Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(PROJECT_ROOT / 'logs' / 'clustering_service.log'),
+        logging.StreamHandler()
+    ]
+)
 logger = logging.getLogger(__name__)
 
 class ClusteringService:
     def __init__(self):
-        self.models = {}
-        self.models_dir = Path(__file__).parent.parent / "models"
+        self.data = {}
+        self.models_dir = PROJECT_ROOT / 'analysis' / 'outputs' / 'results' / 'clustering'
     
-    def load_models(self):
+    def load_data(self):
         try:
-            model_files = list(self.models_dir.glob("*.pkl"))
+            data_files = list(self.models_dir.glob("*.csv"))
             
-            if not model_files:
+            if not data_files:
                 logger.warning("No model files found")
                 return
             
-            for file in model_files:
-                if "hdbscan_clusterer" in file.name:
-                    with open(file, 'rb') as f:
-                        self.models['clusterer'] = pickle.load(f)
-                    logger.info(f"Loaded clusterer from {file.name}")
-                
-                elif "clustering_preprocessing" in file.name:
-                    with open(file, 'rb') as f:
-                        self.models['preprocessing'] = pickle.load(f)
-                    logger.info(f"Loaded preprocessing from {file.name}")
-                
-                elif "cluster_results" in file.name:
-                    with open(file, 'rb') as f:
-                        self.models['results'] = pickle.load(f)
-                    logger.info(f"Loaded results from {file.name}")
-            
-            logger.info("Clustering models loaded successfully")
+            # Get latest file
+            self.data = max(data_files, key=os.path.getmtime)
+
+            logger.info("Clustering data loaded successfully")
             
         except Exception as e:
-            logger.error(f"Error loading models: {e}", exc_info=True)
+            logger.error(f"Error loading data: {e}", exc_info=True)
     
     def is_loaded(self) -> bool:
         return all(key in self.models for key in ['clusterer', 'preprocessing', 'results'])

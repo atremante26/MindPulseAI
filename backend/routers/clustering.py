@@ -1,9 +1,26 @@
-from fastapi import APIRouter, HTTPException, Depends
-from typing import List
+import sys
 import logging
+from typing import List
+from pathlib import Path
+from fastapi import APIRouter, HTTPException, Depends
+import warnings
+warnings.filterwarnings('ignore')
+
+# Add project root to path
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
 from schemas.clustering import UserInput, ClusterInfo, PredictionResponse
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(PROJECT_ROOT / 'logs' / 'clustering_router.log'),
+        logging.StreamHandler()
+    ]
+)
 logger = logging.getLogger(__name__)
 router = APIRouter()
 
