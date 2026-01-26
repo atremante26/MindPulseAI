@@ -1,7 +1,6 @@
 import sys
 import json
 import logging
-import numpy as np
 from pathlib import Path
 import warnings
 warnings.filterwarnings('ignore')
@@ -38,7 +37,7 @@ def load_data():
     try:
         # Load data
         with open(metadata_file, 'r') as f:
-            data = json.load*(f) 
+            data = json.load(f) 
 
         logger.info(f"Loaded {data.get('n_clusters', 0)} clusters from clustering results")
         return data

@@ -1,27 +1,37 @@
-from pydantic import BaseModel, Field
-from typing import Dict, Optional
+from pydantic import BaseModel
+from typing import Dict, List
 
-class UserInput(BaseModel):
-    age: int = Field(..., ge=18, le=100)
-    gender: str
-    country: str
-    treatment: str
-    work_interfere: str
-    family_history: str
-    remote_work: str
-    mental_health_consequence: str
-    benefits: str
+class ModelParams(BaseModel):
+    """Model hyperparameters used for clustering."""
+    min_cluster_size: int
+    min_samples: int
+    cluster_selection_epsilon: float
 
 class ClusterInfo(BaseModel):
-    cluster_id: int
+    """Information about a single cluster."""
     size: int
     percentage: float
-    description: str
-    characteristics: Dict
+    avg_age: float
+    age_std: float
+    gender_distribution: Dict[str, float]
+    top_countries: Dict[str, int]
+    in_treatment_pct: float
+    family_history_pct: float
+    remote_work_pct: float  
+    work_interference_distribution: Dict[str, float] 
+    top_work_interference: str
+    benefits_distribution: Dict[str, float]
+    mental_health_consequence_distribution: Dict[str, float]
+    key_traits: List[str]
 
-class PredictionResponse(BaseModel):
-    cluster_id: int
-    cluster_name: str
-    description: str
-    characteristics: Dict
-    confidence: Optional[float] = None
+class ClustersResponse(BaseModel):
+    """Complete clustering results response."""
+    labels: List[int]
+    silhouette_score: float
+    cluster_persistence: List[float]
+    n_clusters: int
+    n_noise: int
+    cluster_profiles: Dict[str, ClusterInfo]  
+    timestamp: str
+    model_params: ModelParams  
+    generated_at: str
