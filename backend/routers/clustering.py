@@ -2,7 +2,7 @@ import sys
 import logging
 from typing import List
 from pathlib import Path
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -10,7 +10,8 @@ warnings.filterwarnings('ignore')
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from schemas.clustering import UserInput, ClusterInfo, PredictionResponse
+from backend.schemas import ClusterResponse
+from backend.services.clustering_service import load_data
 
 # Configure logging
 logging.basicConfig(
@@ -22,36 +23,29 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
+
+# Define router
 router = APIRouter()
 
-def get_clustering_service():
-    from main import clustering_service
-    if not clustering_service:
-        raise HTTPException(status_code=503, detail="Service not initialized")
-    return clustering_service
+@router.get("/clusters", response_model=ClusterResponse)
+def get_clusters():
+    """
+    Get clustering analysis results.
+    
+    :returns: ClusterResponse with cluster profiles including:
 
-@router.get("/clusters", response_model=List[ClusterInfo])
-def get_clusters(service = Depends(get_clustering_service)):
-    try:
-        return service.get_all_clusters()
-    except Exception as e:
-        logger.error(f"Error in get_clusters: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        - Demographics (age, gender, country)
 
-@router.get("/clusters/{cluster_id}")
-def get_cluster_detail(cluster_id: int, service = Depends(get_clustering_service)):
-    try:
-        return service.get_cluster_detail(cluster_id)
-    except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
-    except Exception as e:
-        logger.error(f"Error in get_cluster_detail: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        - Mental health indicators (treatment, family history)
 
-@router.post("/clusters/predict", response_model=PredictionResponse) # this endpoint returns a PredictionResponse object
-def predict_cluster(user_input: UserInput, service = Depends(get_clustering_service)): # Dependency Injection (call get_clustering_service() and pass result as 'service')
+        - Work environment (remote work, interference)
+        
+        - Workplace awareness (benefits, consequences)
+    """
     try:
-        return service.predict_cluster(user_input.model_dump())
+        results = load_data()
+        return results
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="CLustering results not found. Run clustering notebook first.")
     except Exception as e:
-        logger.error(f"Error in predict_cluster: {e}")
         raise HTTPException(status_code=500, detail=str(e))

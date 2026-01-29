@@ -24,7 +24,7 @@ class ClusterInfo(BaseModel):
     mental_health_consequence_distribution: Dict[str, float]
     key_traits: List[str]
 
-class ClustersResponse(BaseModel):
+class ClusterResponse(BaseModel):
     """Complete clustering results response."""
     labels: List[int]
     silhouette_score: float
