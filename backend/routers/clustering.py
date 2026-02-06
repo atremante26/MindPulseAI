@@ -1,6 +1,5 @@
 import sys
 import logging
-from typing import List
 from pathlib import Path
 from fastapi import APIRouter, HTTPException
 import warnings
