@@ -8,3 +8,4 @@ from .static_ingestor import (
     SuicideByDemographicsIngestor
 )
 from .validator import Validator
+from .sentiment_analyzer import sentiment_analyzer
