@@ -1,4 +1,4 @@
-from pipeline.ingestion import BaseIngestor
+from pipeline.ingestion import BaseIngestor, sentiment_analyzer
 import logging
 import pandas as pd
 import requests
@@ -9,16 +9,32 @@ from datetime import datetime, timedelta
 logger = logging.getLogger(__name__)
 
 class NewsIngestor(BaseIngestor):
+    """
+    Ingestor for mental health news articles from NewsAPI.
+    
+    Fetches articles from the past 7 days matching mental health keywords.
+    
+    Attributes:
+        api_key (str): NewsAPI authentication key from environment
+        base_url (str): NewsAPI endpoint for article search
+    """
     def __init__(self):
         super().__init__()
         self.api_key = os.getenv('NEWS_API_KEY')
         self.base_url = 'https://newsapi.org/v2/everything'
         
     def load_data(self) -> pd.DataFrame:
+        """
+        Fetch mental health news articles from NewsAPI.
+
+        Queries NewsAPI for articles from the past 7 days matching mental health keywords. Uses free tier limit of 100 articles per request.
+        
+        :return: pd.DataFrame: Raw article data.
+        """
         try:
             logger.info("Fetching mental health news from News API...")
             
-            # Query last 7 days (free tier works well with weekly ingestion)
+            # Configure search parameters
             params = {
                 'q': '("mental health" OR anxiety OR depression OR "suicide prevention")',
                 'language': 'en',
@@ -29,11 +45,14 @@ class NewsIngestor(BaseIngestor):
                 'apiKey': self.api_key
             }
             
+            # Call API
             response = requests.get(self.base_url, params=params, timeout=30)
             response.raise_for_status()
             
+            # Parse JSON response
             data = response.json()
             
+            # Check API status
             if data.get('status') != 'ok':
                 raise ValueError(f"News API error: {data.get('message', 'Unknown error')}")
             
@@ -49,8 +68,12 @@ class NewsIngestor(BaseIngestor):
             logger.error(f"Failed to fetch News API data on {self.today}: {e}")
             raise
 
-    def process_data(self, df):
-        """Process and aggregate news data by date"""
+    def process_data(self, df) -> pd.DataFrame:
+        """Process and aggregate raw news articles.
+        
+        :param pd.DataFrame df: Raw article data.
+        :return: pd.Dataframe: Aggregated data with sentiment.
+        """
         processed_df = df.copy()
         
         # Parse published date
@@ -64,17 +87,26 @@ class NewsIngestor(BaseIngestor):
         processed_df['source_name'] = processed_df['source'].apply(
             lambda x: x.get('name', 'Unknown') if isinstance(x, dict) else 'Unknown'
         )
+
+        # Analyze sentiment
+        logger.info(f"Calculating sentiment for {len(processed_df)} News articles...")
+        sentiments = sentiment_analyzer.analyze_batch(processed_df["title"].fillna('').tolist())
+        df["sentiment"] = sentiments
         
         # Group by date and aggregate
         daily_agg = processed_df.groupby('date').agg({
             'title': ['count', lambda x: ' | '.join(x.head(5))],  # Count + sample headlines
-            'source_name': lambda x: ', '.join(set(x))  # Unique sources
+            'source_name': lambda x: ', '.join(set(x)),  # Unique sources
+            'sentiment': 'mean'
         }).reset_index()
         
         # Flatten column names
-        daily_agg.columns = ['date', 'article_count', 'sample_headlines', 'sources']
-        
-        # Convert date to string for JSON serialization (it's already a date object from groupby)
+        daily_agg.columns = ['date', 'article_count', 'sample_headlines', 'sources', 'sentiment']
+
+        # Round sentiment
+        daily_agg['sentiment'] = daily_agg['sentiment'].round(4)
+
+        # Convert date to string for JSON serialization
         daily_agg['date'] = daily_agg['date'].astype(str)
         
         # Sort by date
