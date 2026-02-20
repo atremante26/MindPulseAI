@@ -33,17 +33,9 @@ def prepare_reddit_data():
     # Load data
     reddit_df = load_dataset('reddit')
     logger.info(f"Loaded {len(reddit_df)} Reddit posts")
-    
+
     # Ensure datetime
     reddit_df['DATE'] = pd.to_datetime(reddit_df['DATE'])
-    
-    # Add sentiment
-    reddit_df = add_sentiment_column(
-        df=reddit_df,
-        text_column='TEXT',
-        sentiment_column='sentiment',
-        is_aggregated=False # Each row is a single post
-    )
     
     # Aggregate to weekly
     weekly_reddit = aggregate_to_weekly(
@@ -51,14 +43,14 @@ def prepare_reddit_data():
         date_col='DATE',
         agg_dict={
             'TEXT': 'count',        # Count total posts per week
-            'sentiment': 'mean',    # Average sentiment per week
+            'SENTIMENT': 'mean',    # Average sentiment per week
             'SCORE': 'mean',        # Average Reddit score
             'COMMENTS': 'mean'      # Average comments
         }
     )
     
     # Rename for consistency
-    weekly_reddit.rename(columns={'TEXT': 'volume', 'DATE': 'date'}, inplace=True)
+    weekly_reddit.rename(columns={'TEXT': 'volume', 'DATE': 'date', 'SENTIMENT': 'sentiment'}, inplace=True)
     
     # Fill missing weeks
     weekly_reddit = fill_missing_weeks(weekly_reddit, date_col='date')
@@ -86,28 +78,18 @@ def prepare_news_data():
     detected_delimiter = max(delimiters, key=delimiters.get)
     logger.info(f"Using delimiter: '{detected_delimiter}'")
     
-    # Add sentiment
-    news_df = add_sentiment_column(
-        df=news_df,
-        text_column='SAMPLE_HEADLINES',
-        sentiment_column='sentiment',
-        is_aggregated=True, # Each row has multiple headlines
-        delimiter=detected_delimiter
-    )
-    
     # Aggregate to weekly
     weekly_news = aggregate_to_weekly(
         df=news_df,
         date_col='DATE',
         agg_dict={
             'ARTICLE_COUNT': 'sum', # Sum articles across any runs in the week
-            'sentiment': 'mean'     # Average sentiment
-        },
-        verbose=True
+            'SENTIMENT': 'mean'     # Average sentiment
+        }
     )
     
     # Rename for consistency
-    weekly_news.rename(columns={'ARTICLE_COUNT': 'volume', 'DATE': 'date'}, inplace=True)
+    weekly_news.rename(columns={'ARTICLE_COUNT': 'volume', 'DATE': 'date', 'SENTIMENT': 'sentiment'}, inplace=True)
     
     # Remove first week if it's an outlier (data collection artifact)
     if len(weekly_news) > 2:

@@ -53,3 +53,6 @@ analysis/outputs/results/**/*
 !analysis/outputs/results/.gitkeep
 !analysis/outputs/figures/**/*
 !logs/.gitkeep
+*.ipynb
+.ipynb_checkpoints/
+!analysis/clustering/*.ipynb
