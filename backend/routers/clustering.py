@@ -2,8 +2,6 @@ import sys
 import logging
 from pathlib import Path
 from fastapi import APIRouter, HTTPException
-import warnings
-warnings.filterwarnings('ignore')
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent.parent
