@@ -54,3 +54,15 @@ class ForecastsResponse(BaseModel):
     news_volume: TopicForecast
     news_sentiment: TopicForecast
     metadata: ForecastMetadata  
+
+class HistoricalPoint(BaseModel):
+    """Single historical point."""
+    ds: str
+    value: float
+
+class HistoricalResponse(BaseModel):
+    """Complete historical results."""
+    reddit_volume: List[HistoricalPoint]
+    reddit_sentiment: List[HistoricalPoint]
+    news_volume: List[HistoricalPoint]
+    news_sentiment: List[HistoricalPoint]

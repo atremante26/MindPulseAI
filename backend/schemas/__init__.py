@@ -1,7 +1,8 @@
 from .clustering import ClusterResponse
-from .forecasting import ForecastsResponse
+from .forecasting import ForecastsResponse, HistoricalResponse
 
 __all__ = [
     "ClusterResponse",
-    "ForecastsResponse"
+    "ForecastsResponse",
+    "HistoricalResponse"
 ]
