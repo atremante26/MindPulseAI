@@ -263,17 +263,15 @@ def call_api_datapoint(
     
     This is called when a user clicks on a chart point to understand it.
     
-    Parameters:
-    - metric_name: "Reddit Volume", "Reddit Sentiment", etc.
-    - week_date: ISO date string "2026-02-10"
-    - value: Forecasted value
-    - baseline: Average baseline value
-    - confidence_lower/upper: CI bounds
-    - surrounding_weeks: List of dicts with surrounding week data
-    - static_context: Mental health statistics
+    :param metric_name: "Reddit Volume", "Reddit Sentiment", etc.
+    :param week_date: ISO date string "2026-02-10"
+    :param value: Forecasted value
+    :param baseline: Average baseline value
+    :param confidence_lower: CI lower bound
+    :param confidence_upper: CI upper bound
+    :param surrounding_weeks: List of dicts with surrounding week data
     
-    Returns:
-    - Dict with insight text and metadata
+    :returns: Dict with datapoint insights and metadata.
     """
     logger.info(f"Generating datapoint insight: {metric_name}, week {week_date}")
     
