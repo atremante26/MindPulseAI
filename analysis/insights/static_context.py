@@ -443,3 +443,25 @@ def get_common_concerns():
             'hospital', 'ER', 'immediate help'
         ]
     }
+
+def main():
+    try:
+        # Generate static context
+        static_context = get_static_context()
+        
+        # Save results
+        outputs_dir = PROJECT_ROOT / 'analysis/outputs/results/insights'
+        outputs_dir.mkdir(parents=True, exist_ok=True)
+
+        latest_path = outputs_dir / 'static_context.txt'
+        with open(latest_path, 'w') as f:
+            f.write(static_context)
+        logger.info(f"  Saved static_context.txt")
+        return 0
+        
+    except Exception as e:
+        logger.error(f"\nStatic context generation failed: {str(e)}", exc_info=True)
+        return 1
+    
+if __name__ == "__main__":
+    sys.exit(main())
