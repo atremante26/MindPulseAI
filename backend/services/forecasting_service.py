@@ -27,7 +27,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-def load_data():
+def load_forecasting_data():
     """
     Loads latest forecasting data.
 

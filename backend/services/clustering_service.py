@@ -2,8 +2,6 @@ import sys
 import json
 import logging
 from pathlib import Path
-import warnings
-warnings.filterwarnings('ignore')
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent.parent
@@ -20,7 +18,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-def load_data():
+def load_clustering_data():
     """
     Load pre-generated clustering metadata.
 
