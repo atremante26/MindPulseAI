@@ -13,7 +13,7 @@ class ResourceType(str, Enum):
 
 class CostTier(str, Enum):
     """Cost tiers for resources."""
-    FREE = "low"
+    FREE = "free"
     LOW = "low" # $0-50/month
     MEDIUM = "medium" # $50-150/month
     HIGH = "high" # $150+/month

@@ -2,7 +2,7 @@ import logging
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import clustering
+from routers import clustering, forecasting, insights
 from services.clustering_service import ClusteringService
 
 # Configure logging
@@ -44,7 +44,9 @@ app.add_middleware(
 )
 
 # Register routers
-app.include_router(clustering.router, prefix="/api", tags=["clustering"])
+app.include_router(clustering.router, prefix="/api/clustering", tags=["clustering"])
+app.include_router(forecasting.router, prefix="/api/forecasting", tags=["forecasting"])
+app.include_router(insights.router, prefix="/api/insights", tags=["insights"])
 
 @app.get("/")
 def root():
