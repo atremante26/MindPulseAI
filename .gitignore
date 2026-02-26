@@ -56,3 +56,7 @@ analysis/outputs/results/**/*
 *.ipynb
 .ipynb_checkpoints/
 !analysis/clustering/*.ipynb
+!analysis/outputs/results/clustering/cluster_metadata.json
+!analysis/outputs/results/forecasting/latest_forecasts.json
+!analysis/outputs/results/insights/latest_insights.json
+!analysis/outputs/results/insights/static_context.txt
