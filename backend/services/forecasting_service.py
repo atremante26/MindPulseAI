@@ -127,6 +127,9 @@ def get_historical():
     try:
         # Load and aggregate Reddit
         reddit_df = load_reddit()
+        reddit_df.columns = reddit_df.columns.str.lower()
+        reddit_df["date"] = pd.to_datetime(reddit_df["date"])
+
         reddit_df['week_start'] = reddit_df["date"] - pd.to_timedelta(reddit_df["date"].dt.dayofweek, unit='d')
         reddit_weekly = reddit_df.groupby("week_start").agg(
             volume=('title', 'count'),
@@ -144,14 +147,15 @@ def get_historical():
 
         # Load and shape News
         news_df = load_news()
-        news_df["date"] = news_df["date"].astype(str)
+        news_df.columns = news_df.columns.str.lower()
+        news_df["date"] = pd.to_datetime(news_df["date"])
 
         news_volume = [
-            HistoricalPoint(ds=row.date, value=row.article_count)
+            HistoricalPoint(ds=str(row.date), value=row.article_count)
             for row in news_df.itertuples()
         ]
         news_sentiment = [
-            HistoricalPoint(ds=row.date, value=row.sentiment)
+            HistoricalPoint(ds=str(row.date), value=row.sentiment)
             for row in news_df.itertuples()
         ]
 

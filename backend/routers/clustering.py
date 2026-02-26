@@ -8,7 +8,7 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from backend.schemas import ClusterResponse
-from backend.services import load_forecasting_data
+from backend.services import load_clustering_data
 
 # Configure logging
 logging.basicConfig(
@@ -40,7 +40,7 @@ def get_clusters_endpoint():
         - Workplace awareness (benefits, consequences)
     """
     try:
-        return load_forecasting_data()
+        return load_clustering_data()
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="CLustering results not found. Run clustering notebook first.")
     except Exception as e:

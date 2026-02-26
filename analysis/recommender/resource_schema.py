@@ -35,6 +35,8 @@ class Concern(str, Enum):
     RELATIONSHIP_ISSUES = "relationship_issues"
     GRIEF = "grief"
     TRAUMA = "trauma"
+    CRISIS = "crisis"
+    SCHIZOPHRENIA = "schizophrenia"
 
 class AgeGroup(str, Enum):
     """Age groups for targeted resources."""

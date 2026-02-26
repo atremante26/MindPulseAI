@@ -121,7 +121,8 @@ def get_datapoint_insight_prompt(
     pct_change,
     confidence_lower,
     confidence_upper,
-    surrounding_weeks
+    surrounding_weeks,
+    static_context
 ):
     """
     Generate prompt for explaining a specific forecast datapoint.
@@ -138,8 +139,7 @@ def get_datapoint_insight_prompt(
     Returns:
     - Prompt string for Claude
     """
-    # Get static context
-    static_context = get_static_context()
+    # Get context
     crisis_indicators = get_crisis_indicators()
     common_concerns = get_common_concerns()
 
@@ -149,19 +149,25 @@ def get_datapoint_insight_prompt(
     
     # Format surrounding weeks
     surrounding_text = "\n".join([
-        f"  - {week['date']}: {week['value']:.2f if metric_type == 'sentiment' else week['value']:.0f}"
+        f"  - {week['date']}: {week['value']:.2f}" if metric_type == 'sentiment' 
+        else f"  - {week['date']}: {week['value']:.0f}"
         for week in surrounding_weeks
     ])
+
+    value_fmt = f"{value:.2f}" if metric_type == 'sentiment' else f"{value:.0f}"
+    baseline_fmt = f"{baseline:.2f}" if metric_type == 'sentiment' else f"{baseline:.0f}"
+    ci_lower_fmt = f"{confidence_lower:.2f}" if metric_type == 'sentiment' else f"{confidence_lower:.0f}"
+    ci_upper_fmt = f"{confidence_upper:.2f}" if metric_type == 'sentiment' else f"{confidence_upper:.0f}"
     
     prompt = f"""You are a mental health data analyst. A user has clicked on a specific datapoint in a forecast chart and wants to understand its significance.
 
 <datapoint_details>
 **Metric:** {metric_name}
 **Week:** {week_date}
-**Forecasted Value:** {value:.2f if metric_type == 'sentiment' else value:.0f} {unit}
-**Baseline Average:** {baseline:.2f if metric_type == 'sentiment' else baseline:.0f}
+**Forecasted Value:** {value_fmt}
+**Baseline Average:** {baseline_fmt}
 **Change from Baseline:** {pct_change:+.1f}%
-**95% Confidence Interval:** [{confidence_lower:.2f if metric_type == 'sentiment' else confidence_lower:.0f}, {confidence_upper:.2f if metric_type == 'sentiment' else confidence_upper:.0f}]
+**95% Confidence Interval:** [{ci_lower_fmt}, {ci_upper_fmt}]
 
 **Surrounding Weeks (for context):**
 {surrounding_text}

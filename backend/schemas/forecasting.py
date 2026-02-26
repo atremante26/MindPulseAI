@@ -42,7 +42,6 @@ class DataSource(BaseModel):
 class ForecastMetadata(BaseModel):
     """Metadata about the forecast generation."""
     forecast_horizon_weeks: int
-    forecast_horizon_days: int
     training_timestamp: str
     prophet_config: ProphetConfig  
     data_sources: Dict[str, DataSource]  

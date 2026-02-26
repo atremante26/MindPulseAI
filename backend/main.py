@@ -1,7 +1,7 @@
 import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import clustering, forecasting, insights, recommendations
+from backend.routers import clustering_router, forecasting_router, insights_router, recommendations_router
 
 # Configure logging
 logging.basicConfig(
@@ -26,10 +26,10 @@ app.add_middleware(
 )
 
 # Register routers
-app.include_router(clustering.router, prefix="/api/clustering", tags=["clustering"])
-app.include_router(forecasting.router, prefix="/api/forecasting", tags=["forecasting"])
-app.include_router(insights.router, prefix="/api/insights", tags=["insights"])
-app.include_router(recommendations.router, prefix="/api/recommendations", tags=["recommendations"])
+app.include_router(clustering_router, prefix="/api/clustering", tags=["clustering"])
+app.include_router(forecasting_router, prefix="/api/forecasting", tags=["forecasting"])
+app.include_router(insights_router, prefix="/api/insights", tags=["insights"])
+app.include_router(recommendations_router, prefix="/api/recommendations", tags=["recommendations"])
 
 @app.get("/")
 def root():

@@ -8,7 +8,7 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from backend.schemas import ForecastsResponse, HistoricalResponse
-from backend.services import load_clustering_data, get_historical
+from backend.services import load_forecasting_data, get_historical
 
 # Configure logging
 logging.basicConfig(
@@ -32,7 +32,7 @@ def get_forecasts_endpoint():
     :returns: ForecastsResponse with forecast values and metadata.
     """
     try:
-        return load_clustering_data()
+        return load_forecasting_data()
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Forecasts not found.")
     except Exception as e:

@@ -38,7 +38,8 @@ def get_recommendation(request: RecommendationRequest):
             "online_only": request.online_only,
             "crisis_need": request.crisis_need
         }
-        return recommender.recommend(user_profile=user_profile)
+        results = recommender.recommend(user_profile=user_profile)
+        return {"recommendations": results}
     except Exception as e:
         logger.error(f"Error recommending resources: {e}", exc_info=True)
         raise RuntimeError(f"Error recommending resources: {e}") from e
