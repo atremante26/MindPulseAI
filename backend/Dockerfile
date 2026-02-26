@@ -13,4 +13,4 @@ COPY . .
 
 # Runs the FastAPI app with Uvicorn when the container starts using 'app' in main.py
 # --host 0.0.0.0 makes it accessible from outside the container (for Render)
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
