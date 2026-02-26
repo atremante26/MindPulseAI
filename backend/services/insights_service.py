@@ -73,4 +73,4 @@ def get_datapoint_insight(request: DatapointRequest):
         )
     except Exception as e:
         logger.error(f"Error calling API for datapoint insights: {e}", exc_info=True)
-        raise RuntimeError(f"Datapoint API call failed with error: {e}")
+        raise RuntimeError(f"Datapoint API call failed with error: {e}") from e
