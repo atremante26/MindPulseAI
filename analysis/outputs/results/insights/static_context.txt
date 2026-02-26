@@ -1,0 +1,33 @@
+
+**WHO Global Suicide Statistics (2016):**
+- **Global deaths:** 16,238 suicides annually
+- **Global rate:** 10.2 per 100,000 population
+- **Sex disparity:** Males 5.1x more likely (Male: 17.1, Female: 3.4 per 100k)
+- **Highest risk age group:** 75+ years (16.7 per 100,000)
+- **10-year trend:** decreasing (-93.1% change 2006-2016)
+- **Highest rate countries:** Lithuania (30.4), Hungary (20.1), Rodrigues (19.0)
+
+
+**US Mental Health Care Access:**
+- **Therapy/counseling:** 11.3% received therapy/counseling
+- **Medication use:** 23.1% taking psychiatric medication
+- **Unmet need:** 11.2% if mhc_stats['unmet_need_rate'] else "Data unavailable"
+- **Lowest access states:** West Virginia (6.4%), Missouri (7.0%), Mississippi (7.6%) if mhc_stats['lowest_access_states'] else "N/A"
+- **Highest access states:** Rhode Island (15.1%), Oregon (16.0%), Washington (16.0%) if mhc_stats['highest_access_states'] else "N/A"
+
+
+**US Suicide Demographics (2018):**
+- **Overall rate:** 14.5 per 100,000 population
+- **Sex disparity:** Males 3.7x more likely than females
+- **By sex:**
+  - Female: 6.3 per 100,000
+  - Male: 23.1 per 100,000
+- **By age group:**
+  - 55-64 years: 20.2 per 100,000
+  - 45-64 years: 20.1 per 100,000
+  - 45-54 years: 20.0 per 100,000
+  - 85 years and over: 19.1 per 100,000
+  - 75-84 years: 18.7 per 100,000
+- **By race/ethnicity:**
+
+- **10-year trend:** increasing (+23.9% change 2008-2018)
