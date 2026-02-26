@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 def get_recommendation(request: RecommendationRequest):
     """
-    Docstring for get_recommendation
+    Gets recommendations for user profile request.
     
     :param request: RecommendationRequest for user profile.
     :returns: Dict with recommendations for user request.

@@ -27,7 +27,7 @@ router = APIRouter()
 @router.get("/weekly", response_model=WeeklyInsightsResponse)
 def get_weekly_insights_enpoint():
     """
-    Get weekly insights summary.
+    Get endpoint for weekly insights summary.
 
     :returns: WeeklyInsightsResponse with weekly summary.
     """
@@ -42,8 +42,9 @@ def get_weekly_insights_enpoint():
 @router.post("/datapoint", response_model=DatapointResponse)
 def get_datapoint_endpoint(request: DatapointRequest):
     """
-    Get insights about single data point.
+    Post endpoint for insights about single data point.
 
+    :param: DatapointRequest for single forecasting model data point.
     :returns: DatapointResponse with insights about single data point.
     """
     try:
