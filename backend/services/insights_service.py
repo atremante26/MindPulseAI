@@ -57,14 +57,7 @@ def get_datapoint_insight(request: DatapointRequest):
     """
     Gets insights for specific forecasting model datapoint.
     
-    :param metric_name: "Reddit Volume", "Reddit Sentiment", etc.
-    :param week_date: ISO date string "2026-02-10"
-    :param value: Forecasted value
-    :param baseline: Average baseline value
-    :param confidence_lower: CI lower bound
-    :param confidence_upper: CI upper bound
-    :param surrounding_weeks: List of dicts with surrounding week data
-
+    :param DatapointRequest for specific forecasting model datapoint.
     :returns: Dict with datapoint insights and metadata.
     """
     try:
