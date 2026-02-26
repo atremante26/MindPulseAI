@@ -1,9 +1,7 @@
 import logging
-from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import clustering, forecasting, insights
-from services.clustering_service import ClusteringService
+from routers import clustering, forecasting, insights, recommendations
 
 # Configure logging
 logging.basicConfig(
@@ -12,26 +10,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Global service instances
-clustering_service = None
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Startup
-    global clustering_service
-    logger.info("Starting up: Loading models...")
-    clustering_service = ClusteringService()
-    clustering_service.load_models()
-    
-    yield
-    
-    # Shutdown
-    logger.info("Shutting down...")
-
 app = FastAPI(
     title="MindPulse API",
     version="1.0.0",
-    lifespan=lifespan
+    description="Mental health analytics API providing forecasting, clustering, LLM insights, and personalized resource recommendations."
 )
 
 # CORS
@@ -47,18 +29,16 @@ app.add_middleware(
 app.include_router(clustering.router, prefix="/api/clustering", tags=["clustering"])
 app.include_router(forecasting.router, prefix="/api/forecasting", tags=["forecasting"])
 app.include_router(insights.router, prefix="/api/insights", tags=["insights"])
+app.include_router(recommendations.router, prefix="/api/recommendations", tags=["recommendations"])
 
 @app.get("/")
 def root():
     return {
-        "message": "MindPulse API",
+        "message": "MindPulseAI API",
         "version": "1.0.0",
-        "docs": "/docs"
+        "docs": "/docs",
     }
 
 @app.get("/health")
 def health():
-    return {
-        "status": "healthy",
-        "clustering_loaded": clustering_service.is_loaded() if clustering_service else False
-    }
+    return {"status": "healthy"}
