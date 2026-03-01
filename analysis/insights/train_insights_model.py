@@ -160,9 +160,10 @@ def train():
         }
     }
     
-    # Save
+    # Save (locally and S3)
     logger.info("\nSaving insights...")
     save_insights(insights_data, timestamp)
+    save_to_s3(insights_data, timestamp)
 
     # Total training time
     elapsed = (datetime.now() - start_time).total_seconds()

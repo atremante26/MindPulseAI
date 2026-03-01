@@ -17,7 +17,8 @@ from .train_forecasting_models import (
     prepare_reddit_data, 
     prepare_news_data,
     train_models,
-    save_models
+    save_models,
+    save_to_s3
 )
 
 __all__ = [
@@ -36,5 +37,6 @@ __all__ = [
     "prepare_reddit_data", 
     "prepare_news_data",
     "train_models",
-    "save_models"
+    "save_models",
+    "save_to_s3"
 ]
