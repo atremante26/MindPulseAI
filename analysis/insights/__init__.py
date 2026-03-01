@@ -18,6 +18,8 @@ from .insights_utils import (
     parse_insights_sections
 )
 
+from .train_insights_model import train
+
 __all__ = [
     "get_static_context",
     "get_crisis_indicators",
@@ -29,5 +31,6 @@ __all__ = [
     "extract_forecast_summary",
     "call_api",
     "call_api_datapoint",
-    "parse_insights_sections"
+    "parse_insights_sections",
+    "train"
 ]

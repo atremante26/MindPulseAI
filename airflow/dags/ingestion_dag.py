@@ -20,6 +20,23 @@ def run_reddit():
 def ingest_news():
     NewsIngestor().run("news", "news_suite", save_s3=True, save_local=False)
 
+def retrain_forecasting():
+    from analysis.forecasting import (
+        prepare_reddit_data, 
+        prepare_news_data, 
+        train_models as train_forecasting, 
+        save_models
+    )
+    
+    reddit_data = prepare_reddit_data()
+    news_data = prepare_news_data()
+    models, forecasts, metrics = train_forecasting(reddit_data, news_data)
+    _ = save_models(models, forecasts, metrics)
+
+def retrain_insights():
+    from analysis.insights import train as train_insights
+    _, _, _ = train_insights()
+
 with DAG(
     dag_id="ingestion_dag",
     default_args=default_args,
@@ -49,5 +66,16 @@ with DAG(
         python_callable=load_news_to_snowflake
     )
 
+    retrain_forecasting_task = PythonOperator(
+        task_id="retrain_forecasting",
+        python_callable=retrain_forecasting
+    )
+
+    retrain_insights_task = PythonOperator(
+        task_id="retrain_insights",
+        python_callable=retrain_insights
+    )
+
     ingest_reddit_task >> load_reddit_task
     ingest_news_task >> load_news_task
+    [load_reddit_task, load_news_task] >> retrain_forecasting_task >> retrain_insights_task
