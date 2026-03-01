@@ -1,9 +1,14 @@
+import os
 import sys
 import json
+import boto3
+from io import BytesIO
 import logging
 import pandas as pd
 from pathlib import Path
 from datetime import datetime
+from dotenv import load_dotenv
+load_dotenv()
 
 # Add project root
 PROJECT_ROOT = Path(__file__).parent.parent.parent
@@ -54,6 +59,27 @@ def save_insights(insights_data, timestamp):
     with open(latest_path, 'w') as f:
         json.dump(insights_data, f, indent=2)
     logger.info(f"  Saved latest_insights.json")
+
+def save_to_s3(insights_data, timestamp):
+    """
+    Save latest insights to S3.
+    """
+    # S3 config
+    S3_BUCKET = "mental-health-project-pipeline"
+    s3 = boto3.client(
+        "s3",
+        aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"),
+        aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY"),
+        region_name=os.environ.get("AWS_DEFAULT_REGION", "us-east-1")
+    )
+    s3_key = "artifacts/latest_insights.json"
+
+    buffer = BytesIO()
+    buffer.write(json.dumps(insights_data).encode('utf-8'))
+    buffer.seek(0)
+
+    s3.upload_fileobj(buffer, S3_BUCKET, s3_key)
+    logger.info(f"Uploaded latest_insights.json to s3://{S3_BUCKET}/{s3_key}")
 
 def train():
     """
