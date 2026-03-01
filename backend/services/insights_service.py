@@ -10,15 +10,12 @@ sys.path.insert(0, str(PROJECT_ROOT))
 # Import Schemas
 from backend.schemas import WeeklyInsightsResponse, DatapointRequest, DatapointResponse
 from analysis.insights import call_api_datapoint
+from backend.utils import load_from_s3
 
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler(PROJECT_ROOT / 'logs' / 'insights_service.log'),
-        logging.StreamHandler()
-    ]
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
 
@@ -28,30 +25,7 @@ with open(static_context_file, 'r') as f:
     STATIC_CONTEXT = f.read()
 
 def load_weekly_insights():
-    """
-    Loads latest insights data.
-
-    :returns: Dict with latest insights data.
-    :raises: FileNotFoundError: If results not found.
-
-    """
-    # Path
-    latest_insights_file = PROJECT_ROOT / 'analysis' / 'outputs' / 'results' / 'insights' / 'latest_insights.json'
-
-    if not latest_insights_file.exists():
-        logger.error(f"Latest insights not found at {latest_insights_file}")
-        raise FileNotFoundError("Latest insights not found. Re-train insights model.")
-    
-    try:
-        # Load data
-        with open(latest_insights_file, 'r') as f:
-            data = json.load(f)
-            logger.info("Loaded latest insights successfully.")            
-            return data
-        
-    except Exception as e:
-        logger.error(f"Error loading latest insights: {e}", exc_info=True)
-        raise
+    return load_from_s3("artifacts/latest_insights.json")
 
 def get_datapoint_insight(request: DatapointRequest):
     """
