@@ -1,12 +1,17 @@
+import os
 import sys
+import json
+import boto3
 import logging
+from io import BytesIO
 from pathlib import Path
 from datetime import datetime
 import pickle
-import json
 import pandas as pd
+from dotenv import load_dotenv
 import warnings
 warnings.filterwarnings('ignore')
+load_dotenv()
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent.parent
@@ -257,6 +262,14 @@ def train_models(weekly_reddit, weekly_news):
     
     return models, forecasts, metrics
 
+# Prepare JSON data
+def convert_timestamps(obj):
+    if isinstance(obj, pd.Timestamp):
+        return obj.isoformat()
+    elif isinstance(obj, datetime):
+        return obj.isoformat()
+    raise TypeError(f"Type {type(obj)} not serializable")
+
 
 def save_models(models, forecasts, metrics, weekly_reddit, weekly_news):
     """Save trained models and forecasts."""
@@ -275,7 +288,7 @@ def save_models(models, forecasts, metrics, weekly_reddit, weekly_news):
         model_path = models_dir / f'prophet_{model_name}_{timestamp}.pkl'
         with open(model_path, 'wb') as f:
             pickle.dump(model, f)
-        logger.info(f"  ✓ {model_path.name}")
+        logger.info(f"  Saved {model_path.name}")
     
     # Extract future predictions
     logger.info("Extracting future predictions")
@@ -300,14 +313,6 @@ def save_models(models, forecasts, metrics, weekly_reddit, weekly_news):
         predictions[model_name] = get_future_predictions(
             forecast, prophet_df, forecast_periods
         )
-    
-    # Prepare JSON data
-    def convert_timestamps(obj):
-        if isinstance(obj, pd.Timestamp):
-            return obj.isoformat()
-        elif isinstance(obj, datetime):
-            return obj.isoformat()
-        raise TypeError(f"Type {type(obj)} not serializable")
     
     forecasts_data = {
         'reddit_volume': {
@@ -360,25 +365,117 @@ def save_models(models, forecasts, metrics, weekly_reddit, weekly_news):
     forecasts_path = outputs_dir / f'forecasts_{timestamp}.json'
     with open(forecasts_path, 'w') as f:
         json.dump(forecasts_data, f, indent=2, default=convert_timestamps)
-    logger.info(f"  ✓ {forecasts_path.name}")
+    logger.info(f"  Saved {forecasts_path.name}")
     
     # Save as latest
     latest_path = outputs_dir / 'latest_forecasts.json'
     with open(latest_path, 'w') as f:
         json.dump(forecasts_data, f, indent=2, default=convert_timestamps)
-    logger.info(f"  ✓ latest_forecasts.json")
+    logger.info(f"  Saved latest_forecasts.json")
     
     # Save weekly data
     logger.info("Saving weekly aggregated data (CSV)")
     weekly_reddit.to_csv(outputs_dir / f'weekly_reddit_{timestamp}.csv', index=False)
     weekly_news.to_csv(outputs_dir / f'weekly_news_{timestamp}.csv', index=False)
-    logger.info(f"  ✓ weekly_reddit_{timestamp}.csv")
-    logger.info(f"  ✓ weekly_news_{timestamp}.csv")
+    logger.info(f"  Saved weekly_reddit_{timestamp}.csv")
+    logger.info(f"  Svaed weekly_news_{timestamp}.csv")
     
     logger.info(f"\nAll artifacts saved with timestamp: {timestamp}")
     
     return timestamp
 
+def save_to_s3(forecasts, metrics, weekly_reddit, weekly_news):
+    """Save latest forecasts to S3."""
+    # Get current timestamp
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    
+    # Extract future predictions
+    logger.info("Extracting future predictions")
+    forecast_periods = FORECASTING_CONFIG['forecast_horizon_weeks']
+    predictions = {}
+    
+    for model_name, forecast in forecasts.items():
+        # Get training data
+        if 'reddit' in model_name:
+            training_data = weekly_reddit
+            pred_col = 'volume' if 'volume' in model_name else 'sentiment'
+        else:
+            training_data = weekly_news
+            pred_col = 'volume' if 'volume' in model_name else 'sentiment'
+        
+        # Prepare prophet_df format
+        prophet_df = training_data[['date', pred_col]].copy()
+        prophet_df.columns = ['ds', 'y']
+        prophet_df = prophet_df.dropna().sort_values('ds')
+        
+        # Extract future
+        predictions[model_name] = get_future_predictions(
+            forecast, prophet_df, forecast_periods
+        )
+    
+    forecasts_data = {
+        'reddit_volume': {
+            'predictions': predictions['reddit_volume'].to_dict('records'),
+            'metrics': metrics['reddit_volume'],
+            'training_weeks': len(weekly_reddit),
+            'model_type': 'Prophet',
+            'frequency': 'weekly'
+        },
+        'reddit_sentiment': {
+            'predictions': predictions['reddit_sentiment'].to_dict('records'),
+            'metrics': metrics['reddit_sentiment'],
+            'training_weeks': len(weekly_reddit),
+            'model_type': 'Prophet',
+            'frequency': 'weekly'
+        },
+        'news_volume': {
+            'predictions': predictions['news_volume'].to_dict('records'),
+            'metrics': metrics['news_volume'],
+            'training_weeks': len(weekly_news),
+            'model_type': 'Prophet (flat growth)' if len(weekly_news) < 15 else 'Prophet',
+            'frequency': 'weekly'
+        },
+        'news_sentiment': {
+            'predictions': predictions['news_sentiment'].to_dict('records'),
+            'metrics': metrics['news_sentiment'],
+            'training_weeks': len(weekly_news),
+            'model_type': 'Prophet',
+            'frequency': 'weekly'
+        },
+        'metadata': {
+            'forecast_horizon_weeks': forecast_periods,
+            'training_timestamp': timestamp,
+            'prophet_config': FORECASTING_CONFIG['prophet'],
+            'data_sources': {
+                'reddit': {
+                    'date_range': f"{weekly_reddit['date'].min().date()} to {weekly_reddit['date'].max().date()}",
+                    'weeks': len(weekly_reddit)
+                },
+                'news': {
+                    'date_range': f"{weekly_news['date'].min().date()} to {weekly_news['date'].max().date()}",
+                    'weeks': len(weekly_news)
+                }
+            }
+        }
+    }
+    
+    # S3 config
+    S3_BUCKET = "mental-health-project-pipeline"
+    s3 = boto3.client(
+        "s3",
+        aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"),
+        aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY"),
+        region_name=os.environ.get("AWS_DEFAULT_REGION", "us-east-1")
+    )
+    s3_key = "artifacts/latest_forecasts.json"
+
+    buffer = BytesIO()
+    buffer.write(json.dumps(forecasts_data, default=convert_timestamps).encode('utf-8'))
+    buffer.seek(0)
+
+    s3.upload_fileobj(buffer, S3_BUCKET, s3_key)
+    logger.info(f"Uploaded latest_forecasts.json to s3://{S3_BUCKET}/{s3_key}")
+    
 
 def main():
     try:
