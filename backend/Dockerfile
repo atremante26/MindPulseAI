@@ -5,7 +5,7 @@ FROM python:3.10
 WORKDIR /app
 
 # Copies requirements.txt and installs necessary packages
-COPY requirements.txt .
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copies all remaining files from the local backend directory to /app in the container
