@@ -1,5 +1,5 @@
-# Sets the base image as Python 3.10
-FROM python:3.10
+# Sets the base image as Python 3.11
+FROM python:3.11
 
 # Sets the working directory inside the container to /app
 WORKDIR /app
