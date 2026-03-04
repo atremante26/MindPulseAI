@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
-import { getWeekly } from '../services/api'
+import { getWeekly, getHistorical } from '../services/api'
 import WeeklyInsightCard from '../components/cards/WeeklyInsightCard'
+import HeroCard from '../components/cards/HeroCard'
 
 export default function Home() {
 
     const [insights, setInsights] = useState(null)
+    const [historical, setHistorical] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [currentIndex, setCurrentIndex] = useState(0) // which insight is showing
@@ -12,9 +14,14 @@ export default function Home() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await getWeekly()
-                console.log(response.data)  
-                setInsights(response.data)
+                const [weeklyResponse, historicalResponse] = await Promise.all([
+                    getWeekly(),
+                    getHistorical()
+                ])
+                // console.log(weeklyResponse.data) 
+                // console.log(historicalResponse.data) 
+                setInsights(weeklyResponse.data)
+                setHistorical(historicalResponse.data)
             } catch (err) {
                 setError(err.message)
             } finally {
@@ -45,15 +52,36 @@ export default function Home() {
     // Handle error state
     if (error) return <div>Error: {error}</div>
 
+    const totalRedditPosts = Math.round(
+        historical.reddit_volume.reduce((sum, item) => sum + item.value, 0)
+    )
+
+    const totalNewsArticles = Math.round(
+        historical.news_volume.reduce((sum, item) => sum + item.value, 0)
+    )
+    
+    const weeksOfData = Math.max(
+        historical.reddit_volume.length,
+        historical.news_volume.length
+    )
+
     // Render page with data
     return (
-        <div>
-            <WeeklyInsightCard 
-                title={currentSection?.title}
-                content={currentSection?.content}
-                currentIndex={currentIndex}
-                total={sections.length}
-            />
-        </div>
-    )
+    <div className="home">
+        <HeroCard
+            weekStart={insights.week_start}
+            weekEnd={insights.week_end}
+            generatedAt={insights.generated_at}
+            totalRedditPosts={totalRedditPosts}
+            totalNewsArticles={totalNewsArticles}
+            weeksOfData={weeksOfData}
+        />
+        <WeeklyInsightCard 
+            title={currentSection?.title}
+            content={currentSection?.content}
+            currentIndex={currentIndex}
+            total={sections.length}
+        />
+    </div>
+)
 }
