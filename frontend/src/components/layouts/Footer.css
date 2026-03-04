@@ -1,0 +1,29 @@
+.footer {
+    background-color: var(--bg-surface);
+    display: flex;
+    flex-direction: column;      
+    align-items: center;          
+    justify-content: center;      
+    padding: 1rem 3rem;
+    background: linear-gradient(
+        to top, 
+        var(--bg-surface) 60%, 
+        transparent
+    );
+    gap: 0.5rem;                 
+}
+
+.footer-brand {
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.footer-github a {
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+}
+
+.footer-github a:hover {
+    color: var(--color-primary);
+}

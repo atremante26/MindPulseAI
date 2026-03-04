@@ -9,14 +9,14 @@ import Footer from './components/layouts/Footer'
 
 function App() {
   return (
-    <Router>
+    <Router basename='/MindPulseAI'>
       <Navbar />
       <main>
         <Routes>
-        <Route path='/MindPulseAI' element={<Home />} />
-        <Route path='/MindPulseAI/dashboard' element={<Dashboard />} />
-        <Route path='/MindPulseAI/explore' element={<Explore />} />
-        <Route path='/MindPulseAI/about' element={<About />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/explore' element={<Explore />} />
+          <Route path='/about' element={<About />} />
       </Routes>
       </main>
       <Footer />

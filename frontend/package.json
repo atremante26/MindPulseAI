@@ -2,7 +2,7 @@
   "name": "frontend",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://atremante26.github.io/Mental_Health_Project",
+  "homepage": "https://atremante26.github.io/MindPulseAI",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@icons-pack/react-simple-icons": "^13.11.1",
     "axios": "^1.13.6",
     "framer-motion": "^12.34.4",
     "lucide-react": "^0.576.0",

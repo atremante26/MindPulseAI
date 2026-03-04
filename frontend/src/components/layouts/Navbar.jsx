@@ -10,7 +10,7 @@ export default function Navbar() {
                 MindPulseAI
             </span>
             <div className='navbar-links'>
-                <NavLink to="/">Home</NavLink>
+                <NavLink to="/" end>Home</NavLink>
                 <NavLink to="/dashboard">Dashboard</NavLink>
                 <NavLink to="/explore">Explore</NavLink>
                 <NavLink to="/about">About</NavLink>

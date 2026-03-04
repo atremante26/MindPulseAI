@@ -41,5 +41,12 @@ body {
 }
 
 main {
-  padding-top: 4rem;
+  flex: 1; 
+  padding-top: 5rem;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
