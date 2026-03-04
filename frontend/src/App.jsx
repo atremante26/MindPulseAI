@@ -11,12 +11,14 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <Routes>
+      <main>
+        <Routes>
         <Route path='/MindPulseAI' element={<Home />} />
         <Route path='/MindPulseAI/dashboard' element={<Dashboard />} />
         <Route path='/MindPulseAI/explore' element={<Explore />} />
         <Route path='/MindPulseAI/about' element={<About />} />
       </Routes>
+      </main>
       <Footer />
     </Router>
   )

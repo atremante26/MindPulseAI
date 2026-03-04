@@ -1,0 +1,51 @@
+.navbar {
+    background-color: var(--bg-surface);
+    font-family: var(--font-body);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1rem 3rem;
+    z-index: 1000;
+    border-bottom: 1px solid var(--bg-border);
+    box-sizing: border-box;
+}
+
+.navbar-brand {
+    font-family: var(--font-heading);  /* display font for brand */
+    color: var(--color-primary);
+    font-size: 2.8rem;
+    font-weight: 700;                  /* bold */
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: 0.02em;            /* slight spacing looks refined */
+    display: flex;
+    align-items: baseline;
+    gap: 0.22rem;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 2rem;                         /* space between links */
+    align-items: center;
+}
+
+.navbar-links a {
+    font-family: var(--font-body);
+    color: var(--text-secondary);      /* muted by default */
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-weight: 500;
+    transition: color 0.2s ease;       /* smooth color change on hover */
+}
+
+.navbar-links a:hover {
+    color: var(--text-primary);        /* brighten on hover */
+}
+
+.navbar-links a.active {
+    color: var(--color-primary);       /* green for active page */
+    font-weight: 600;
+}
