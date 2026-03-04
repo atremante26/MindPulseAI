@@ -1,0 +1,51 @@
+.weekly-insight-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--bg-border);
+    border-radius: 12px;
+    padding: 2.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+    min-height: 250px;
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-style: italic;
+}
+
+.card-content {
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.card-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.card-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--bg-border);
+    transition: background-color 0.3s ease;
+}
+
+.card-dot.active {
+    background-color: var(--color-primary);
+}
