@@ -79,12 +79,15 @@ export default function Home() {
                 totalNewsArticles={totalNewsArticles}
                 weeksOfData={weeksOfData}
             />
-            <WeeklyInsightCard 
-                title={currentSection?.title}
-                content={currentSection?.content}
-                currentIndex={currentIndex}
-                total={sections.length}
-            />
+            <section className="insights-section">
+                <h2 className="section-label">This Week's Insights</h2>
+                <WeeklyInsightCard 
+                    title={currentSection?.title}
+                    content={currentSection?.content}
+                    currentIndex={currentIndex}
+                    total={sections.length}
+                />
+            </section>
             <section className="nav-teasers">
                 <div className="nav-teaser" onClick={() => navigate('/dashboard/')}>
                     <h3>Dashboard →</h3>

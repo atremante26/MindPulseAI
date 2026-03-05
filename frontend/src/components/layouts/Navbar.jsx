@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { Brain } from 'lucide-react'
+import ShinyText from '../animations/ShinyText'
 import './Navbar.css'
 
 export default function Navbar() {
@@ -7,7 +8,12 @@ export default function Navbar() {
         <nav className='navbar'>
             <span className='navbar-brand'>
                 <Brain size={35} />
-                MindPulseAI
+                <ShinyText
+                    text="MindPulseAI"
+                    speed={3}
+                    color="#4a9e6b"
+                    ShineColor="#e8f0ea"
+                />
             </span>
             <div className='navbar-links'>
                 <NavLink to="/" end>Home</NavLink>
@@ -19,4 +25,3 @@ export default function Navbar() {
     )
 }
 
-// TODO: Add ECG-pulse thru / under the MindPulse AI text

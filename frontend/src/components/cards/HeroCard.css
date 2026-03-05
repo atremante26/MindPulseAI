@@ -1,38 +1,71 @@
 .hero-card {
     text-align: center;
-    padding: 4rem 2rem 3rem 2rem;
-    max-width: 900px;
+    padding: 5rem 2rem 4rem 2rem;
+    max-width: 1100px;
     margin: 0 auto;
+    position: relative;
 }
 
 .hero-title {
-    font-family: var(--font-heading);
-    color: var(--text-primary);
-    font-size: 3rem;
-    font-weight: 400;
-    margin-bottom: 0.5rem;
-    font-style: italic;
+    font-family: var(--font-heading) !important;
+    color: var(--text-primary) !important;
+    font-size: 4rem !important;
+    font-weight: 400 !important;
+    margin-bottom: 1.5rem !important;
+    line-height: 1.2 !important;
+    justify-content: center !important;
+    display: inline-flex !important;
+    flex-wrap: wrap;
+}
+
+.hero-title-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.5em;
+    margin-bottom: 1.5rem;
+}
+
+.hero-description {
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    max-width: 750px;
+    margin: 0 auto 2rem auto;
+    line-height: 1.7;
+}
+
+.hero-divider {
+    width: 60px;
+    height: 2px;
+    background-color: var(--color-primary);
+    margin: 0 auto 1.5rem auto;
+    opacity: 0.6;
 }
 
 .hero-dates {
     font-family: var(--font-body);
     color: var(--text-secondary);
-    font-size: 1rem;
+    font-size: 0.95rem;
+    margin-top: -1rem;
     margin-bottom: 0.25rem;
 }
 
 .hero-generated {
     font-family: var(--font-body);
     color: var(--color-muted);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     margin-bottom: 3rem;
 }
 
 .hero-stats {
     display: flex;
     justify-content: center;
-    gap: 3rem;
-    margin-top: 2rem;
+    gap: 5rem;
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--bg-border);
 }
 
 .hero-stat {
@@ -45,14 +78,15 @@
 .hero-stat-value {
     font-family: var(--font-heading);
     color: var(--color-primary);
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-style: italic;
+    line-height: 1;
 }
 
 .hero-stat-label {
     font-family: var(--font-body);
     color: var(--text-secondary);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
 }
