@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getWeekly, getHistorical } from '../services/api'
 import { useNavigate } from 'react-router-dom'
+import { BarChart2, ClipboardList } from 'lucide-react'
 import WeeklyInsightCard from '../components/cards/WeeklyInsightCard'
 import HeroCard from '../components/cards/HeroCard'
 import GlanceCard from '../components/cards/GlanceCard'
@@ -157,14 +158,29 @@ export default function Home() {
             </section>
             <section className="nav-teasers">
                 <div className="nav-teaser" onClick={() => navigate('/dashboard/')}>
-                    <h3>Dashboard →</h3>
-                    <p>Explore forecasts, sentiment trends, and topic clusters</p>
+                    <Aurora
+                        colorStops={['#0d0f0e', '#1e2b21', '#0d0f0e']}
+                        amplitude={0.6}
+                        blend={0.4}
+                    />
+                    <div className='nav-teaser-content'>
+                        <BarChart2 size={40} />
+                        <h3>Dashboard →</h3>
+                        <p>Explore forecasts, sentiment trends, and topic clusters!</p>
+                    </div>
                 </div>
                 <div className="nav-teaser"onClick={() => navigate('/explore/')}>
-                    <h3>Mood Explorer →</h3>
-                    <p>Find personalized mental health resources</p>
+                    <Aurora
+                        colorStops={['#0d0f0e', '#1e2b21', '#0d0f0e']}
+                        amplitude={0.6}
+                        blend={0.4}
+                    />
+                    <div className='nav-teaser-content'>
+                        <ClipboardList size={40} />
+                        <h3>Mood Explorer →</h3>
+                        <p>Find personalized mental health resources by completing a short quiz!</p>
+                    </div>
                 </div>
-
             </section>
         </div>
     )

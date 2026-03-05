@@ -68,10 +68,17 @@
     background-color: var(--bg-card);
     border: 1px solid var(--bg-border);
     border-radius: 12px;
-    padding: 2rem;
-    width: 300px;
+    width: 350px;
     cursor: pointer;
     transition: border-color 0.2s ease, transform 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-teaser-content {
+    position: relative;
+    z-index: 1;
+    padding: 2rem;
 }
 
 .nav-teaser:hover {
@@ -82,14 +89,15 @@
 .nav-teaser h3 {
     font-family: var(--font-heading);
     color: var(--text-primary);
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     margin-bottom: 0.5rem;
+    margin-top: 1rem;
     font-style: italic;
 }
 
 .nav-teaser p {
     font-family: var(--font-body);
     color: var(--text-secondary);
-    font-size: 0.9rem;
+    font-size: 1rem;
     line-height: 1.6;
 }
