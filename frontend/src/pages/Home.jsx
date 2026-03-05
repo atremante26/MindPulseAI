@@ -3,6 +3,8 @@ import { getWeekly, getHistorical } from '../services/api'
 import { useNavigate } from 'react-router-dom'
 import WeeklyInsightCard from '../components/cards/WeeklyInsightCard'
 import HeroCard from '../components/cards/HeroCard'
+import GlanceCard from '../components/cards/GlanceCard'
+import Aurora from '../components/animations/Aurora'
 import './Home.css'
 
 export default function Home() {
@@ -68,6 +70,45 @@ export default function Home() {
         historical.news_volume.length
     )
 
+    const glanceMetrics = [
+        {
+            label: "Sentiment Score",
+            value: insights.data_summary.forecast_summary.reddit_sentiment_avg.toFixed(2),
+            trend: insights.data_summary.forecast_summary.reddit_sentiment_trend,
+            source: "Reddit"
+        },
+        {
+            label: "Sentiment Score",
+            value: insights.data_summary.forecast_summary.news_sentiment_avg.toFixed(2),
+            trend: insights.data_summary.forecast_summary.news_sentiment_trend,
+            source: "News"
+        },
+        {
+            label: "Volume Avg",
+            value: insights.data_summary.forecast_summary.reddit_volume_avg.toFixed(0),
+            trend: insights.data_summary.forecast_summary.reddit_volume_trend,
+            source: "Reddit"
+        },
+        {
+            label: "Volume Avg",
+            value: insights.data_summary.forecast_summary.news_volume_avg.toFixed(0),
+            trend: insights.data_summary.forecast_summary.news_volume_trend,
+            source: "News"
+        },
+        {
+            label: "Sentiment Change",
+            value: `${insights.data_summary.forecast_summary.reddit_sentiment_change.toFixed(1)}%`,
+            trend: insights.data_summary.forecast_summary.reddit_sentiment_trend,
+            source: "Reddit"
+        },
+        {
+            label: "Coverage Ratio",
+            value: insights.data_summary.forecast_summary.coverage_ratio.toFixed(2),
+            trend: insights.data_summary.forecast_summary.news_volume_trend,
+            source: "News"
+        }
+    ]
+
     // Render page with data
     return (
         <div className="home">
@@ -79,14 +120,40 @@ export default function Home() {
                 totalNewsArticles={totalNewsArticles}
                 weeksOfData={weeksOfData}
             />
-            <section className="insights-section">
-                <h2 className="section-label">This Week's Insights</h2>
-                <WeeklyInsightCard 
-                    title={currentSection?.title}
-                    content={currentSection?.content}
-                    currentIndex={currentIndex}
-                    total={sections.length}
-                />
+            <section className="middle-section">
+                <div className="glance-section">
+                    <h2 className="section-label">This Week at a Glance</h2>
+                    <div className="glance-wrapper">
+                        <Aurora
+                            colorStops={['#0d0f0e', '#1e2b21', '#0d0f0e']}
+                            amplitude={0.8}
+                            blend={0.5}
+                        />
+                        <div className="glance-grid">
+                            {glanceMetrics.map((metric, i) => (
+                                <GlanceCard key={i} {...metric} />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                <div className="insights-section">
+                    <h2 className="section-label">This Week's Insights</h2>
+                    <div className='insights-wrapper'>
+                        <Aurora
+                            colorStops={['#0d0f0e', '#1e2b21', '#0d0f0e']}
+                            amplitude={0.8}
+                            blend={0.5}
+                        />
+                        <div className='insights-content'>
+                            <WeeklyInsightCard 
+                                title={currentSection?.title}
+                                content={currentSection?.content}
+                                currentIndex={currentIndex}
+                                total={sections.length}
+                            />
+                        </div>
+                    </div>
+                </div>
             </section>
             <section className="nav-teasers">
                 <div className="nav-teaser" onClick={() => navigate('/dashboard/')}>

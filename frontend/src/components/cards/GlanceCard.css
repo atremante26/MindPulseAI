@@ -1,0 +1,58 @@
+.glance-card {
+    background-color: rgba(26, 33, 30, 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(30, 43, 33, 0.6);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.glance-source {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.glance-label {
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.glance-value {
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    font-size: 1.8rem;
+    font-style: italic;
+    margin: 0;
+    line-height: 1;
+}
+
+.glance-trend {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}
+
+.glance-trend.positive {
+    color: var(--color-primary);
+}
+
+.glance-trend.negative {
+    color: var(--color-secondary);
+}
+
+.glance-trend.stable {
+    color: var(--color-accent);  
+}
