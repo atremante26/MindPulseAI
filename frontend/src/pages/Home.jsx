@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import { getWeekly, getHistorical } from '../services/api'
+import { useNavigate } from 'react-router-dom'
 import WeeklyInsightCard from '../components/cards/WeeklyInsightCard'
 import HeroCard from '../components/cards/HeroCard'
+import './Home.css'
 
 export default function Home() {
 
@@ -10,6 +12,7 @@ export default function Home() {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [currentIndex, setCurrentIndex] = useState(0) // which insight is showing
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -59,7 +62,7 @@ export default function Home() {
     const totalNewsArticles = Math.round(
         historical.news_volume.reduce((sum, item) => sum + item.value, 0)
     )
-    
+
     const weeksOfData = Math.max(
         historical.reddit_volume.length,
         historical.news_volume.length
@@ -67,21 +70,32 @@ export default function Home() {
 
     // Render page with data
     return (
-    <div className="home">
-        <HeroCard
-            weekStart={insights.week_start}
-            weekEnd={insights.week_end}
-            generatedAt={insights.generated_at}
-            totalRedditPosts={totalRedditPosts}
-            totalNewsArticles={totalNewsArticles}
-            weeksOfData={weeksOfData}
-        />
-        <WeeklyInsightCard 
-            title={currentSection?.title}
-            content={currentSection?.content}
-            currentIndex={currentIndex}
-            total={sections.length}
-        />
-    </div>
-)
+        <div className="home">
+            <HeroCard
+                weekStart={insights.week_start}
+                weekEnd={insights.week_end}
+                generatedAt={insights.generated_at}
+                totalRedditPosts={totalRedditPosts}
+                totalNewsArticles={totalNewsArticles}
+                weeksOfData={weeksOfData}
+            />
+            <WeeklyInsightCard 
+                title={currentSection?.title}
+                content={currentSection?.content}
+                currentIndex={currentIndex}
+                total={sections.length}
+            />
+            <section className="nav-teasers">
+                <div className="nav-teaser" onClick={() => navigate('/dashboard/')}>
+                    <h3>Dashboard →</h3>
+                    <p>Explore forecasts, sentiment trends, and topic clusters</p>
+                </div>
+                <div className="nav-teaser"onClick={() => navigate('/explore/')}>
+                    <h3>Mood Explorer →</h3>
+                    <p>Find personalized mental health resources</p>
+                </div>
+
+            </section>
+        </div>
+    )
 }

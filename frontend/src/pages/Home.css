@@ -1,0 +1,42 @@
+.home {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem 2rem;
+}
+
+.nav-teasers {
+    display: flex;
+    gap: 2rem;
+    margin-top: 4rem;
+    justify-content: center;
+}
+
+.nav-teaser {
+    background-color: var(--bg-card);
+    border: 1px solid var(--bg-border);
+    border-radius: 12px;
+    padding: 2rem;
+    width: 300px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-teaser:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-4px);
+}
+
+.nav-teaser h3 {
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+}
+
+.nav-teaser p {
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
