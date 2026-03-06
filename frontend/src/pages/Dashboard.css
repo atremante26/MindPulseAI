@@ -1,0 +1,16 @@
+.dashboard {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 2rem 3rem 4rem 3rem;
+}
+
+.forecast-section {
+    margin-bottom: 4rem;
+}
+
+.forecast-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 1rem;
+}
