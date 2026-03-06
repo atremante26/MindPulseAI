@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { getForecasts, getHistorical, getDatapoint, getClusters } from "../services/api"
 import ForecastChart from "../components/charts/ForecastChart"
+import BlurText from "../components/animations/BlurText"
+import ShinyText from "../components/animations/ShinyText"
 import './Dashboard.css'
 
 export default function Dashboard() {
@@ -44,6 +46,25 @@ export default function Dashboard() {
 
     return (
         <div className="dashboard">
+            <div className="dashboard-header">
+                <BlurText
+                    text="Analytics Dashboard"
+                    delay={150}
+                    animateBy="words"
+                    direction="top"
+                    className="dashboard-title"
+                />
+                <ShinyText
+                    text="Real-Time Analytics"
+                    speed={3}
+                    color="#4a9e6b"
+                    shineColor="#e8f0ea"
+                    className="dashboard-label"
+                />
+                <p className="dashboard-description">
+                    Explore how mental health discourse is trending across Reddit and news media. Interact with forecast datapoints for AI-generated insights, and uncover patterns in workplace mental health survey clusters.
+                </p>
+            </div>
             <div className="forecast-grid">
                 <div className="chart-with-insight">
                     <ForecastChart

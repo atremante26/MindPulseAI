@@ -4,6 +4,51 @@
     padding: 2rem 3rem 4rem 3rem;
 }
 
+.dashboard-header {
+    border-left: 3px solid var(--color-primary);
+    padding-left: 1.5rem;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+}
+
+.dashboard-header::after {
+    content: '';
+    display: block;
+    width: calc(100% - 1.5rem);
+    margin-left: 0;
+    margin-top: 2rem;
+    height: 1px;
+    background-color: var(--bg-border);
+}
+
+.dashboard-label {
+    font-family: var(--font-body);
+    color: var(--color-muted);  
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.25rem;
+    font-weight: 700; 
+}
+
+.dashboard-title {
+    font-family: var(--font-heading) !important;
+    color: var(--text-primary) !important;
+    font-size: 2.5rem !important;   
+    font-weight: 400 !important;
+    font-style: italic !important;
+    margin-bottom: 0.75rem !important;
+}
+
+.dashboard-description {
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    max-width: 900px;   
+    line-height: 1.6;
+    margin-top: 0.75rem;
+}
+
 .forecast-section {
     margin-bottom: 4rem;
 }
