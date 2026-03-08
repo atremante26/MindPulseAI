@@ -8,10 +8,15 @@ import './Dashboard.css'
 export default function Dashboard() {
     const [forecasts, setForecasts] = useState(null)
     const [historical, setHistorical] = useState(null)
-    const [datapoint, setDatapoint] = useState(null)
     const [clusters, setClusters] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+    const [datapointInsights, setDatapointInsights] = useState({
+        reddit_volume: null,
+        reddit_sentiment: null,
+        news_volume: null,
+        news_sentiment: null
+    })
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,7 +29,7 @@ export default function Dashboard() {
                 setForecasts(forecastsResponse.data)
                 setHistorical(historicalResponse.data)
                 setClusters(clustersResponse.data)
-                console.log(forecastsResponse.data.news_volume.predictions)
+                // console.log(forecastsResponse.data.news_volume.predictions)
             } catch (err) {
                 setError(err.message)
             } finally {
@@ -40,8 +45,50 @@ export default function Dashboard() {
     // Handle error state
     if (error) return <div>Error: {error}</div>
 
-    const handlePointClick = (data, metricName) => {
-        console.log('clicked:', data, metricName)
+    const handlePointClick = async (data, metricName) => {
+        // Set metric to loading
+        setDatapoint(prev => ({ ...prev, [metricName]: 'loading' }))
+
+        // Build surrounding weeks from historical
+        const historicalData = historical[metricName]
+        const clickedDate = data.activePayload?.[0]?.payload?.date
+        const idx = historicalData.findIndex(p => p.ds.split(' ')[0] === clickedDate)
+        const surrounding = historicalData
+            .slice(Math.max(0, idx - 3), idx + 4)
+            .filter(p => p.ds.split(' ')[0] !== clickedDate)
+            .map(p => ({ date: p.ds.split(' ')[0], value: p.value }))
+
+        // Calculate baseline
+        const forecastData = forecasts[metricName]
+        const baseline = forecastData.predictions.reduce(
+            (sum, p) => sum + p.yhat, 0
+        ) / forecastData.predictions.length
+
+        // Get clicked point values
+        const clickedPoint = data.activePayload?.[0]?.payload
+
+        const payload = {
+            metric_name: metricName,
+            week_date: clickedDate,
+            value: clickedPoint?.forecast ?? clickedPoint?.historical,
+            baseline: parseFloat(baseline.toFixed(2)),
+            confidence_lower: clickedPoint?.band?.[0] ?? 0,
+            confidence_upper: clickedPoint?.band?.[1] ?? 0,
+            surrounding_weeks: surrounding
+        }
+
+        try {
+            const response = await getDatapoint(payload)
+            setDatapointInsights(prev => ({ 
+                ...prev, 
+                [metricName]: response.data 
+            }))
+        } catch (err) {
+            setDatapointInsights(prev => ({ 
+                ...prev, 
+                [metricName]: { text: 'Failed to generate insight.', metadata: null } 
+            }))
+        }
     }
 
     return (
@@ -71,7 +118,7 @@ export default function Dashboard() {
                         title="Reddit Volume"
                         historical={historical.reddit_volume}
                         forecast={forecasts.reddit_volume}
-                        metricName="volume"
+                        metricName="reddit_volume"
                         onPointClick={handlePointClick}
                     />
                 </div>
@@ -80,7 +127,7 @@ export default function Dashboard() {
                         title="News Volume"
                         historical={historical.news_volume}
                         forecast={forecasts.news_volume}
-                        metricName="volume"
+                        metricName="news_volume"
                         onPointClick={handlePointClick}
                     />
                 </div>

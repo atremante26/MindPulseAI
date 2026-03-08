@@ -47,7 +47,7 @@ export default function ForecastChart({ title, historical, forecast, metricName,
                             borderRadius: '8px',
                             color: '#e8f0ea',
                             fontSize: '0.85rem',
-                            lineHeight: '1.5',        
+                            lineHeight: '2',        
                             padding: '0.75rem 1rem'
                         }}
                         formatter={(value, name) => {
@@ -56,7 +56,7 @@ export default function ForecastChart({ title, historical, forecast, metricName,
                                 return [`[${value[0].toFixed(2)}, ${value[1].toFixed(2)}]`, 'Confidence Interval']
                             }
                             if (name === 'forecast') return [value.toFixed(2), 'Forecast']
-                            if (name === 'historical') return [value.toFixed(2), 'Historical']
+                            if (name === 'historical') return [value.toFixed(2), 'Value']
                             if (typeof value === 'number') return [value.toFixed(2), name]
                             return null
                         }}
