@@ -84,7 +84,11 @@ export default function ForecastChart({ title, historical, forecast, metricName,
                         strokeWidth={2}
                         strokeDasharray="5 5"
                         dot={{ fill: '#7eb8a4', r: 3, cursor: 'pointer' }}
-                        activeDot={{ r: 5, cursor: 'pointer' }}
+                        activeDot={{ 
+                            r: 5, 
+                            cursor: 'pointer',
+                            onClick: (event, payload) => onPointClick && onPointClick(payload, metricName)
+                        }}
                         connectNulls={false}
                         legendType="none"
                         onClick={(data) => onPointClick && onPointClick(data, metricName)}

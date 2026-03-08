@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { getForecasts, getHistorical, getDatapoint, getClusters } from "../services/api"
 import ForecastChart from "../components/charts/ForecastChart"
+import DatapointInsight from "../components/charts/DatapointInsight"
 import BlurText from "../components/animations/BlurText"
 import ShinyText from "../components/animations/ShinyText"
 import './Dashboard.css'
@@ -47,7 +48,7 @@ export default function Dashboard() {
 
     const handlePointClick = async (data, metricName) => {
         // Set metric to loading
-        setDatapoint(prev => ({ ...prev, [metricName]: 'loading' }))
+        setDatapointInsights(prev => ({ ...prev, [metricName]: 'loading' }))
 
         // Build surrounding weeks from historical
         const historicalData = historical[metricName]
@@ -78,7 +79,8 @@ export default function Dashboard() {
         }
 
         try {
-            const response = await getDatapoint(payload)
+            console.log('payload:', payload)
+            const response = await getDatapoint(payload)        
             setDatapointInsights(prev => ({ 
                 ...prev, 
                 [metricName]: response.data 
@@ -121,6 +123,7 @@ export default function Dashboard() {
                         metricName="reddit_volume"
                         onPointClick={handlePointClick}
                     />
+                    <DatapointInsight insight={datapointInsights.reddit_volume} />
                 </div>
                 <div className="chart-with-insight">
                     <ForecastChart
@@ -130,6 +133,7 @@ export default function Dashboard() {
                         metricName="news_volume"
                         onPointClick={handlePointClick}
                     />
+                    <DatapointInsight insight={datapointInsights.news_volume} />
                 </div>
                 <div className="chart-with-insight">
                     <ForecastChart
@@ -139,6 +143,7 @@ export default function Dashboard() {
                         metricName="reddit_sentiment"
                         onPointClick={handlePointClick}
                     />
+                    <DatapointInsight insight={datapointInsights.reddit_sentiment} />
                 </div>
                 <div className="chart-with-insight">
                     <ForecastChart
@@ -148,6 +153,7 @@ export default function Dashboard() {
                         metricName="news_sentiment"
                         onPointClick={handlePointClick}
                     />
+                    <DatapointInsight insight={datapointInsights.news_sentiment} />
                 </div>
             </div>
         </div>

@@ -1,0 +1,70 @@
+.datapoint-insight {
+    background-color: var(--bg-card);
+    border: 1px solid var(--bg-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    min-height: 100px;
+}
+
+.datapoint-insight.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-style: dashed;
+}
+
+.datapoint-insight.placeholder p {
+    font-family: var(--font-body);
+    color: var(--color-muted);
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.datapoint-insight.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.datapoint-insight.loading p {
+    font-family: var(--font-body);
+    color: var(--color-muted);
+    font-size: 0.85rem;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.datapoint-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--bg-border);
+}
+
+.datapoint-title {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    font-size: 1rem;
+    font-style: italic;
+    margin: 0;
+}
+
+.datapoint-meta {
+    font-family: var(--font-body);
+    color: var(--color-muted);
+    font-size: 0.8rem;
+}
+
+.datapoint-text {
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin: 0;
+}
