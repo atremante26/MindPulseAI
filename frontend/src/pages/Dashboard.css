@@ -59,3 +59,41 @@
     gap: 2rem;
     margin-top: 1rem;
 }
+
+.cluster-section {
+    margin-top: 4rem;
+}
+
+.cluster-header {
+    border-left: 3px solid var(--color-primary);
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.cluster-heading {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 2rem;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem;
+}
+
+.cluster-description {
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin: 0;
+}
+
+.cluster-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid var(--bg-border);  
+}
+
+.cluster-inner {
+    position: relative;
+    z-index: 1;
+}

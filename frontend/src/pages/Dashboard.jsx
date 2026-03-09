@@ -2,8 +2,10 @@ import { useState, useEffect } from "react"
 import { getForecasts, getHistorical, getDatapoint, getClusters } from "../services/api"
 import ForecastChart from "../components/charts/ForecastChart"
 import DatapointInsight from "../components/charts/DatapointInsight"
+import ClusterChart from "../components/charts/ClusterChart"
 import BlurText from "../components/animations/BlurText"
 import ShinyText from "../components/animations/ShinyText"
+import Aurora from "../components/animations/Aurora"
 import './Dashboard.css'
 
 export default function Dashboard() {
@@ -18,6 +20,7 @@ export default function Dashboard() {
         news_volume: null,
         news_sentiment: null
     })
+    const [selectedCluster, setSelectedCluster] = useState(null)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -91,6 +94,10 @@ export default function Dashboard() {
         }
     }
 
+    const handleBubbleClick = (data) => {
+        setSelectedCluster(data)
+    }
+
     return (
         <div className="dashboard">
             <div className="dashboard-header">
@@ -152,6 +159,26 @@ export default function Dashboard() {
                         onPointClick={handlePointClick}
                     />
                     <DatapointInsight insight={datapointInsights.news_sentiment} />
+                </div>
+            </div>
+            <div className="cluster-section">
+                <div className="cluster-header">
+                    <ShinyText
+                        text="Workplace Mental Health Clusters"
+                        speed={3}
+                        color="#4a9e6b"
+                        shineColor="#e8f0ea"
+                        className="cluster-heading"
+                    />
+                    <p className="cluster-description">
+                        HDBSCAN clustering of 914 Open Sourcing Mental Illness (OSMI) survey respondents. Click a bubble to explore the full cluster profile.
+                    </p>
+                </div>
+                <div className="cluster-wrapper">
+                    <Aurora colorStops={['#0d0f0e', '#1a3d2a', '#0d0f0e']} amplitude={1.2} blend={0.4} />                    
+                    <div className="cluster-inner">
+                        <ClusterChart clusters={clusters} onBubbleClick={handleBubbleClick} />
+                    </div>
                 </div>
             </div>
         </div>

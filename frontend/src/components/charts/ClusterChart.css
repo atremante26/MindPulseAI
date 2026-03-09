@@ -1,0 +1,38 @@
+.cluster-card {
+    background-color: transparent; 
+    border: none;                   
+    border-radius: 20px;
+    padding: 1.5rem;
+}
+
+.cluster-title {
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+}
+
+.cluster-tooltip {
+    background-color: var(--bg-card);
+    border: 1px solid var(--bg-border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+}
+
+.tooltip-title {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    font-style: italic;
+    margin: 0 0 4px;
+    font-size: 1.2rem;
+}
+
+.tooltip-stat {
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin: 0;
+}
