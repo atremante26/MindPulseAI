@@ -47,40 +47,38 @@ export default function Dashboard() {
     if (error) return <div>Error: {error}</div>
 
     const handlePointClick = async (data, metricName) => {
-        // Set metric to loading
+        const clickedPoint = data.payload
+
         setDatapointInsights(prev => ({ ...prev, [metricName]: 'loading' }))
 
-        // Build surrounding weeks from historical
         const historicalData = historical[metricName]
-        const clickedDate = data.activePayload?.[0]?.payload?.date
+        const clickedDate = clickedPoint.date
+
         const idx = historicalData.findIndex(p => p.ds.split(' ')[0] === clickedDate)
         const surrounding = historicalData
             .slice(Math.max(0, idx - 3), idx + 4)
             .filter(p => p.ds.split(' ')[0] !== clickedDate)
             .map(p => ({ date: p.ds.split(' ')[0], value: p.value }))
 
-        // Calculate baseline
         const forecastData = forecasts[metricName]
         const baseline = forecastData.predictions.reduce(
             (sum, p) => sum + p.yhat, 0
         ) / forecastData.predictions.length
 
-        // Get clicked point values
-        const clickedPoint = data.activePayload?.[0]?.payload
-
         const payload = {
             metric_name: metricName,
             week_date: clickedDate,
-            value: clickedPoint?.forecast ?? clickedPoint?.historical,
+            value: clickedPoint.forecast ?? clickedPoint.historical,
             baseline: parseFloat(baseline.toFixed(2)),
-            confidence_lower: clickedPoint?.band?.[0] ?? 0,
-            confidence_upper: clickedPoint?.band?.[1] ?? 0,
+            confidence_lower: clickedPoint.band?.[0] ?? 0,
+            confidence_upper: clickedPoint.band?.[1] ?? 0,
             surrounding_weeks: surrounding
         }
 
+        console.log('payload:', payload)
+
         try {
-            console.log('payload:', payload)
-            const response = await getDatapoint(payload)        
+            const response = await getDatapoint(payload)
             setDatapointInsights(prev => ({ 
                 ...prev, 
                 [metricName]: response.data 

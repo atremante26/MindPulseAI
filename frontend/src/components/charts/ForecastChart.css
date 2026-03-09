@@ -8,7 +8,7 @@
 .chart-title {
     font-family: var(--font-body);
     color: var(--text-secondary);
-    font-size: 0.8rem;
+    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: 1rem;
