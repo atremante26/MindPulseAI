@@ -36,7 +36,7 @@ export default function ClusterChart({ clusters, onBubbleClick }) {
     }))
 
     return (
-        <div className='cluster-card'>
+        <div className='cluster-chart'>
             <h3 className='cluster-title'>Topic Clusters</h3>
             <ResponsiveContainer width="100%" height={350}>
                 <ScatterChart margin={{ top: 20, right: 40, bottom: 20, left: 40 }}>

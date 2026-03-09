@@ -3,6 +3,7 @@ import { getForecasts, getHistorical, getDatapoint, getClusters } from "../servi
 import ForecastChart from "../components/charts/ForecastChart"
 import DatapointInsight from "../components/charts/DatapointInsight"
 import ClusterChart from "../components/charts/ClusterChart"
+import ClusterCard from "../components/cards/ClusterCard"
 import BlurText from "../components/animations/BlurText"
 import ShinyText from "../components/animations/ShinyText"
 import Aurora from "../components/animations/Aurora"
@@ -95,6 +96,7 @@ export default function Dashboard() {
     }
 
     const handleBubbleClick = (data) => {
+        //console.log('cluster data:', JSON.stringify(data, null, 2))
         setSelectedCluster(data)
     }
 
@@ -180,6 +182,7 @@ export default function Dashboard() {
                         <ClusterChart clusters={clusters} onBubbleClick={handleBubbleClick} />
                     </div>
                 </div>
+                <ClusterCard cluster={selectedCluster} />
             </div>
         </div>
     )
