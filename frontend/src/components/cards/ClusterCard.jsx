@@ -1,7 +1,7 @@
 import './ClusterCard.css'
 
 export default function ClusterCard({ cluster }) {
-    if (!cluster) return <div>No available data.</div>
+    if (!cluster) return <div></div>
 
     return (
         <div className='cluster-card'>

@@ -1,0 +1,210 @@
+.explore {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 4rem 3rem;
+}
+
+.explore-header {
+    border-left: 3px solid var(--color-primary);
+    padding-left: 1.5rem;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+}
+
+.explore-header::after {
+    content: '';
+    display: block;
+    width: calc(100% - 1.5rem);
+    margin-top: 2rem;
+    height: 1px;
+    background-color: var(--bg-border);
+}
+
+.explore-title {
+    font-family: var(--font-heading) !important;
+    color: var(--text-primary) !important;
+    font-size: 2.5rem !important;
+    font-weight: 400 !important;
+    font-style: italic !important;
+    margin-bottom: 0.75rem !important;
+}
+
+.explore-label {
+    font-family: var(--font-body);
+    color: var(--color-muted);  
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.25rem;
+    font-weight: 700; 
+}
+
+.explore-description {
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    max-width: 900px;
+    line-height: 1.6;
+    margin-top: 0.75rem;
+}
+
+.explore-quiz {
+    background-color: var(--bg-card);
+    border: 1px solid var(--bg-border);
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.quiz-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.quiz-label {
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.quiz-required {
+    color: var(--color-secondary);
+}
+
+.quiz-optional {
+    color: var(--color-muted);
+    font-weight: 400;
+    font-size: 0.85rem;
+}
+
+.pill-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.pill {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--bg-border);
+    border-radius: 20px;
+    padding: 0.4rem 1rem;
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pill:hover {
+    border-color: var(--color-muted);
+    color: var(--text-primary);
+}
+
+.pill-active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #0d0f0e;
+    font-weight: 500;
+}
+
+.age-input {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--bg-border);
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    width: 200px;
+    outline: none;
+}
+
+.age-input:focus {
+    border-color: var(--color-primary);
+}
+
+.quiz-toggles {
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.toggle-label input[type="checkbox"] {
+    accent-color: var(--color-primary);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.explore-submit {
+    background-color: var(--color-primary);
+    color: #0d0f0e;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 2rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: fit-content;
+    transition: opacity 0.2s ease;
+}
+
+.explore-submit:hover {
+    opacity: 0.85;
+}
+
+.explore-submit:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.explore-error {
+    font-family: var(--font-body);
+    color: var(--color-secondary);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.recommendations {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.recommendations-label {
+    font-family: var(--font-body);
+    color: var(--color-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0;
+}
+
+.rec-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--bg-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
