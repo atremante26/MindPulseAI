@@ -177,7 +177,7 @@ export default function Home() {
                     />
                     <div className='nav-teaser-content'>
                         <ClipboardList size={40} />
-                        <h3>Mood Explorer →</h3>
+                        <h3>Explore →</h3>
                         <p>Find personalized mental health resources by completing a short quiz!</p>
                     </div>
                 </div>
