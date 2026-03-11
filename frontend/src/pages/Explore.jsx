@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { getRecommendations } from "../services/api"
+import ResourceCard from "../components/cards/ResourceCard"
 import BlurText from "../components/animations/BlurText"
 import ShinyText from "../components/animations/ShinyText"
 import './Explore.css'
@@ -210,9 +211,7 @@ export default function Explore() {
                         {recommendations.length} resources found
                     </p>
                     {recommendations.map((rec, i) => (
-                        <div key={i} className="rec-card">
-                            <p>{rec.resource.name}</p>
-                        </div>
+                        <ResourceCard key={i} rec={rec} />
                     ))}
                 </div>
             )}
