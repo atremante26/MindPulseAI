@@ -272,7 +272,7 @@
     "description": "Free app using cognitive behavioral therapy (CBT) techniques for anxiety",
     "url": "https://www.anxietycanada.com/resources/mindshift-cbt/",
     "phone": null,
-    "concerns": ["anxiety", "panic_attacks", "stress", "phobias"],
+    "concerns": ["anxiety", "panic_attacks", "stress"],
     "cost_tier": "free",
     "cost_details": "Completely free",
     "age_groups": ["teen", "young_adult", "adult"],
