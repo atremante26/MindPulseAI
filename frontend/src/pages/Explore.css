@@ -67,8 +67,8 @@
 .quiz-label {
     font-family: var(--font-body);
     color: var(--text-primary);
-    font-size: 0.95rem;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 600;
     margin: 0;
 }
 
@@ -126,17 +126,12 @@
     font-family: var(--font-body);
     color: var(--text-primary);
     font-size: 0.95rem;
-    width: 200px;
+    width: 250px;
     outline: none;
 }
 
 .age-input:focus {
     border-color: var(--color-primary);
-}
-
-.quiz-toggles {
-    flex-direction: row;
-    gap: 2rem;
 }
 
 .toggle-label {
@@ -207,4 +202,44 @@
     border: 1px solid var(--bg-border);
     border-radius: 12px;
     padding: 1.5rem;
+}
+
+.recommendations-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid var(--bg-border);
+    margin-top: 3rem;
+    padding: 1.5rem;
+}
+
+.recommendations-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.explore-submit-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.explore-reset {
+    background-color: transparent;
+    border: 1px solid var(--color-muted);
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.explore-reset:hover {
+    border-color: var(--text-secondary);
+    color: var(--text-primary);
 }

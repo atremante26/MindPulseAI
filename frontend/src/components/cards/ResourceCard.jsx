@@ -1,16 +1,17 @@
 import CountUp from '../animations/CountUp'
+import ShinyText from '../animations/ShinyText'
 import './ResourceCard.css'
+
+const formatCost = (cost) => cost.charAt(0).toUpperCase() + cost.slice(1)
 
 export default function ResourceCard({ rec }) {
     if (!rec) return null
 
     const online = rec.resource.online_only ? "Yes" : "No"
-    const matchPct = Math.round(rec.match_score * 100)
-    const formatConcern = (concern) => 
-        concern.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+    const matchPct = Math.min(100, Math.round(rec.match_score * 100))
 
     return (
-        <div className="resource-card">
+        <div className={`resource-card ${rec.resource.crisis_resource ? 'crisis' : ''}`}>
             <div className="resource-card-top">
                 <div className="resource-card-left">
                     <div className="resource-badges">
@@ -19,19 +20,25 @@ export default function ResourceCard({ rec }) {
                             <span className="badge badge-crisis">Crisis Resource</span>
                         )}
                     </div>
-                    <h3 className='resource-name'>{rec.resource.name}</h3>
+                    <ShinyText
+                        text={rec.resource.name}
+                        speed={4}
+                        color="#e8f0ea"
+                        shineColor="#4a9e6b"
+                        className="resource-name"
+                    />
                     <p className='resource-description-text'>{rec.resource.description}</p>
                 </div>
                 <div className="resource-match-column">
                     <div className="resource-match-score">
-                        <CountUp to={matchPct}/>
+                        <CountUp to={matchPct} />
                         <span className="match-symbol">%</span>
                     </div>
                     <p className="match-label">match</p>
                     <div className="match-bar">
-                        <div 
-                            className="match-bar-fill" 
-                            style={{ width: `${matchPct}%` }} 
+                        <div
+                            className="match-bar-fill"
+                            style={{ width: `${matchPct}%` }}
                         />
                     </div>
                 </div>
@@ -52,25 +59,19 @@ export default function ResourceCard({ rec }) {
             <div className="resource-divider" />
 
             <div className='resource-card-metadata'>
-                <span className='resource-metadata-info'>Cost: {rec.resource.cost_tier}</span>
+                <span className='resource-metadata-info'>
+                    Cost: {formatCost(rec.resource.cost_tier)}
+                </span>
                 <span className='resource-metadata-info'>Online: {online}</span>
                 {rec.resource.url && (
-                    <a 
-                        href={rec.resource.url} 
-                        target="_blank" 
-                        rel="noreferrer" 
-                        className="resource-link"
-                    >
+                    <a href={rec.resource.url} target="_blank" rel="noreferrer" className="resource-link">
                         Visit Website →
                     </a>
                 )}
                 {rec.resource.phone && (
-                    <a 
-                        href={`tel:${rec.resource.phone}`} 
-                        className="resource-link"
-                    >
-                        {rec.resource.phone}
-                    </a>
+                    <span className='resource-metadata-info'>
+                        Call / Text: {rec.resource.phone}
+                    </span>
                 )}
             </div>
         </div>

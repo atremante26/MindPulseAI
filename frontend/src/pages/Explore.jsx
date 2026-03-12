@@ -3,6 +3,7 @@ import { getRecommendations } from "../services/api"
 import ResourceCard from "../components/cards/ResourceCard"
 import BlurText from "../components/animations/BlurText"
 import ShinyText from "../components/animations/ShinyText"
+import Aurora from "../components/animations/Aurora"
 import './Explore.css'
 
 const CONCERNS = [
@@ -85,6 +86,17 @@ export default function Explore() {
         } finally {
             setLoading(false)
         }
+    }
+
+    const handleReset = () => {
+        setConcerns([])
+        setCostPreference('free')
+        setAge('')
+        setResourceTypes([])
+        setOnlineOnly(false)
+        setCrisisNeed(false)
+        setRecommendations(null)
+        setError(null)
     }
 
     return (
@@ -173,46 +185,50 @@ export default function Explore() {
                 </div>
 
                 {/* Toggles */}
-                <div className="quiz-section quiz-toggles">
-                    <label className="toggle-label">
-                        <input
-                            type="checkbox"
-                            checked={onlineOnly}
-                            onChange={e => setOnlineOnly(e.target.checked)}
-                        />
-                        Online resources only
-                    </label>
-                    <label className="toggle-label">
-                        <input
-                            type="checkbox"
-                            checked={crisisNeed}
-                            onChange={e => setCrisisNeed(e.target.checked)}
-                        />
-                        I need crisis support
-                    </label>
+                <div className="quiz-section">
+                    <div className="pill-row">
+                        <button
+                            className={`pill ${onlineOnly ? 'pill-active' : ''}`}
+                            onClick={() => setOnlineOnly(!onlineOnly)}
+                        >
+                            Online Only
+                        </button>
+                        <button
+                            className={`pill ${crisisNeed ? 'pill-active' : ''}`}
+                            onClick={() => setCrisisNeed(!crisisNeed)}
+                        >
+                            I Need Crisis Support
+                        </button>
+                    </div>
                 </div>
 
                 {/* Submit */}
-                <button
-                    className="explore-submit"
-                    onClick={handleSubmit}
-                    disabled={loading || concerns.length === 0}
-                >
-                    {loading ? 'Finding resources...' : 'Get Recommendations'}
-                </button>
-
-                {error && <p className="explore-error">{error}</p>}
+                <div className="explore-submit-row">
+                    <button
+                        className="explore-submit"
+                        onClick={handleSubmit}
+                        disabled={loading || concerns.length === 0}
+                    >
+                        {loading ? 'Finding resources...' : 'Get Recommendations'}
+                    </button>
+                    <button
+                        className="explore-reset"
+                        onClick={handleReset}
+                    >
+                        Reset
+                    </button>
+                </div>
             </div>
 
             {/* Results */}
             {recommendations && (
-                <div className="recommendations">
-                    <p className="recommendations-label">
-                        {recommendations.length} resources found
-                    </p>
-                    {recommendations.map((rec, i) => (
-                        <ResourceCard key={i} rec={rec} />
-                    ))}
+                <div className="recommendations-wrapper">
+                        <Aurora colorStops={['#0d0f0e', '#1a3d2a', '#0d0f0e']} amplitude={1.5} blend={0.35} />                    <div className="recommendations-inner">
+                        <p className="recommendations-label">{recommendations.length} resources found</p>
+                        {recommendations.map((rec, i) => (
+                            <ResourceCard key={i} rec={rec} />
+                        ))}
+                    </div>
                 </div>
             )}
         </div>
