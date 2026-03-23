@@ -19,8 +19,8 @@ const MODELS = [
     {
         number: "03",
         name: "LLM Insights",
-        description: "Claude 3.5 Sonnet interprets clicked forecast datapoints in context — surfacing statistical significance, mental health domain interpretation, and actionable recommendations grounded in WHO data.",
-        tags: ["Claude 3.5 Sonnet", "Prompt Engineering", "RAG Context", "FastAPI"],
+        description: "Claude 3.5 Haiku interprets clicked forecast datapoints in context — surfacing statistical significance, mental health domain interpretation, and actionable recommendations grounded in WHO data.",
+        tags: ["Claude 3.5 Haiku", "Prompt Engineering", "RAG Context", "FastAPI"],
     },
     {
         number: "04",
@@ -38,7 +38,7 @@ const STACK = [
 ]
 
 const PIPELINE = [
-    { step: "01", title: "Ingest", description: "Reddit posts and news articles collected daily via API, filtered for mental health relevance." },
+    { step: "01", title: "Ingest", description: "Reddit posts and news articles collected weekly via API, filtered for mental health relevance." },
     { step: "02", title: "Process", description: "VADER sentiment scoring applied per post/article. Aggregated into daily volume and sentiment metrics." },
     { step: "03", title: "Store", description: "Processed time-series data stored in Snowflake. Historical data powers both forecasting and trend visualization." },
     { step: "04", title: "Model", description: "Prophet trains on historical data to generate 30-day forecasts with upper/lower confidence intervals." },
@@ -52,13 +52,15 @@ export default function About() {
 
             {/* Header */}
             <div className="about-header">
-                <BlurText
-                    text="About"
-                    delay={150}
-                    animateBy="words"
-                    direction="top"
-                    className="about-title"
-                />
+                <div className="about-title-row">
+                    <BlurText
+                        text="About MindPulseAI"
+                        delay={150}
+                        animateBy="words"
+                        direction="top"
+                        className="about-title"
+                    />
+                </div>
                 <ShinyText
                     text="Mental Health Analytics & Resource Discovery"
                     speed={3}
@@ -67,8 +69,8 @@ export default function About() {
                     className="about-label"
                 />
                 <p className="about-description">
-                    MindPulseAI tracks and analyzes how mental health is discussed across Reddit and news media — 
-                    surfacing trends, forecasting shifts in public discourse, and helping you find the right resources 
+                    MindPulseAI tracks and analyzes how mental health is discussed across Reddit and news media —
+                    surfacing trends, forecasting shifts in public discourse, and helping you find the right resources
                     for your needs. Built on real data with automated weekly updates.
                 </p>
             </div>
@@ -135,15 +137,10 @@ export default function About() {
                 <div className="about-links-wrapper">
                     <Aurora colorStops={['#0d0f0e', '#1a3d2a', '#0d0f0e']} amplitude={1.2} blend={0.4} />
                     <div className="about-links-inner">
-                        <p className="about-section-label">Explore More</p>
-                        <h2 className="about-section-heading">Get Started</h2>
+                        <p className="about-section-label">Resources</p>
+                        <h2 className="about-section-heading">Explore the Project</h2>
                         <div className="about-links">
-                            <a
-                                href="https://github.com/atremante26/MindPulseAI"
-                                target="_blank"
-                                rel="noreferrer"
-                                className="about-link-card"
-                            >
+                            <a href="https://github.com/atremante26/MindPulseAI" target="_blank" rel="noreferrer" className="about-link-card">
                                 <span className="about-link-icon">⌥</span>
                                 <div>
                                     <p className="about-link-title">GitHub Repository</p>
@@ -151,25 +148,7 @@ export default function About() {
                                 </div>
                                 <span className="about-link-arrow">→</span>
                             </a>
-                            <a
-                                href="https://atremante26.github.io/MindPulseAI"
-                                target="_blank"
-                                rel="noreferrer"
-                                className="about-link-card"
-                            >
-                                <span className="about-link-icon">◈</span>
-                                <div>
-                                    <p className="about-link-title">Live Application</p>
-                                    <p className="about-link-sub">Deployed frontend on GitHub Pages</p>
-                                </div>
-                                <span className="about-link-arrow">→</span>
-                            </a>
-                            <a
-                                href="https://mental-health-project-bct5.onrender.com/docs"
-                                target="_blank"
-                                rel="noreferrer"
-                                className="about-link-card"
-                            >
+                            <a href="https://mental-health-project-bct5.onrender.com/docs" target="_blank" rel="noreferrer" className="about-link-card">
                                 <span className="about-link-icon">◎</span>
                                 <div>
                                     <p className="about-link-title">API Documentation</p>
@@ -177,6 +156,31 @@ export default function About() {
                                 </div>
                                 <span className="about-link-arrow">→</span>
                             </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Built By */}
+            <div className="about-section">
+                <div className="about-me-wrapper">
+                    <Aurora colorStops={['#0d0f0e', '#1a3d2a', '#0d0f0e']} amplitude={1.2} blend={0.4} />
+                    <div className="about-me-inner">
+                        <p className="about-section-label">Hi! I'm Andrew</p>
+                        <h2 className="about-section-heading">About Me</h2>
+                        <div className="about-me-card">
+                            <p className="about-me-text">
+                                I'm a data scientist and ML engineer passionate about building systems that make
+                                complex data accessible and actionable. MindPulseAI reflects my professional
+                                and personal interests in the intersection of machine learning and mental health
+                                awareness.
+                            </p>
+                            <div className="about-me-links">
+                                <a href="https://www.linkedin.com/in/andrew-tremante-71253a238/" target="_blank" rel="noreferrer" className="about-me-link">LinkedIn →</a>
+                                <a href="https://github.com/atremante26" target="_blank" rel="noreferrer" className="about-me-link">GitHub →</a>
+                                <a href="https://andrewtremante.com" target="_blank" rel="noreferrer" className="about-me-link">Website →</a>
+                                <a href="https://scholar.google.com/citations?user=EXRKa94AAAAJ&hl=en" target="_blank" rel="noreferrer" className="about-me-link">Google Scholar →</a>
+                            </div>
                         </div>
                     </div>
                 </div>

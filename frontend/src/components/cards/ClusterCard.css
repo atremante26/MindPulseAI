@@ -6,7 +6,7 @@
     margin-top: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0;
 }
 
 .cluster-card p,
@@ -39,10 +39,12 @@
     font-size: 0.85rem;
 }
 
+/* Stats row */
 .cluster-stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
+    margin-top: 0.75rem;
     padding-top: 0.75rem;
     border-top: 1px solid var(--bg-border);
 }
@@ -70,10 +72,36 @@
     margin: 0;
 }
 
+.stat-sublabel {
+    font-family: var(--font-body);
+    color: var(--color-muted);
+    font-size: 0.75rem;
+    margin: 0;
+    margin-top: 0.1rem;
+}
+
+/* Progress bar */
+.stat-progress-track {
+    height: 4px;
+    background-color: var(--bg-border);
+    border-radius: 2px;
+    margin-top: 0.4rem;
+    overflow: hidden;
+}
+
+.stat-progress-fill {
+    height: 100%;
+    background-color: var(--color-primary);
+    border-radius: 2px;
+    transition: width 0.6s ease;
+}
+
+/* Key traits */
 .cluster-section {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
+    margin-top: 0.75rem;
     padding-top: 0.75rem;
     border-top: 1px solid var(--bg-border);
 }
@@ -110,27 +138,93 @@
     font-size: 0.85rem;
 }
 
-.cluster-gender {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.gender-item {
-    font-family: var(--font-body);
-    color: var(--text-secondary);
-    font-size: 1rem;
-}
-
-.cluster-two-col {
+/* Bottom 3-col grid */
+.cluster-bottom-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-top: 0.75rem;
     padding-top: 0.75rem;
     border-top: 1px solid var(--bg-border);
 }
 
-.cluster-two-col .cluster-section {
-    border-top: none;
-    padding-top: 0;
+.cluster-bottom-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Gender pie */
+.gender-pie-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.gender-pie-canvas {
+    flex-shrink: 0;
+}
+
+.gender-pie-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.gender-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.gender-legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.gender-legend-label {
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-transform: capitalize;
+}
+
+.gender-legend-pct {
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: auto;
+}
+
+/* Work interference */
+.interference-value {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.interference-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Countries */
+.countries-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-top: 0.25rem;
+}
+
+.country-item {
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0;
 }

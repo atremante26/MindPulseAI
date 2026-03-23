@@ -10,6 +10,13 @@ export default function HeroCard({ weekStart, weekEnd, generatedAt, totalRedditP
         return `${date.slice(0,4)}-${date.slice(4,6)}-${date.slice(6,8)}`
     }
 
+    const formatDisplayDate = (dateStr) => {
+    if (!dateStr) return ''
+    const [year, month, day] = dateStr.split('-')
+    const date = new Date(year, month - 1, day)
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+}
+
     return (
         <div className="hero-card">
             <div className="hero-title-wrapper">
@@ -40,9 +47,9 @@ export default function HeroCard({ weekStart, weekEnd, generatedAt, totalRedditP
             </p>
             <div className="hero-divider" />
             <p className="hero-dates">
-                Current Week: {weekStart} to {weekEnd}
+                Current Week: {formatDisplayDate(weekStart)} – {formatDisplayDate(weekEnd)}
             </p>
-            <p className="hero-generated">Last Updated: {formatDate(generatedAt)}</p>
+            <p className="hero-generated">Last Updated: {formatDisplayDate(formatDate(generatedAt))}</p>
             <div className="hero-stats">
                 <div className="hero-stat">
                     <span className="hero-stat-value"> <CountUp to={totalRedditPosts}/></span>
