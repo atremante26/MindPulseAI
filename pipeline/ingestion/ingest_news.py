@@ -91,7 +91,7 @@ class NewsIngestor(BaseIngestor):
         # Analyze sentiment
         logger.info(f"Calculating sentiment for {len(processed_df)} News articles...")
         sentiments = sentiment_analyzer.analyze_batch(processed_df["title"].fillna('').tolist())
-        df["sentiment"] = sentiments
+        processed_df["sentiment"] = sentiments
         
         # Group by date and aggregate
         daily_agg = processed_df.groupby('date').agg({
