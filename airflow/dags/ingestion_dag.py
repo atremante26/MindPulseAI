@@ -1,8 +1,6 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
-from pipeline.ingestion.ingest_reddit import RedditIngestor
-from pipeline.ingestion.ingest_news import NewsIngestor
 from pipeline.snowflake.load_snowflake import (
     load_reddit_to_snowflake,
     load_news_to_snowflake
@@ -15,9 +13,11 @@ default_args = {
 }
 
 def run_reddit():
+    from pipeline.ingestion.ingest_reddit import RedditIngestor
     RedditIngestor().run("reddit", "reddit_suite", save_s3=True, save_local=False)
 
 def ingest_news():
+    from pipeline.ingestion.ingest_news import NewsIngestor
     NewsIngestor().run("news", "news_suite", save_s3=True, save_local=False)
 
 def retrain_forecasting():
