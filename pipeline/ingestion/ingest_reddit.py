@@ -1,9 +1,10 @@
-from pipeline.ingestion import BaseIngestor, sentiment_analyzer
 import os
 from datetime import datetime, timezone, timedelta
 import logging
 import praw
 import pandas as pd
+from pipeline.ingestion.base_ingestor import BaseIngestor
+from pipeline.ingestion.sentiment_analyzer import sentiment_analyzer
 
 # Configure logging
 logger = logging.getLogger(__name__)
