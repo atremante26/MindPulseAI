@@ -9,7 +9,7 @@ import Footer from './components/layouts/Footer'
 
 function App() {
   return (
-    <Router basename='/MindPulseAI'>
+    <Router basename='/'>
       <Navbar />
       <main>
         <Routes>

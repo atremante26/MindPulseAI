@@ -2,7 +2,7 @@
 	"name": "frontend",
 	"private": true,
 	"version": "0.0.0",
-	"homepage": "https://atremante26.github.io/MindPulseAI",
+	"homepage": "https://mindpulseai.io",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
