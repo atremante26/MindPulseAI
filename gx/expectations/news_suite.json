@@ -9,7 +9,8 @@
           "date",
           "article_count",
           "sample_headlines",
-          "sources"
+          "sources",
+          "sentiment"
         ]
       },
       "meta": {}
@@ -39,6 +40,29 @@
       "expectation_type": "expect_column_to_exist",
       "kwargs": {
         "column": "sources"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_to_exist",
+      "kwargs": {
+        "column": "sentiment"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "sentiment"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "sentiment",
+        "min_value": -1.0,
+        "max_value": 1.0
       },
       "meta": {}
     },
