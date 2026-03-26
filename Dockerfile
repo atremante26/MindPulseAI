@@ -25,6 +25,7 @@ RUN pip install --no-cache-dir apache-airflow==2.10.2 \
 COPY pipeline/ ./pipeline/
 COPY airflow/dags/ ./dags/
 COPY gx/ ./gx/
+COPY analysis/ ./analysis/
 
 # Create necessary directories for Airflow
 RUN mkdir -p logs plugins temp
