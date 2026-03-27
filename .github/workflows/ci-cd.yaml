@@ -3,6 +3,13 @@ name: CI/CD Pipeline
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'pipeline/**'
+      - 'airflow/**'
+      - 'analysis/**'
+      - 'gx/**'
+      - 'Dockerfile'
+      - 'requirements.txt'
   workflow_dispatch:
 
 env:
