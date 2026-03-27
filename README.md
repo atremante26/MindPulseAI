@@ -2,15 +2,21 @@
 
 # 🧠 MindPulseAI
 
-**[Live Site](https://mindpulseai.io)** | **[API Docs](https://mental-health-project-bct5.onrender.com/docs)**
+**End-to-end ML platform for mental health discourse analytics.**
+
+**[🌐 Live Site](https://mindpulseai.io) | [📄 API Docs](https://mental-health-project-bct5.onrender.com/docs)**
+
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
+![React](https://img.shields.io/badge/React-Vite-61DAFB?logo=react&logoColor=black)
+![AWS](https://img.shields.io/badge/AWS-ECS%20Fargate-FF9900?logo=amazonaws&logoColor=white)
+![Snowflake](https://img.shields.io/badge/Snowflake-Data%20Warehouse-29B5E8?logo=snowflake&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 </div>
 
 <p align="center">
   <img src="docs/mindpulseai_demo.png" alt="MindPulseAI" width="800"/>
 </p>
-
-> A full-stack mental health analytics platform that tracks how mental health is discussed across Reddit and news media — surfacing trends, forecasting shifts in public discourse, and helping you find the right resources for your needs.
 
 ---
 
@@ -117,7 +123,6 @@ MindPulseAI/
 ```bash
 # Backend
 cd backend
-source venv/bin/activate
 pip install -r requirements.txt
 uvicorn main:app --reload
 
@@ -133,3 +138,9 @@ npm run dev
 
 **Andrew Tremante** - Data Scientist & ML Engineer  
 [Website](https://andrewtremante.com) · [LinkedIn](https://www.linkedin.com/in/andrew-tremante-71253a238/) · [GitHub](https://github.com/atremante26) · [Google Scholar](https://scholar.google.com/citations?user=EXRKa94AAAAJ&hl=en)
+
+---
+
+## License
+
+MIT License — see [LICENSE](LICENSE) for details.
