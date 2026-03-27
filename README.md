@@ -1,10 +1,16 @@
+<div align="center">
+
 # 🧠 MindPulseAI
 
-> A full-stack mental health analytics platform that tracks how mental health is discussed across Reddit and news media — surfacing trends, forecasting shifts in public discourse, and helping you find the right resources for your needs.
+**[Live Site](https://mindpulseai.io)** | **[API Docs](https://mental-health-project-bct5.onrender.com/docs)**
 
-🌐 **Live Site**: [mindpulseai.io](https://mindpulseai.io)  
-📡 **API Docs**: [Render](https://mental-health-project-bct5.onrender.com/docs)  
-👤 **Built by**: [Andrew Tremante](https://andrewtremante.com)
+</div>
+
+<p align="center">
+  <img src="docs/mindpulseai_demo.png" alt="MindPulseAI" width="800"/>
+</p>
+
+> A full-stack mental health analytics platform that tracks how mental health is discussed across Reddit and news media — surfacing trends, forecasting shifts in public discourse, and helping you find the right resources for your needs.
 
 ---
 
@@ -26,7 +32,7 @@ MindPulseAI ingests real-time data from Reddit and news APIs, runs it through a 
 | Layer | Technology |
 |-------|-----------|
 | **Frontend** | React, Vite, GitHub Pages |
-| **Backend API** | FastAPI, Python, Render |
+| **Backend** | FastAPI, Python, Render |
 | **Pipeline** | Apache Airflow, AWS ECS Fargate, EventBridge |
 | **Storage** | AWS S3 (data lake), Snowflake (warehouse) |
 | **ML / AI** | Prophet, DistilBERT, Claude 3.5 Haiku, Cosine Similarity |
@@ -74,9 +80,7 @@ Weighted cosine similarity across concern, cost, age, and resource type feature 
 
 ```
 MindPulseAI/
-├── pipeline/                  # Data ingestion and ETL
-│   ├── ingestion/             # Reddit, News ingestors + sentiment analyzer
-│   └── snowflake/             # Snowflake loading logic
+├── .github/                   # CI/CD Pipeline
 ├── airflow/
 │   └── dags/                  # Airflow DAG definitions
 ├── analysis/
@@ -86,10 +90,13 @@ MindPulseAI/
 |   ├── clustering/            # Clustering OSMI survey
 │   └── config/                # Model hyperparameters
 ├── backend/                   # FastAPI REST API
+├── data/                      # Static datasets and mental health resources
 ├── frontend/                  # React + Vite
 ├── gx/                        # Great Expectations suites
 ├── infrastructure/            # AWS CDK stack
-├── data/                      # Static datasets and mental health resources
+├── pipeline/                  # Data ingestion and ETL
+│   ├── ingestion/             # Reddit, News ingestors + sentiment analyzer
+│   └── snowflake/             # Snowflake loading logic
 └── Dockerfile                 # Production ECS container
 ```
 
