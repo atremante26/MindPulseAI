@@ -1,4 +1,4 @@
-# MindPulseAI
+# 🧠 MindPulseAI
 
 > A full-stack mental health analytics platform that tracks how mental health is discussed across Reddit and news media — surfacing trends, forecasting shifts in public discourse, and helping you find the right resources for your needs.
 
@@ -41,7 +41,7 @@ MindPulseAI ingests real-time data from Reddit and news APIs, runs it through a 
 Reddit API ──┐
              ├──► ECS Fargate (Airflow) ──► S3 ──► Snowflake ──► FastAPI ──► React
 News API ────┘         │
-                       └──► Retrain Models (Prophet, Recommender, LLM Insights)
+                       └──► Retrain Models (Clustering, Prophet, Recommender, LLM Insights)
 ```
 
 **Pipeline runs weekly** via EventBridge cron (`0 8 ? * 1 *`). Each run:
