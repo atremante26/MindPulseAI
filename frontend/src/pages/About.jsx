@@ -69,9 +69,7 @@ export default function About() {
                     className="about-label"
                 />
                 <p className="about-description">
-                    MindPulseAI tracks and analyzes how mental health is discussed across Reddit and news media —
-                    surfacing trends, forecasting shifts in public discourse, and helping you find the right resources
-                    for your needs. Built on real data with automated weekly updates.
+                    MindPulseAI tracks and analyzes how mental health is discussed across social and news media, surfacing trends, forecasting shifts in public discourse, and helping you find the right resources for your needs. Built on real data with automated weekly updates.
                 </p>
             </div>
 
