@@ -133,6 +133,8 @@ class MentalHealthStack(Stack):
                 "REDDIT_USER_AGENT": os.getenv("REDDIT_USER_AGENT"),
                 # News API
                 "NEWS_API_KEY": os.getenv("NEWS_API_KEY"),
+                # Anthropic API
+                "ANTHROPIC_API_KEY": os.getenv("ANTHROPIC_API_KEY"),
             },
             # Override the entrypoint
             entry_point=["/bin/bash", "-c"],
