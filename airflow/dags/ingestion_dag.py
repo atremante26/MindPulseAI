@@ -1,10 +1,9 @@
+import sys
+sys.path.insert(0, '/opt/airflow')
+
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
-from pipeline.snowflake.load_snowflake import (
-    load_reddit_to_snowflake,
-    load_news_to_snowflake
-)
 
 default_args = {
     'owner': 'andrew',
@@ -20,6 +19,14 @@ def ingest_news():
     from pipeline.ingestion.ingest_news import NewsIngestor
     NewsIngestor().run("news", "news_suite", save_s3=True, save_local=False)
 
+def load_reddit_to_snowflake():
+    from pipeline.snowflake.load_snowflake import load_reddit_to_snowflake as _load
+    _load()
+
+def load_news_to_snowflake():
+    from pipeline.snowflake.load_snowflake import load_news_to_snowflake as _load
+    _load()
+
 def retrain_forecasting():
     from analysis.forecasting import (
         prepare_reddit_data, 
@@ -28,7 +35,6 @@ def retrain_forecasting():
         save_models,
         save_to_s3
     )
-    
     reddit_data = prepare_reddit_data()
     news_data = prepare_news_data()
     models, forecasts, metrics = train_forecasting(reddit_data, news_data)
@@ -60,7 +66,7 @@ with DAG(
 
     load_reddit_task = PythonOperator(
         task_id='load_reddit_to_snowflake',
-        python_callable=load_reddit_to_snowflake 
+        python_callable=load_reddit_to_snowflake
     )
 
     load_news_task = PythonOperator(
@@ -70,12 +76,16 @@ with DAG(
 
     retrain_forecasting_task = PythonOperator(
         task_id="retrain_forecasting",
-        python_callable=retrain_forecasting
+        python_callable=retrain_forecasting,
+        retries=0,
+        execution_timeout=timedelta(minutes=30)
     )
 
     retrain_insights_task = PythonOperator(
         task_id="retrain_insights",
-        python_callable=retrain_insights
+        python_callable=retrain_insights,
+        retries=0,
+        execution_timeout=timedelta(minutes=30)
     )
 
     ingest_reddit_task >> load_reddit_task

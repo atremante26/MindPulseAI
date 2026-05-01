@@ -38,5 +38,5 @@ ENV AIRFLOW__CORE__LOAD_EXAMPLES=false
 ENV AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=sqlite:////tmp/airflow.db
 ENV AIRFLOW__CORE__EXECUTOR=SequentialExecutor
 
-# Set the default command to run your ingestion DAG
+# Set the default command to run ingestion DAG
 CMD ["sh", "-c", "airflow db init && airflow dags test ingestion_dag $(date +%Y-%m-%d)"]
