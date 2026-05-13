@@ -1,6 +1,3 @@
-import sys
-sys.path.insert(0, '/opt/airflow')
-
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
@@ -12,22 +9,32 @@ default_args = {
 }
 
 def run_reddit():
+    import sys
+    sys.path.insert(0, '/opt/airflow')
     from pipeline.ingestion.ingest_reddit import RedditIngestor
     RedditIngestor().run("reddit", "reddit_suite", save_s3=True, save_local=False)
 
 def ingest_news():
+    import sys
+    sys.path.insert(0, '/opt/airflow')
     from pipeline.ingestion.ingest_news import NewsIngestor
     NewsIngestor().run("news", "news_suite", save_s3=True, save_local=False)
 
 def load_reddit_to_snowflake():
+    import sys
+    sys.path.insert(0, '/opt/airflow')
     from pipeline.snowflake.load_snowflake import load_reddit_to_snowflake as _load
     _load()
 
-def load_news_to_snowflake():
+def load_news_to_snowflake():    
+    import sys
+    sys.path.insert(0, '/opt/airflow')
     from pipeline.snowflake.load_snowflake import load_news_to_snowflake as _load
     _load()
 
 def retrain_forecasting():
+    import sys
+    sys.path.insert(0, '/opt/airflow')
     from analysis.forecasting import (
         prepare_reddit_data, 
         prepare_news_data, 
@@ -42,6 +49,8 @@ def retrain_forecasting():
     save_to_s3(forecasts, metrics, reddit_data, news_data)
 
 def retrain_insights():
+    import sys
+    sys.path.insert(0, '/opt/airflow')
     from analysis.insights import train as train_insights
     _, _, _ = train_insights()
 
